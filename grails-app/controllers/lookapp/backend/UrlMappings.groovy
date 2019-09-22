@@ -11,9 +11,9 @@ class UrlMappings {
         patch "/$controller/$id(.$format)?"(action:"patch")
 
         "/"(controller: 'application', action:'index')
-        "500"(view: '/error')
-        "404"(view: '/notFound')
-        "/ping"(controller: 'application', action:'ping')
+        "/ping"(controller: 'default', action:'ping')
+        "/json"(controller: 'default', action:'json',method:'GET')
+        "/json"(controller: 'default', action:'post',method:'POST')
 
     }
 }

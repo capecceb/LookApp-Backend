@@ -11,8 +11,4 @@ class ApplicationController implements PluginManagerAware {
     def index() {
         [grailsApplication: grailsApplication, pluginManager: pluginManager]
     }
-
-    def ping() {
-        [grailsApplication: grailsApplication, pluginManager: pluginManager]
-    }
 }

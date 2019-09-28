@@ -3,7 +3,7 @@ package lookapp.backend
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class TestSpec extends Specification implements DomainUnitTest<Test> {
+class UserSpec extends Specification implements DomainUnitTest<User> {
 
     def setup() {
     }

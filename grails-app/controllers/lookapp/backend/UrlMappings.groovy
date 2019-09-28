@@ -3,17 +3,10 @@ package lookapp.backend
 class UrlMappings {
 
     static mappings = {
-        delete "/$controller/$id(.$format)?"(action:"delete")
-        get "/$controller(.$format)?"(action:"index")
-        get "/$controller/$id(.$format)?"(action:"show")
-        post "/$controller(.$format)?"(action:"save")
-        put "/$controller/$id(.$format)?"(action:"update")
-        patch "/$controller/$id(.$format)?"(action:"patch")
+        "500"(controller: 'default', action:'error')
 
-        "/"(controller: 'application', action:'index')
-        "/ping"(controller: 'default', action:'ping')
-        "/json"(controller: 'default', action:'json',method:'GET')
-        "/json"(controller: 'default', action:'post',method:'POST')
-
+        "/"(controller: 'application', action:'index2')
+        "/test"(controller: 'default', action:'test',method:'GET')
+        "/login"(controller: 'default', action:'login',method:'POST')
     }
 }

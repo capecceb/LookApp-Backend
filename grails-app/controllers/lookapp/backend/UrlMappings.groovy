@@ -3,10 +3,10 @@ package lookapp.backend
 class UrlMappings {
 
     static mappings = {
-        "500"(controller: 'default', action:'error')
-
-        "/"(controller: 'application', action:'index2')
-        "/test"(controller: 'default', action:'test',method:'GET')
+        "/"(controller: 'application', action:'index')
         "/login"(controller: 'default', action:'login',method:'POST')
+
+        "500"(controller: 'application', action:'error')
+        "404"(view: '/notFound')
     }
 }

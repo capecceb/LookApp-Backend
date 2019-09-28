@@ -3,7 +3,17 @@ package lookapp.backend
 class BootStrap {
 
     def init = { servletContext ->
-
+        test {
+            User.withNewTransaction {
+                Rol administrador = new Rol(name: "Administrador").save()
+                User pedro = new User()
+                pedro.username = "pedro"
+                pedro.password = "pedro"
+                pedro.roles = new ArrayList()
+                pedro.roles.add(administrador)
+                pedro.save()
+            }
+        }
         development {
             User.withNewTransaction {
 
@@ -37,7 +47,6 @@ class BootStrap {
                 jere.save()
             }
         }
-
     }
     def destroy = {
     }

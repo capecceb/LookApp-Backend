@@ -2,48 +2,23 @@ package lookapp.backend
 
 
 class DefaultController {
-
-
     def login(){
+        def res=[:]
         def params=request.getJSON()
+        res["message"]="invalid username or password"
         if(params.username==null){
-            throw new RuntimeException("username ")
+            respond(res,status: 401)
         }
         if(params.password==null){
-            throw new RuntimeException("invalid password")
+            respond(res,status: 401)
         }
         User user=User.findByUsername(params.username)
-        def res=[:]
-        if(user==null || user.password!=params.password)
-        {
-            res["login"]="nok"
+        String password=params.password
+        def passwordAsMD5 = password.encodeAsMD5()
+        if(user==null || user.password!=passwordAsMD5) {
+            respond(res,status: 401)
         } else {
-            res["login"]="ok"
+            respond(user,status: 200)
         }
-        respond(res,status: 200)
-    }
-
-    def test() {
-        Rol rol=Rol.findByName("Supervisor")
-        User user=new User(name:"test")
-        user.roles=new ArrayList()
-        user.roles.add(rol)
-        rol.withNewTransaction {
-            user.save(flush: true, failOnError: true)
-       }
-        respond (User.list(), status: 200)
-    }
-
-    def error() {
-
-        def exception = request.getAttribute('exception')
-
-        def res=[:]
-        if(exception!=null) {
-            res["message"] = "internal server error"
-            res["cause"] = exception.cause.toString()
-            res["target"] = exception.cause.target.toString()
-        }
-        respond (res, status: 500)
     }
 }

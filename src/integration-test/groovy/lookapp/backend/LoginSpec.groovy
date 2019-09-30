@@ -35,9 +35,7 @@ class LoginSpec  extends Specification  {
 
         then: 'The result is ...'
         response.status().code == 200
-
-
-    }
+   }
 
     void "test invalid username"() {
         def body=[:]

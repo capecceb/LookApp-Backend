@@ -13,6 +13,13 @@ class BootStrap {
                 pedro.roles.add(administrador)
                 pedro.save()
             }
+            Service.withNewTransaction {
+                Service service=new Service()
+                service.name="corte"
+                service.duration=60
+                service.cost=200
+                service.save()
+            }
         }
         development {
             User.withNewTransaction {
@@ -45,6 +52,13 @@ class BootStrap {
                 jere.roles = new ArrayList<Rol>()
                 jere.roles.add(contador)
                 jere.save()
+            }
+            Service.withNewTransaction {
+                Service service=new Service()
+                service.name="corte"
+                service.duration=60
+                service.cost=200
+                service.save()
             }
         }
     }

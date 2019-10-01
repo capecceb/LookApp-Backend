@@ -1,4 +1,6 @@
 grails:
+    cors:
+        enabled: true
     profile: rest-api
     codegen:
         defaultPackage: lookapp.backend

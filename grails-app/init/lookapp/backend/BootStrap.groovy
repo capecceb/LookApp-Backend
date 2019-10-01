@@ -52,13 +52,19 @@ class BootStrap {
                 jere.roles = new ArrayList<Rol>()
                 jere.roles.add(contador)
                 jere.save()
-            }
-            Service.withNewTransaction {
+
                 Service service=new Service()
                 service.name="corte"
                 service.duration=60
                 service.cost=200
                 service.save()
+
+                Professional professional=new Professional()
+                professional.name="Pedro"
+                professional.services=new ArrayList<Service>()
+                professional.services.add(service)
+                professional.status=ProfessionalStatus.ACTIVE
+                professional.save()
             }
         }
     }

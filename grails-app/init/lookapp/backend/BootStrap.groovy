@@ -60,6 +60,20 @@ class BootStrap {
                 service.cost=200
                 service.save()
             }
+
+            Turn.withNewTransaction {
+                Turn turn=new Turn()
+                turn.local="casa"
+                turn.dayHour= new Date()
+                turn.save()
+            }
+
+            Turn.withNewTransaction {
+                Turn turn=new Turn()
+                turn.local="San Miguel"
+                turn.dayHour= new Date()
+                turn.save()
+            }
         }
     }
     def destroy = {

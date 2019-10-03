@@ -6,6 +6,10 @@ class Turn {
 
     Date dayHour
     String local
+    Service service
+
+    Date dateCreated
+    Date lastUpdated
     static constraints = {
     }
 }

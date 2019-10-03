@@ -5,7 +5,7 @@ import grails.rest.Resource
 class User {
     String username
     String password
-    String fullname
+    String fullName
     String email
 
     Date dateCreated
@@ -13,7 +13,7 @@ class User {
 
     static hasMany = [roles: Rol]
     static constraints = {
-        fullname(nullable:true)
+        fullName(nullable:true)
         password(nullable:true)
         email(nullable:true)
     }

@@ -7,6 +7,9 @@ class Service {
     String name
     int duration
     BigDecimal cost
+    Date dateCreated
+    Date lastUpdated
+
     static constraints = {
     }
 }

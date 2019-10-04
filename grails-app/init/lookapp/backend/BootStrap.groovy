@@ -65,60 +65,13 @@ class BootStrap {
                 professional.services.add(service)
                 professional.status=ProfessionalStatus.ACTIVE
                 professional.save()
-            }
 
-            Turn.withNewTransaction {
-                Turn turn=new Turn()
+                Appointment turn=new Appointment()
                 turn.local="casa"
                 turn.dayHour= new Date()
-                turn.service = new Service()
-                turn.service.name = "corte"
-                turn.service.duration=60
-                turn.service.cost=200
-                turn.save()
-            }
+                turn.services=new ArrayList<Service>()
+                turn.services.add(service)
 
-            Turn.withNewTransaction {
-                Turn turn=new Turn()
-                turn.local="San Miguel"
-                turn.dayHour= new Date()
-                turn.service = new Service()
-                turn.service.name = "tintura"
-                turn.service.duration=60
-                turn.service.cost=200
-                turn.save()
-            }
-
-            Turn.withNewTransaction {
-                Turn turn=new Turn()
-                turn.local="San Miguel"
-                turn.dayHour= new Date()
-                turn.service = new Service()
-                turn.service.name = "peinado"
-                turn.service.duration=60
-                turn.service.cost=200
-                turn.save()
-            }
-
-            Turn.withNewTransaction {
-                Turn turn=new Turn()
-                turn.local="Bella Vista"
-                turn.dayHour= new Date()
-                turn.service = new Service()
-                turn.service.name = "corte"
-                turn.service.duration=60
-                turn.service.cost=200
-                turn.save()
-            }
-
-            Turn.withNewTransaction {
-                Turn turn=new Turn()
-                turn.local="Bella Vista"
-                turn.dayHour= new Date()
-                turn.service = new Service()
-                turn.service.name = "corte y peinado"
-                turn.service.duration=60
-                turn.service.cost=300
                 turn.save()
             }
         }

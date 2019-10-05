@@ -1,7 +1,7 @@
 package lookapp.backend
 import grails.rest.Resource
 
-@Resource(uri='/turns')
+@Resource(uri='/appointments')
 class Appointment {
 
     Date dayHour

@@ -1,6 +1,7 @@
 import grails.rest.render.json.JsonRenderer
 import grails.rest.render.json.JsonCollectionRenderer
 import lookapp.backend.Appointment
+import lookapp.backend.Client
 import lookapp.backend.User
 import lookapp.backend.Professional
 // Place your Spring DSL code here
@@ -20,10 +21,18 @@ beans = {
     }
 
     TurnRenderer(JsonRenderer, Appointment) {
-        includes = ['services','local','dayHour']
+        includes = ['id','services','local','dayHour','appointmentStatus']
     }
 
     TurnsRenderer(JsonCollectionRenderer, Appointment) {
-        includes = ['services','local','dayHour']
+        includes = ['id','services','local','dayHour','appointmentStatus']
+    }
+
+    ClientRenderer(JsonRenderer, Client) {
+        includes = ['id','name','surname','DNI','primaryPhone','secondPhone']
+    }
+
+    ClientRenderer(JsonCollectionRenderer, Client) {
+        includes = ['id','name','surname','DNI','primaryPhone','secondPhone']
     }
 }

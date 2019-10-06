@@ -68,9 +68,7 @@ class BootStrap {
                 turn.id = 1
                 turn.local="casa"
                 turn.client = cliente
-                Calendar cal = Calendar.getInstance()
-                cal.set(2019,9,29)
-                turn.dayHour= cal.getTime()
+                turn.dayHour= new Date()
                 turn.services=new ArrayList<Service>()
                 turn.services.add(service)
                 turn.appointmentStatus = AppointmentStatus.OPEN
@@ -78,6 +76,7 @@ class BootStrap {
 
                 Appointment turn1=new Appointment()
                 turn1.local="San Miguel"
+                turn1.client = cliente
                 turn1.dayHour= new Date()
                 turn1.services=new ArrayList<Service>()
                 turn1.services.add(service2)

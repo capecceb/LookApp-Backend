@@ -20,10 +20,8 @@ beans = {
     }
 
     TurnRenderer(JsonRenderer, Appointment) {
-        includes = ['services','local','dayHour']
     }
 
     TurnsRenderer(JsonCollectionRenderer, Appointment) {
-        includes = ['services','local','dayHour']
     }
 }

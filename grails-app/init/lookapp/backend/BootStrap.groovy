@@ -67,11 +67,12 @@ class BootStrap {
                 professional.save()
 
                 Appointment turn=new Appointment()
+                turn.id = 1
                 turn.local="casa"
                 turn.dayHour= new Date()
                 turn.services=new ArrayList<Service>()
                 turn.services.add(service)
-
+                turn.appointmentStatus = AppointmentStatus.OPEN
                 turn.save()
             }
         }

@@ -21,11 +21,11 @@ beans = {
     }
 
     TurnRenderer(JsonRenderer, Appointment) {
-        includes = ['id','services','local','dayHour','appointmentStatus']
+        includes = ['id','services','local','dayHour','appointmentStatus','client']
     }
 
     TurnsRenderer(JsonCollectionRenderer, Appointment) {
-        includes = ['id','services','local','dayHour','appointmentStatus']
+        includes = ['id','services','local','dayHour','appointmentStatus','client']
     }
 
     ClientRenderer(JsonRenderer, Client) {

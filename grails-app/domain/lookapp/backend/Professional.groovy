@@ -2,7 +2,6 @@ package lookapp.backend
 
 import grails.rest.Resource
 
-
 @Resource(uri='/professionals')
 class Professional {
     String name
@@ -10,14 +9,14 @@ class Professional {
     String phone
     String email
     ProfessionalStatus status
-
     Date dateCreated
     Date lastUpdated
-    static hasMany = [services: Service]
+    static hasMany = [services: Service, workingHours:WorkingHour]
     static constraints = {
         lastName(nullable:true)
         phone(nullable:true)
         email(nullable:true)
+        workingHours(nullable:true)
     }
 }
 

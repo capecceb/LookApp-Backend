@@ -5,7 +5,7 @@ import grails.rest.Resource
 class Client {
 
     String name
-    String surname
+    String lastName
     String DNI
     int primaryPhone
     int secondPhone

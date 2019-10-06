@@ -80,7 +80,7 @@ class ClientSpec extends Specification {
         given: 'a new client'
         body["name"]="clienteNew"
         body["DNI"]="1111111"
-        body["surname"]="clienteNewSur"
+        body["lastName"]="clienteNewSur"
         body["primaryPhone"]=2222
         body["secondPhone"]=33333
 
@@ -105,6 +105,6 @@ class ClientSpec extends Specification {
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "La propiedad [surname] de la clase [class lookapp.backend.Client] no puede ser nulo"
+        exception.message == "La propiedad [lastName] de la clase [class lookapp.backend.Client] no puede ser nulo"
     }
 }

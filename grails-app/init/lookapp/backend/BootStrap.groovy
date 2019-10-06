@@ -62,14 +62,14 @@ class BootStrap {
 
                 Client cliente = new Client()
                 cliente.name = "cliente1"
-                cliente.surname = "apellido"
+                cliente.lastName = "apellido"
                 cliente.DNI= "151515"
                 cliente.primaryPhone= 12312
                 cliente.save()
 
                 Client cliente1 = new Client()
                 cliente1.name = "cliente2"
-                cliente1.surname = "apellido1"
+                cliente1.lastName = "apellido1"
                 cliente1.DNI= "1312315"
                 cliente1.primaryPhone= 12312
                 cliente1.secondPhone= 123333
@@ -106,6 +106,48 @@ class BootStrap {
                 turn2.services.add(service3)
                 turn2.status = AppointmentStatus.OPEN
                 turn2.save()
+
+                WorkingHour workingHour=new WorkingHour();
+                workingHour.days=Day.MONDAY
+                workingHour.beginHour="09:00"
+                workingHour.endHour="18:00"
+                workingHour.save()
+
+                workingHour=new WorkingHour();
+                workingHour.days=Day.TUESDAY
+                workingHour.beginHour="09:00"
+                workingHour.endHour="18:00"
+                workingHour.save()
+
+                workingHour=new WorkingHour();
+                workingHour.days=Day.WEDNESDAY
+                workingHour.beginHour="09:00"
+                workingHour.endHour="18:00"
+                workingHour.save()
+
+                workingHour=new WorkingHour();
+                workingHour.days=Day.THURSDAY
+                workingHour.beginHour="09:00"
+                workingHour.endHour="18:00"
+                workingHour.save()
+
+                workingHour=new WorkingHour();
+                workingHour.days=Day.FRIDAY
+                workingHour.beginHour="09:00"
+                workingHour.endHour="18:00"
+                workingHour.save()
+
+                workingHour=new WorkingHour();
+                workingHour.days=Day.SATURDAY
+                workingHour.beginHour="09:00"
+                workingHour.endHour="18:00"
+                workingHour.save()
+
+                workingHour=new WorkingHour();
+                workingHour.days=Day.SUNDAY
+                workingHour.beginHour="09:00"
+                workingHour.endHour="18:00"
+                workingHour.save()
 
             }
             Professional.withNewTransaction {
@@ -177,14 +219,14 @@ class BootStrap {
 
                 Client cliente = new Client()
                 cliente.name = "cliente1"
-                cliente.surname = "apellido"
+                cliente.lastName = "apellido"
                 cliente.DNI= "151515"
                 cliente.primaryPhone= 12312
                 cliente.save()
 
                 Client cliente1 = new Client()
                 cliente1.name = "cliente2"
-                cliente1.surname = "apellido1"
+                cliente1.lastName = "apellido1"
                 cliente1.DNI= "1312315"
                 cliente1.primaryPhone= 12312
                 cliente1.secondPhone= 123333

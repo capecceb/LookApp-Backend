@@ -20,12 +20,12 @@ beans = {
     ProfessionalsRenderer(JsonCollectionRenderer, Professional) {
     }
 
-    AppointmentRenderer(JsonRenderer, Appointment) {
-        includes = ['id','services','local','dayHour','status','client','professional']
+    TurnRenderer(JsonRenderer, Appointment) {
+        includes = ['id','services','local','dayHour','appointmentStatus']
     }
 
-    AppointmentsRenderer(JsonCollectionRenderer, Appointment) {
-        includes = ['id','services','local','dayHour','status','client','professional']
+    TurnsRenderer(JsonCollectionRenderer, Appointment) {
+        includes = ['id','services','local','dayHour','appointmentStatus']
     }
 
     ClientRenderer(JsonRenderer, Client) {

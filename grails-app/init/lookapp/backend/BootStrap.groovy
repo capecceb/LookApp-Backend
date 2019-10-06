@@ -91,6 +91,7 @@ class BootStrap {
                 Appointment turn=new Appointment()
                 turn.id = 1
                 turn.local="casa"
+                turn.client = cliente
                 turn.dayHour= new Date()
                 turn.services=new ArrayList<Service>()
                 turn.services.add(service)
@@ -99,6 +100,7 @@ class BootStrap {
 
                 Appointment turn1=new Appointment()
                 turn1.local="San Miguel"
+                turn1.client = cliente
                 turn1.dayHour= new Date()
                 turn1.services=new ArrayList<Service>()
                 turn1.services.add(service2)

@@ -108,6 +108,15 @@ class BootStrap {
                 turn2.save()
 
             }
+            Professional.withNewTransaction {
+                Professional professional = new Professional()
+                professional.name = "nicolas"
+                professional.status = ProfessionalStatus.ACTIVE
+                professional.lastName = "lastName"
+                professional.phone = "1159891578"
+                professional.email = "niico786@gmail.com"
+                professional.save()
+            }
         }
         development {
             User.withNewTransaction {
@@ -160,7 +169,7 @@ class BootStrap {
                 service3.save()
 
                 Professional professional=new Professional()
-                professional.name="Pedro"
+                professional.name="nicolas"
                 professional.services=new ArrayList<Service>()
                 professional.services.add(service)
                 professional.status=ProfessionalStatus.ACTIVE
@@ -182,6 +191,7 @@ class BootStrap {
                 cliente1.save()
 
                 Appointment turn=new Appointment()
+                turn.id = 1
                 turn.local="casa"
                 turn.client = cliente
                 Calendar cal = Calendar.getInstance()

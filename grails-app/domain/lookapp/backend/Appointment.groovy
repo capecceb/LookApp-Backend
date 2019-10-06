@@ -6,6 +6,7 @@ class Appointment {
 
     Date dayHour
     String local
+    Client client
 
     Date dateCreated
     Date lastUpdated
@@ -13,5 +14,6 @@ class Appointment {
     AppointmentStatus appointmentStatus
     static hasMany = [services: Service]
     static constraints = {
+        client(nullable:true)
     }
 }

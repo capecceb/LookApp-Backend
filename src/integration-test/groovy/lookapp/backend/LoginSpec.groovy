@@ -26,8 +26,8 @@ class LoginSpec  extends Specification  {
 
     void "test login"() {
         def body=[:]
-        given: 'a valid username and password'
-        body["username"]="pedro"
+        given: 'a valid email and password'
+        body["email"]="juan@yahoo.com"
         body["password"]="pedro"
 
         when: 'I try login'
@@ -37,10 +37,10 @@ class LoginSpec  extends Specification  {
         response.status().code == 200
    }
 
-    void "test invalid username"() {
+    void "test invalid email"() {
         def body=[:]
-        given: 'a invalid username and password'
-        body["username"]="test"
+        given: 'a invalid email and password'
+        body["email"]="test"
         body["password"]="test"
 
         when: 'I try login'
@@ -54,7 +54,7 @@ class LoginSpec  extends Specification  {
     void "test invalid password"() {
         def body=[:]
         given: 'a invalid username and password'
-        body["username"]="pedro"
+        body["email"]="juan@yahoo.com"
         body["password"]="pedro2"
         when: 'I try login'
         response = client.toBlocking().exchange(HttpRequest.POST("/login",body), Map)
@@ -76,7 +76,7 @@ class LoginSpec  extends Specification  {
     void "test without password"() {
         def body=[:]
         given: 'a invalid username and password'
-        body["username"]="pedro"
+        body["email"]="pedro"
         when: 'I try login'
         response = client.toBlocking().exchange(HttpRequest.POST("/login",body), Map)
         then: 'The result is ...'

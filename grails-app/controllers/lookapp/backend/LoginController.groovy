@@ -1,18 +1,18 @@
 package lookapp.backend
 
 
-class DefaultController {
+class LoginController {
     def login(){
         def res=[:]
         def params=request.getJSON()
         res["message"]="invalid username or password"
-        if(params.username==null){
+        if(params.email==null){
             respond(res,status: 401)
         }
         if(params.password==null){
             respond(res,status: 401)
         }
-        User user=User.findByUsername(params.username)
+        User user=User.findByEmail(params.email)
         String password=params.password
         def passwordAsMD5 = password.encodeAsMD5()
         if(user==null || user.password!=passwordAsMD5) {
@@ -20,5 +20,8 @@ class DefaultController {
         } else {
             respond(user,status: 200)
         }
+    }
+    def cancel(){
+        def params=getParams()
     }
 }

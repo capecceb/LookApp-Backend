@@ -7,11 +7,10 @@ import javax.transaction.Status
 @Resource(uri='/roles')
 class Local {
     String name;
-    String addres;
+    String address;
 
     Date dateCreated
     Date lastUpdated
-    
 
     static constraints = {
     }

@@ -6,7 +6,7 @@ class Service {
 
     String name
     int duration
-    BigDecimal cost
+    BigDecimal price
 
     Date dateCreated
     Date lastUpdated

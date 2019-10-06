@@ -3,10 +3,9 @@ import grails.rest.Resource
 
 @Resource(uri='/users')
 class User {
-    String username
+    String email
     String password
     String fullName
-    String email
 
     Date dateCreated
     Date lastUpdated
@@ -15,7 +14,6 @@ class User {
     static constraints = {
         fullName(nullable:true)
         password(nullable:true)
-        email(nullable:true)
     }
 
     def beforeInsert() {

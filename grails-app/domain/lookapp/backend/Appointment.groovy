@@ -11,9 +11,13 @@ class Appointment {
     Date dateCreated
     Date lastUpdated
 
-    AppointmentStatus appointmentStatus
+    AppointmentStatus status
     static hasMany = [services: Service]
     static constraints = {
         client(nullable:true)
+    }
+
+    def beforeInsert() {
+        status=AppointmentStatus.OPEN
     }
 }

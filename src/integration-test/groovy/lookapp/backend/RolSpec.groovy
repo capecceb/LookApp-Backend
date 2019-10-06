@@ -33,7 +33,7 @@ class RolSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 1
+        response.body().size() == 3
         response.body()[0].name == "Administrador"
     }
 
@@ -68,7 +68,7 @@ class RolSpec extends Specification {
         body["name"]="Supervisor"
 
         when: 'I try update a rol'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/roles/2",body), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/roles/200",body), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()

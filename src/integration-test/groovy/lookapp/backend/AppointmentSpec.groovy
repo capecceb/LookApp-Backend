@@ -68,7 +68,7 @@ class AppointmentSpec extends Specification {
         body["local"]="noExiste"
 
         when: 'I try update a appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/appointments/5",body), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/appointments/200",body), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
@@ -77,27 +77,18 @@ class AppointmentSpec extends Specification {
 
     void "test add appointment"() {
         def body=[:]
+        Calendar cal = Calendar.getInstance()
         given: 'a new appointment'
         body["local"]="turnNew"
-        body["DNI"]="1111111"
-        body["surname"]="clienteNewSur"
-        body["primaryPhone"]=2222
-        body["secondPhone"]=33333
-
-        Calendar cal = Calendar.getInstance()
-        cal.set(2019,9,29)
-        turn.dayHour= cal.getTime()
-        turn.services=new ArrayList<Service>()
-        turn.services.add(service)
-        turn.appointmentStatus = AppointmentStatus.OPEN
-        turn.save()
+        body["client"]=1
+        body["status"]="OPEN"
+        body["dayHour"]=cal.getTime()
 
         when: 'I try add a client'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/clients",body), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments",body), Map)
 
         then: 'The result is ...'
         response.status().code == 201
-        response.body().name == "clienteNew"
     }
 
     void "test add failed client"() {

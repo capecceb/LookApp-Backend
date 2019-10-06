@@ -104,6 +104,6 @@ class AppointmentSpec extends Specification {
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "La propiedad [surname] de la clase [class lookapp.backend.Client] no puede ser nulo"
+        exception.message == "La propiedad [lastName] de la clase [class lookapp.backend.Client] no puede ser nulo"
     }
 }

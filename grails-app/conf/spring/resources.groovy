@@ -21,11 +21,11 @@ beans = {
     }
 
     AppointmentRenderer(JsonRenderer, Appointment) {
-        includes = ['id','services','local','dayHour','status','client']
+        includes = ['id','services','local','dayHour','status','client','professional']
     }
 
     AppointmentsRenderer(JsonCollectionRenderer, Appointment) {
-        includes = ['id','services','local','dayHour','status','client']
+        includes = ['id','services','local','dayHour','status','client','professional']
     }
 
     ClientRenderer(JsonRenderer, Client) {

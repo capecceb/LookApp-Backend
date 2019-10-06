@@ -1,0 +1,6 @@
+package lookapp.backend
+
+enum Day {
+    MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY
+}
+

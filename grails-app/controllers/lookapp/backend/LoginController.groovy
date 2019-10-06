@@ -17,11 +17,7 @@ class LoginController {
         def passwordAsMD5 = password.encodeAsMD5()
         if(user==null || user.password!=passwordAsMD5) {
             respond(res,status: 401)
-        } else {
-            respond(user,status: 200)
         }
-    }
-    def cancel(){
-        def params=getParams()
+        respond(user,status: 200)
     }
 }

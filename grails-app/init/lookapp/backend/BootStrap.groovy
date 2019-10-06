@@ -20,6 +20,15 @@ class BootStrap {
                 service.cost=200
                 service.save()
             }
+            Professional.withNewTransaction {
+                Professional professional = new Professional()
+                professional.name = "nicolas"
+                professional.status = ProfessionalStatus.ACTIVE
+                professional.lastName = "lastName"
+                professional.phone = "1159891578"
+                professional.email = "niico786@gmail.com"
+                professional.save()
+            }
         }
         development {
             User.withNewTransaction {
@@ -60,7 +69,7 @@ class BootStrap {
                 service.save()
 
                 Professional professional=new Professional()
-                professional.name="Pedro"
+                professional.name="nicolas"
                 professional.services=new ArrayList<Service>()
                 professional.services.add(service)
                 professional.status=ProfessionalStatus.ACTIVE

@@ -1,14 +1,17 @@
 package lookapp.backend
+
 import grails.rest.Resource
 
-@Resource(uri='/services')
-class Service {
+import javax.transaction.Status
 
-    String name
-    int duration
-    BigDecimal cost
+@Resource(uri='/roles')
+class Local {
+    String name;
+    String addres;
+
     Date dateCreated
     Date lastUpdated
+    
 
     static constraints = {
     }

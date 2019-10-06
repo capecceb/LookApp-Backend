@@ -68,12 +68,25 @@ class BootStrap {
                 service.cost=200
                 service.save()
 
+                Service service2 =new Service()
+                service2.name="tintura"
+                service2.duration=60
+                service2.cost=250
+                service2.save()
+
                 Professional professional=new Professional()
                 professional.name="nicolas"
                 professional.services=new ArrayList<Service>()
                 professional.services.add(service)
                 professional.status=ProfessionalStatus.ACTIVE
                 professional.save()
+
+                Client cliente = new Client()
+                cliente.name = "cliente1"
+                cliente.surname = "apellido"
+                cliente.DNI= "151515"
+                cliente.primaryPhone= 12312
+                cliente.save()
 
                 Appointment turn=new Appointment()
                 turn.id = 1
@@ -83,6 +96,15 @@ class BootStrap {
                 turn.services.add(service)
                 turn.appointmentStatus = AppointmentStatus.OPEN
                 turn.save()
+
+                Appointment turn1=new Appointment()
+                turn1.local="San Miguel"
+                turn1.dayHour= new Date()
+                turn1.services=new ArrayList<Service>()
+                turn1.services.add(service2)
+                turn1.appointmentStatus = AppointmentStatus.OPEN
+                turn1.save()
+
             }
         }
     }

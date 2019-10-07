@@ -11,6 +11,8 @@ import spock.lang.AutoCleanup
 import spock.lang.Shared
 import spock.lang.Specification
 
+import java.text.SimpleDateFormat
+
 
 @Integration
 class AppointmentSpec extends Specification {
@@ -18,6 +20,8 @@ class AppointmentSpec extends Specification {
     @Shared
     @AutoCleanup
     HttpClient client
+
+    static SimpleDateFormat sdfCrud = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     @OnceBefore
     void init() {
@@ -47,11 +51,27 @@ class AppointmentSpec extends Specification {
         response.status().code == 200
         response.body().local == "casa"
     }
+    void "test add appointment"() {
+        def body=[:]
+        given: 'a new appointment'
+        body["local"]="turnNew"
+        body["client"]=1
+        body["status"]="OPEN"
+        body["dayHour"]= "2019-10-07T14:00:00Z"
+        body["services"]=[1]
+        when: 'I try add a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments",body), Map)
+
+        then: 'The result is ...'
+        response.status().code == 201
+    }
     void "test update appointment"() {
         def body=[:]
         given: 'a changes for the appointment'
         body["id"]=1
         body["local"]="editado"
+        body["dayHour"]= "2019-10-07T17:00:00Z"
+        body["services"]=[1]
 
         when: 'I try update a appointment'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/appointments/1",body), Map)
@@ -60,13 +80,13 @@ class AppointmentSpec extends Specification {
         response.status().code == 200
         response.body().local == "editado"
     }
-
     void "test update failed appointments"() {
         def body=[:]
         given: 'a changes for the appointment'
-        body["id"]=5
+        body["id"]=200
         body["local"]="noExiste"
-
+        body["dayHour"]= "2019-10-07T20:00:00Z"
+        body["services"]=[1]
         when: 'I try update a appointment'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/appointments/200",body), Map)
 
@@ -75,29 +95,14 @@ class AppointmentSpec extends Specification {
         exception.message == "Not Found"
     }
 
-    void "test add appointment"() {
-        def body=[:]
-        Calendar cal = Calendar.getInstance()
-        given: 'a new appointment'
-        body["local"]="turnNew"
-        body["client"]=1
-        body["status"]="OPEN"
-        body["dayHour"]=cal.getTime()
-
-        when: 'I try add a client'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments",body), Map)
-
-        then: 'The result is ...'
-        response.status().code == 201
-    }
-
-    void "test add failed client"() {
+    void "test add failed appointment"() {
         def body=[:]
         given: 'a empty client without surname'
         body["name"]="clienteNew"
         body["DNI"]="1111111"
         body["primaryPhone"]=2222
         body["secondPhone"]=33333
+        body["dayHour"]= "2019-10-07T14:00:00Z"
 
         when: 'I try add a client'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/clients",body), Map)

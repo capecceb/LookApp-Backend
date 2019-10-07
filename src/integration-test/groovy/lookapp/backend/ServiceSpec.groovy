@@ -33,7 +33,7 @@ class ServiceSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 1
+        response.body().size() == 3
         response.body()[0].name == "corte"
     }
 
@@ -68,7 +68,7 @@ class ServiceSpec extends Specification {
         body["name"]="teñido"
 
         when: 'I try update a service'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/services/2",body), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/services/200",body), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
@@ -80,7 +80,7 @@ class ServiceSpec extends Specification {
         given: 'a new user'
         body["name"]="teñido"
         body["duration"]=240
-        body["cost"]=300
+        body["price"]=300
 
         when: 'I try add a service'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/services",body), Map)
@@ -101,6 +101,6 @@ class ServiceSpec extends Specification {
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "La propiedad [cost] de la clase [class lookapp.backend.Service] no puede ser nulo"
+        exception.message == "La propiedad [price] de la clase [class lookapp.backend.Service] no puede ser nulo"
     }
 }

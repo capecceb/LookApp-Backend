@@ -1,10 +1,9 @@
 package lookapp.backend
-import grails.rest.Resource
 
-@Resource(uri='/appointments')
 class Appointment {
 
     Date dayHour
+    Date endDate
     String local
     Client client
     Professional professional
@@ -16,9 +15,20 @@ class Appointment {
     static constraints = {
         client(nullable:true)
         professional(nullable:true)
+        endDate(nullable:true)
     }
 
     def beforeInsert() {
         status=AppointmentStatus.OPEN
+        Calendar calendar=Calendar.getInstance()
+        calendar.setTime(dayHour)
+        calendar.add(Calendar.HOUR_OF_DAY, 1)
+        endDate=calendar.getTime()
+    }
+    def beforeUpdate() {
+        Calendar calendar=Calendar.getInstance()
+        calendar.setTime(dayHour)
+        calendar.add(Calendar.HOUR_OF_DAY, 1)
+        endDate=calendar.getTime()
     }
 }

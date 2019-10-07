@@ -5,8 +5,8 @@ import grails.rest.Resource
 class WorkingHour {
 
     Day days
-    String beginHour
-    String endHour
+    int beginHour
+    int endHour
     static constraints = {
     }
 }

@@ -8,9 +8,11 @@ class LoginController {
         res["message"]="invalid username or password"
         if(params.email==null){
             respond(res,status: 401)
+            return
         }
         if(params.password==null){
             respond(res,status: 401)
+            return
         }
         User user=User.findByEmail(params.email)
         String password=params.password

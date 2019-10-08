@@ -28,14 +28,17 @@ class AppointmentController {
         if (params.dayHour == null) {
             res["message"] = "dayHour cant be null"
             respond(res, status: 400)
+            return
         }
         if (params.services == null) {
             res["message"] = "services cant be null"
             respond(res, status: 400)
+            return
         }
         if(params.local==null){
             res["message"] = "local cant be null"
             respond(res, status: 400)
+            return
         }
         Date beginDate = sdfCrud.parse(params.dayHour)
         Appointment appointment = new Appointment()
@@ -58,20 +61,24 @@ class AppointmentController {
         if (params.dayHour == null) {
             res["message"] = "dayHour cant be null"
             respond(res, status: 400)
+            return
         }
         if (params.services == null) {
             res["message"] = "services cant be null"
             respond(res, status: 400)
+            return
         }
         if(params.local==null){
             res["message"] = "local cant be null"
             respond(res, status: 400)
+            return
         }
         Date beginDate = sdfCrud.parse(params.dayHour)
         Appointment appointment = Appointment.get(queryParams.id)
         if(appointment==null){
             res["message"] = "Not Found"
             respond(res, status: 404)
+            return
         }
         try {
             appointment=appointmentService.save(appointment,params.local,beginDate,
@@ -130,10 +137,12 @@ class AppointmentController {
         if (appointment == null) {
             res["message"] = "Not Found"
             respond(res, status: 404)
+            return
         }
         if (appointment.status != AppointmentStatus.OPEN) {
             res["message"] = "Invalid Status"
             respond(res, status: 400)
+            return
         }
         appointment.status = AppointmentStatus.PAID
         Appointment.withNewTransaction {

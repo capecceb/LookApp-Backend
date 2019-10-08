@@ -7,7 +7,7 @@ class AppointmentController {
     static responseFormats = ['json', 'xml']
 
     static SimpleDateFormat sdfSearch = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-    static SimpleDateFormat sdfCrud = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    static SimpleDateFormat sdfCrud = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     def appointmentService
 

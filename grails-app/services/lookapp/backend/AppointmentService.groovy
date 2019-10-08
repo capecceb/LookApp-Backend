@@ -38,9 +38,10 @@ class AppointmentService {
             if (professional == null) {
                 throw new BadRequestException("Invalid professional id")
             }
+            def criteria = Appointment.createCriteria()
             List<Appointment> appointmentList = criteria.list {
                 lt("dayHour", endDate)
-                gt("end", beginDate)
+                gt("endDate", beginDate)
                 eq("professional", professional)
                 ne("id",appointment.id)
             }

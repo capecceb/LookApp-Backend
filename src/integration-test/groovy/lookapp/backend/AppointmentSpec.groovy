@@ -21,7 +21,7 @@ class AppointmentSpec extends Specification {
     @AutoCleanup
     HttpClient client
 
-    static SimpleDateFormat sdfCrud = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    static SimpleDateFormat sdfCrud = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     @OnceBefore
     void init() {
@@ -57,7 +57,7 @@ class AppointmentSpec extends Specification {
         body["local"]="turnNew"
         body["client"]=1
         body["status"]="OPEN"
-        body["dayHour"]= "2019-10-07T14:00:00Z"
+        body["dayHour"]= "2019-10-07T14:00:00.000Z"
         body["services"]=[1]
         when: 'I try add a appointment'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments",body), Map)
@@ -70,7 +70,7 @@ class AppointmentSpec extends Specification {
         given: 'a changes for the appointment'
         body["id"]=1
         body["local"]="editado"
-        body["dayHour"]= "2019-10-07T17:00:00Z"
+        body["dayHour"]= "2019-10-07T17:00:00.000Z"
         body["services"]=[1]
 
         when: 'I try update a appointment'
@@ -85,7 +85,7 @@ class AppointmentSpec extends Specification {
         given: 'a changes for the appointment'
         body["id"]=200
         body["local"]="noExiste"
-        body["dayHour"]= "2019-10-07T20:00:00Z"
+        body["dayHour"]= "2019-10-07T20:00:00.000Z"
         body["services"]=[1]
         when: 'I try update a appointment'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/appointments/200",body), Map)

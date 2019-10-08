@@ -43,7 +43,9 @@ class AppointmentService {
                 lt("dayHour", endDate)
                 gt("endDate", beginDate)
                 eq("professional", professional)
-                ne("id",appointment.id)
+                if(appointment.id!=null) {
+                    ne("id", appointment.id)
+                }
             }
             if (appointmentList.size() > 0) {
                 throw new BadRequestException("professional is busy")

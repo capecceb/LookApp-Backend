@@ -1,5 +1,6 @@
 package lookapp.backend
 
+
 class Appointment {
 
     Date dayHour

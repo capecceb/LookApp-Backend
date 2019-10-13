@@ -5,8 +5,8 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class AppointmentService {
 
-    def save(Appointment appointment,String local,Date beginDate,List<Service> services,
-             Integer clientId,Integer professionalId){
+    def save(Appointment appointment, String local, Date beginDate, List<Service> services,
+             Integer clientId, Integer professionalId) {
         int duration
         for (Integer serviceId : services) {
             Service service = Service.get(serviceId)
@@ -14,8 +14,8 @@ class AppointmentService {
                 throw new BadRequestException("Invalid service id")
             }
             duration = service.duration
-            if(appointment.services==null) {
-                appointment.services=new ArrayList<>()
+            if (appointment.services == null) {
+                appointment.services = new ArrayList<>()
             }
             appointment.services.add(service)
         }
@@ -38,12 +38,16 @@ class AppointmentService {
             if (professional == null) {
                 throw new BadRequestException("Invalid professional id")
             }
+            if (professional.status != ProfessionalStatus.ACTIVE) {
+                throw new BadRequestException("Error the professional isn't active")
+            }
             def criteria = Appointment.createCriteria()
             List<Appointment> appointmentList = criteria.list {
                 lt("dayHour", endDate)
                 gt("endDate", beginDate)
+                eq("status", AppointmentStatus.OPEN)
                 eq("professional", professional)
-                if(appointment.id!=null) {
+                if (appointment.id != null) {
                     ne("id", appointment.id)
                 }
             }
@@ -52,7 +56,7 @@ class AppointmentService {
             }
             appointment.professional = professional
         } else {
-            List<Professional> professionals = availableProfessionals(appointment.id,beginDate, endDate)
+            List<Professional> professionals = availableProfessionals(appointment.id, beginDate, endDate)
             if (professionals.size() == 0) {
                 throw new BadRequestException("there are no free professionals")
             }
@@ -62,46 +66,48 @@ class AppointmentService {
         return appointment
     }
 
-    def availableProfessionals(Long appointmentId,Date beginDate,Date endDate){
-        def res=[:]
+    def availableProfessionals(Long appointmentId, Date beginDate, Date endDate) {
+        def res = [:]
 
-        Calendar calendarBegin=Calendar.getInstance()
+        Calendar calendarBegin = Calendar.getInstance()
         calendarBegin.setTime(beginDate)
         int dayOfWeek = calendarBegin.get(Calendar.DAY_OF_WEEK);
-        Day day=Day.byId(dayOfWeek)
+        Day day = Day.byId(dayOfWeek)
 
-        Calendar calendarEnd=Calendar.getInstance()
+        Calendar calendarEnd = Calendar.getInstance()
         calendarEnd.setTime(endDate)
         //looking for professional that working this day
-        def professionCriteria=Professional.createCriteria()
-        List<Professional> professionals=professionCriteria.list{
-            workingHours{
-                eq("days",day)
-                lte("beginHour",calendarBegin.get(Calendar.HOUR_OF_DAY))
-                gte("endHour",calendarEnd.get(Calendar.HOUR_OF_DAY))
+        def professionCriteria = Professional.createCriteria()
+        List<Professional> professionals = professionCriteria.list {
+            eq("status",ProfessionalStatus.ACTIVE)
+            workingHours {
+                eq("days", day)
+                lte("beginHour", calendarBegin.get(Calendar.HOUR_OF_DAY))
+                gte("endHour", calendarEnd.get(Calendar.HOUR_OF_DAY))
             }
         }
 
-        def appointmentCriteria=Appointment.createCriteria()
-        List<Appointment> appointmentList=appointmentCriteria.list{
+        def appointmentCriteria = Appointment.createCriteria()
+        List<Appointment> appointmentList = appointmentCriteria.list {
             lte("dayHour", endDate)
-            gt("endDate",beginDate)
-            if(appointmentId!=null) {
+            gt("endDate", beginDate)
+            eq("status",AppointmentStatus.OPEN)
+            if (appointmentId != null) {
                 ne("id", appointmentId)
             }
         }
-        List<Professional> resultProfessionals=new ArrayList<>()
-        if(professionals.size()<=appointmentList.size()){
+        List<Professional> resultProfessionals = new ArrayList<>()
+        if (professionals.size() <= appointmentList.size()) {
             return resultProfessionals
         }
 
-        for(Professional professional:professionals){
-            boolean found=false
-            for(Appointment appointment:appointmentList){
-                if(appointment.professional!=null && professional.id==appointment.professional.id) found=true
+        for (Professional professional : professionals) {
+            boolean found = false
+            for (Appointment appointment : appointmentList) {
+                if (appointment.professional != null && professional.id == appointment.professional.id) found = true
                 break
             }
-            if(!found) resultProfessionals.add(professional)
+            if (!found) resultProfessionals.add(professional)
         }
         return resultProfessionals
     }

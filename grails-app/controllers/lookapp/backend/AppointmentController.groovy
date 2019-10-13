@@ -1,13 +1,8 @@
 package lookapp.backend
 
-import java.text.SimpleDateFormat
-
 class AppointmentController {
 
     static responseFormats = ['json', 'xml']
-
-    static SimpleDateFormat sdfSearch = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-    static SimpleDateFormat sdfCrud = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     def appointmentService
 
@@ -25,66 +20,48 @@ class AppointmentController {
     def create() {
         def res = [:]
         def params = request.getJSON()
-        if (params.dayHour == null) {
-            res["message"] = "dayHour cant be null"
+        String result = validateSave(params)
+        if (result != null) {
+            res["message"] = result
             respond(res, status: 400)
             return
         }
-        if (params.services == null) {
-            res["message"] = "services cant be null"
-            respond(res, status: 400)
-            return
-        }
-        if(params.local==null){
-            res["message"] = "local cant be null"
-            respond(res, status: 400)
-            return
-        }
-        Date beginDate = sdfCrud.parse(params.dayHour)
+        Date beginDate = DateTimeParser.parse(params.dayHour)
         Appointment appointment = new Appointment()
 
         try {
-            appointment=appointmentService.save(appointment,params.local,beginDate,
-                    params.services,params.client,params.professional)
-        }catch(BadRequestException e) {
-            res["message"]=e.message
+            appointment = appointmentService.save(appointment, params.local, beginDate,
+                    params.services, params.client, params.professional)
+        } catch (BadRequestException e) {
+            res["message"] = e.message
             respond(res, status: 400)
             return
         }
         respond(appointment, status: 201)
-9    }
+    }
 
     def update() {
         def res = [:]
         def params = request.getJSON()
         def queryParams = getParams()
-        if (params.dayHour == null) {
-            res["message"] = "dayHour cant be null"
+        String result = validateSave(params)
+        if (result != null) {
+            res["message"] = result
             respond(res, status: 400)
             return
         }
-        if (params.services == null) {
-            res["message"] = "services cant be null"
-            respond(res, status: 400)
-            return
-        }
-        if(params.local==null){
-            res["message"] = "local cant be null"
-            respond(res, status: 400)
-            return
-        }
-        Date beginDate = sdfCrud.parse(params.dayHour)
+        Date beginDate = DateTimeParser.parse(params.dayHour)
         Appointment appointment = Appointment.get(queryParams.id)
-        if(appointment==null){
+        if (appointment == null) {
             res["message"] = "Not Found"
             respond(res, status: 404)
             return
         }
         try {
-            appointment=appointmentService.save(appointment,params.local,beginDate,
-                    params.services,params.client,params.professional)
-        }catch(BadRequestException e) {
-            res["message"]=e.message
+            appointment = appointmentService.save(appointment, params.local, beginDate,
+                    params.services, params.client, params.professional)
+        } catch (BadRequestException e) {
+            res["message"] = e.message
             respond(res, status: 400)
             return
         }
@@ -102,10 +79,10 @@ class AppointmentController {
             res["message"] = "Invalid end date"
             respond(res, status: 400)
         }
-        Date begin = sdfSearch.parse(params.beginDate)
-        Date end = sdfSearch.parse(params.endDate)
+        Date begin = DateTimeParser.parseSearchFormat(params.beginDate)
+        Date end = DateTimeParser.parseSearchFormat(params.endDate)
 
-        List<Professional> resultProfessionals = appointmentService.availableProfessionals(null,begin, end)
+        List<Professional> resultProfessionals = appointmentService.availableProfessionals(null, begin, end)
         respond(resultProfessionals, status: 200)
     }
 
@@ -149,5 +126,17 @@ class AppointmentController {
             appointment.save()
         }
         respond(appointment, status: 200)
+    }
+    private String validateSave(def params) {
+        if (params.dayHour == null) {
+            return "dayHour cant be null"
+        }
+        if (params.services == null) {
+            return "services cant be null"
+        }
+        if (params.local == null) {
+            return "local cant be null"
+        }
+        return null
     }
 }

@@ -9,6 +9,7 @@ class Client {
     String DNI
     int primaryPhone
     int secondPhone
+    ClientStatus status
 
     Date dateCreated
     Date lastUpdated

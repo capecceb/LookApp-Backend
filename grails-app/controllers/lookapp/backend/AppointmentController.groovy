@@ -20,7 +20,7 @@ class AppointmentController {
     def create() {
         def res = [:]
         def params = request.getJSON()
-        String result = validateSave(params)
+        String result = validate(params,["dayHour","services","local"])
         if (result != null) {
             res["message"] = result
             respond(res, status: 400)
@@ -44,7 +44,7 @@ class AppointmentController {
         def res = [:]
         def params = request.getJSON()
         def queryParams = getParams()
-        String result = validateSave(params)
+        String result = validate(params,["dayHour","services","local"])
         if (result != null) {
             res["message"] = result
             respond(res, status: 400)
@@ -71,14 +71,13 @@ class AppointmentController {
     def searchProfessionals() {
         def res = [:]
         def params = getParams()
-        if (params.beginDate == null) {
-            res["message"] = "Invalid begin date"
+        String result = validate(params,["beginDate","endDate"])
+        if (result != null) {
+            res["message"] = result
             respond(res, status: 400)
+            return
         }
-        if (params.endDate == null) {
-            res["message"] = "Invalid end date"
-            respond(res, status: 400)
-        }
+
         Date begin = DateTimeParser.parseSearchFormat(params.beginDate)
         Date end = DateTimeParser.parseSearchFormat(params.endDate)
 
@@ -127,15 +126,41 @@ class AppointmentController {
         }
         respond(appointment, status: 200)
     }
-    private String validateSave(def params) {
-        if (params.dayHour == null) {
+
+    def search(){
+        def res = [:]
+        def params = getParams()
+        String result = validate(params,["professional","beginDate","endDate"])
+        if (result != null) {
+            res["message"] = result
+            respond(res, status: 400)
+            return
+        }
+        Date begin = DateTimeParser.parseSearchFormat(params.beginDate)
+        Date end = DateTimeParser.parseSearchFormat(params.endDate)
+        Long professional = params.professional as Long
+        List<Professional> resultProfessionals = appointmentService.searchAppointments(professional,begin, end)
+        respond(resultProfessionals, status: 200)
+    }
+
+    private String validate(def params,def verifyParams) {
+        if (verifyParams.contains("dayHour") && params.dayHour == null) {
             return "dayHour cant be null"
         }
-        if (params.services == null) {
+        if (verifyParams.contains("services") && params.services == null) {
             return "services cant be null"
         }
-        if (params.local == null) {
+        if (verifyParams.contains("local") && params.local == null) {
             return "local cant be null"
+        }
+        if (verifyParams.contains("beginDate") && params.beginDate == null) {
+            return "Invalid begin date"
+        }
+        if (verifyParams.contains("endDate") && params.endDate == null) {
+            return "Invalid end date"
+        }
+        if(verifyParams.contains("professional") && params.professional==null){
+            return "Invalid professional id"
         }
         return null
     }

@@ -119,6 +119,7 @@ class BootStrap {
             cliente.lastName = "apellido"
             cliente.DNI= "151515"
             cliente.primaryPhone= 12312
+            cliente.status = ClientStatus.VIP
             cliente.save()
 
             Client cliente1 = new Client()
@@ -127,6 +128,7 @@ class BootStrap {
             cliente1.DNI= "1312315"
             cliente1.primaryPhone= 12312
             cliente1.secondPhone= 123333
+            cliente1.status = ClientStatus.NORMAL
             cliente1.save()
 
             Appointment turn=new Appointment()

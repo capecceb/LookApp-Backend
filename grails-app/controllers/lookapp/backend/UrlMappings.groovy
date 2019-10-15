@@ -11,6 +11,7 @@ class UrlMappings {
         "/appointments/$id"(controller: 'appointment', action:'update',method:'PUT')
         "/appointments/$id/cancel"(controller: 'appointment', action:'cancel',method:'POST')
         "/appointments/$id/paid"(controller: 'appointment', action:'paid',method:'POST')
+        "/appointments/search"(controller: 'appointment', action:'search',method:'GET')
         "/professionals/search"(controller: 'appointment', action:'searchProfessionals')
 
         "500"(controller: 'application', action:'error')

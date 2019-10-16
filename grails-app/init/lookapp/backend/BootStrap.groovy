@@ -19,28 +19,36 @@ class BootStrap {
             Rol contador = new Rol(name: "Contador").save()
 
             User pedro = new User()
+            pedro.fullName = "pedro"
             pedro.email = "juan@yahoo.com"
             pedro.password = "pedro"
             pedro.roles = new ArrayList()
             pedro.roles.add(administrador)
+            pedro.status = UserStatus.ACTIVE
             pedro.save()
 
             User bruno = new User()
+            bruno.fullName = "bruno"
             bruno.email = "juan@yahoo.com"
             bruno.roles = new ArrayList<Rol>()
             bruno.roles.add(supervidor)
+            bruno.status = UserStatus.ACTIVE
             bruno.save()
 
             User nico = new User()
+            nico.fullName = "nico"
             nico.email = "nicolas@yahoo.com"
             nico.roles = new ArrayList<Rol>()
             nico.roles.add(contador)
+            nico.status = UserStatus.INACTIVE
             nico.save()
 
             User jere = new User()
+            jere.fullName = "jere"
             jere.email = "jeremias@yahoo.com"
             jere.roles = new ArrayList<Rol>()
             jere.roles.add(contador)
+            jere.status = UserStatus.INACTIVE
             jere.save()
 
             Service service=new Service()
@@ -162,9 +170,6 @@ class BootStrap {
             turn2.services.add(service3)
             turn2.status = AppointmentStatus.OPEN
             turn2.save()
-
-
-
         }
         Professional.withNewTransaction {
             Professional professional = new Professional()

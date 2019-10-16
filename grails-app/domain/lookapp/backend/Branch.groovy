@@ -8,7 +8,7 @@ import javax.transaction.Status
 class Branch {
     String name
     String address
-    ProfessionalStatus status
+    BranchlStatus status
 
     Date dateCreated
     Date lastUpdated

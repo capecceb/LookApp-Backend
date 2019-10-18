@@ -83,6 +83,7 @@ class ClientSpec extends Specification {
         body["lastName"]="clienteNewSur"
         body["primaryPhone"]=2222
         body["secondPhone"]=33333
+        body["status"] = "VIP"
 
         when: 'I try add a client'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/clients",body), Map)
@@ -99,6 +100,7 @@ class ClientSpec extends Specification {
         body["DNI"]="1111111"
         body["primaryPhone"]=2222
         body["secondPhone"]=33333
+        body["status"] = "NORMAL"
 
         when: 'I try add a client'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/clients",body), Map)

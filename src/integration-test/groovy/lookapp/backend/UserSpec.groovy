@@ -79,6 +79,7 @@ class UserSpec extends Specification {
         def body=[:]
         given: 'a new user'
         body["email"]="juan@yahoo.com"
+        body["status"] = "ACTIVE"
 
         when: 'I try add a user'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/users",body), Map)

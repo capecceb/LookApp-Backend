@@ -111,4 +111,19 @@ class AppointmentService {
         }
         return resultProfessionals
     }
+
+    /*
+    * returns a list of appointments of a professional in a certain period of time
+    */
+    def searchAppointments(Long professionalId,Date beginDate,Date endDate){
+        def appointmentCriteria = Appointment.createCriteria()
+        List<Appointment> appointmentList = appointmentCriteria.list {
+            gte("dayHour", beginDate)
+            lte("endDate", endDate)
+            professional{
+                eq("id",professionalId)
+            }
+        }
+        return appointmentList
+    }
 }

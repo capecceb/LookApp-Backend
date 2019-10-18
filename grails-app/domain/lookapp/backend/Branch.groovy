@@ -4,11 +4,10 @@ import grails.rest.Resource
 
 import javax.transaction.Status
 
-@Resource(uri='/branchs')
-class Branch {
-    String name
-    String address
-    BranchlStatus status
+@Resource(uri='/roles')
+class Local {
+    String name;
+    String address;
 
     Date dateCreated
     Date lastUpdated

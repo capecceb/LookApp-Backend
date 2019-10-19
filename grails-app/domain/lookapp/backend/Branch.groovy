@@ -2,12 +2,12 @@ package lookapp.backend
 
 import grails.rest.Resource
 
-import javax.transaction.Status
 
-@Resource(uri='/roles')
-class Local {
+@Resource(uri='/branches')
+class Branch {
     String name;
     String address;
+    BranchStatus status
 
     Date dateCreated
     Date lastUpdated

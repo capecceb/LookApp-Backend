@@ -118,8 +118,12 @@ class AppointmentService {
     def searchAppointments(Long professionalId,Date beginDate,Date endDate){
         def appointmentCriteria = Appointment.createCriteria()
         List<Appointment> appointmentList = appointmentCriteria.list {
-            gte("dayHour", beginDate)
-            lte("endDate", endDate)
+            if(beginDate!=null){
+                gte("dayHour", beginDate)
+            }
+            if(endDate!=null) {
+                lte("endDate", endDate)
+            }
             professional{
                 eq("id",professionalId)
             }

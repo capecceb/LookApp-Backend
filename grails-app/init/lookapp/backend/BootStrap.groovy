@@ -189,6 +189,18 @@ class BootStrap {
             professional1.workingHours.add(workingHourSunday)
             professional1.workingHours.add(workingHourFriday)
             professional1.save()
+
+            Appointment turn3=new Appointment()
+            turn3.local="San Miguel"
+            Calendar cal3 = Calendar.getInstance()
+            cal2.set(2019,9, 30)
+            turn3.dayHour= cal2.getTime()
+            turn3.professional= professional
+            turn3.services=new ArrayList<Service>()
+            turn3.services.add(service3)
+            turn3.status = AppointmentStatus.OPEN
+            turn3.save()
+
         }
     }
 

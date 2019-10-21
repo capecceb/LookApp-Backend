@@ -113,13 +113,15 @@ class BootStrap {
 
             Professional professional=new Professional()
             professional.name="Pedro"
+            professional.lastName = "apellido"
+            professional.phone = "1245789655"
+            professional.email = "pedro@gmail.com"
             professional.services=new ArrayList<Service>()
             professional.services.add(service)
             professional.status=ProfessionalStatus.ACTIVE
             professional.workingHours=new ArrayList<WorkingHour>()
             professional.workingHours.add(workingHourMonday)
             professional.workingHours.add(workingHourSaturday)
-            professional.workingHours.add(workingHourSunday)
             professional.save()
 
             Client cliente = new Client()
@@ -127,6 +129,7 @@ class BootStrap {
             cliente.lastName = "apellido"
             cliente.DNI= "151515"
             cliente.primaryPhone= 12312
+            cliente.secondPhone= 15151666
             cliente.status = ClientStatus.VIP
             cliente.save()
 
@@ -170,15 +173,32 @@ class BootStrap {
             turn2.services.add(service3)
             turn2.status = AppointmentStatus.OPEN
             turn2.save()
-        }
-        Professional.withNewTransaction {
-            Professional professional = new Professional()
-            professional.name = "nicolas"
-            professional.status = ProfessionalStatus.ACTIVE
-            professional.lastName = "lastName"
-            professional.phone = "1159891578"
-            professional.email = "niico786@gmail.com"
-            professional.save()
+
+            Professional professional1 = new Professional()
+            professional1.name = "nicolas"
+            professional1.status = ProfessionalStatus.ACTIVE
+            professional1.lastName = "lastName"
+            professional1.phone = "1159891578"
+            professional1.email = "niico786@gmail.com"
+            professional.services=new ArrayList<Service>()
+            professional.services.add(service3)
+            professional1.workingHours=new ArrayList<WorkingHour>()
+            professional1.workingHours.add(workingHourMonday)
+            professional1.workingHours.add(workingHourSaturday)
+            professional1.workingHours.add(workingHourFriday)
+            professional1.save()
+
+            Appointment turn3=new Appointment()
+            turn3.local="San Miguel"
+            Calendar cal3 = Calendar.getInstance()
+            cal2.set(2019,9, 30)
+            turn3.dayHour= cal2.getTime()
+            turn3.professional= professional
+            turn3.services=new ArrayList<Service>()
+            turn3.services.add(service3)
+            turn3.status = AppointmentStatus.OPEN
+            turn3.save()
+
         }
     }
 

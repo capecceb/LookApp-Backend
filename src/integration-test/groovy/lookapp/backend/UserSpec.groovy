@@ -92,12 +92,13 @@ class UserSpec extends Specification {
     void "test add failed user"() {
         def body=[:]
         given: 'a empty user'
+        body["email"]="juan@yahoo.com"
 
         when: 'I try add a user'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/users",body), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "La propiedad [email] de la clase [class lookapp.backend.User] no puede ser nulo"
+        exception.message == "La propiedad [status] de la clase [class lookapp.backend.User] no puede ser nulo"
     }
 }

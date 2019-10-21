@@ -130,14 +130,20 @@ class AppointmentController {
     def search(){
         def res = [:]
         def params = getParams()
-        String result = validate(params,["professional","beginDate","endDate"])
+        String result = validate(params,["professional"])
         if (result != null) {
             res["message"] = result
             respond(res, status: 400)
             return
         }
-        Date begin = DateTimeParser.parseSearchFormat(params.beginDate)
-        Date end = DateTimeParser.parseSearchFormat(params.endDate)
+        Date begin
+        if(params.beginDate!=null){
+            begin = DateTimeParser.parseSearchFormat(params.beginDate)
+        }
+        Date end
+        if(params.endDate!=null){
+            end = DateTimeParser.parseSearchFormat(params.endDate)
+        }
         Long professional = params.professional as Long
         List<Professional> resultProfessionals = appointmentService.searchAppointments(professional,begin, end)
         respond(resultProfessionals, status: 200)

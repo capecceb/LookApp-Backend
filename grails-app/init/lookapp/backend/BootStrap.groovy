@@ -122,7 +122,6 @@ class BootStrap {
             professional.workingHours=new ArrayList<WorkingHour>()
             professional.workingHours.add(workingHourMonday)
             professional.workingHours.add(workingHourSaturday)
-            professional.workingHours.add(workingHourSunday)
             professional.save()
 
             Client cliente = new Client()
@@ -186,7 +185,6 @@ class BootStrap {
             professional1.workingHours=new ArrayList<WorkingHour>()
             professional1.workingHours.add(workingHourMonday)
             professional1.workingHours.add(workingHourSaturday)
-            professional1.workingHours.add(workingHourSunday)
             professional1.workingHours.add(workingHourFriday)
             professional1.save()
 

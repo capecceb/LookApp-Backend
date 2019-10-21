@@ -37,7 +37,7 @@ class AppointmentSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 3
+        response.body().size() == 4
         response.body()[0].local == "casa"
     }
 
@@ -96,19 +96,38 @@ class AppointmentSpec extends Specification {
     }
 
     void "test add failed appointment"() {
-        def body=[:]
-        given: 'a empty client without surname'
-        body["name"]="clienteNew"
-        body["DNI"]="1111111"
-        body["primaryPhone"]=2222
-        body["secondPhone"]=33333
-        body["dayHour"]= "2019-10-07T14:00:00Z"
-
-        when: 'I try add a client'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/clients",body), Map)
+        def body = [:]
+        given: 'a new appointment'
+        body["local"] = "turnNew"
+        body["client"] = 1
+        body["status"] = "OPEN"
+        body["services"] = [1]
+        when: 'I try add a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments", body), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "La propiedad [lastName] de la clase [class lookapp.backend.Client] no puede ser nulo"
+        exception.message == "dayHour cant be null"
     }
+
+    void "test search appointments"() {
+        when: 'I try search a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/appointments/search?professional=1"), List)
+
+        then: 'The result is ...'
+        response.status().code == 200
+        response.body().size() == 1
+        response.body()[0].local == "San Miguel"
+    }
+
+    void "test search appointments with no results"() {
+        when: 'I try search a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/appointments/search?professional=2"), List)
+
+        then: 'The result is ...'
+        response.status().code == 200
+        response.body().size() == 0
+
+    }
+
 }

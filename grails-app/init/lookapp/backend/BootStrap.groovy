@@ -199,6 +199,16 @@ class BootStrap {
             turn3.status = AppointmentStatus.OPEN
             turn3.save()
 
+            Branch branch = new Branch()
+            branch.name = "Hair&Head_Pachecho"
+            branch.address = "Henry Ford 1234"
+            branch.status = BranchStatus.ACTIVE
+            branch.user = nico
+            branch.professionals = new ArrayList<Professional>()
+            branch.professionals.add(professional)
+            branch.professionals.add(professional1)
+            branch.save()
+
         }
     }
 

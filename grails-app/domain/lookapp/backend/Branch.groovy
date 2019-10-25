@@ -10,17 +10,15 @@ class Branch {
     
     BranchStatus status
 
-    // Appointment Appointment ** Branch - Appointment relation is for later
-
     User user 
 
     Date dateCreated
     Date lastUpdated
 
-    static hasMany = [professionals : Professional, turnos : Appointment]
+    static hasMany = [professionals : Professional]
 
     static constraints = {
-
-
+        professionals(nullable:true)
+        user(nullable:true)
     }
 }

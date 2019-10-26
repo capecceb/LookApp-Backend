@@ -7,6 +7,7 @@ class Client {
     String name
     String lastName
     String DNI
+    String email
     int primaryPhone
     int secondPhone
     ClientStatus status
@@ -15,6 +16,7 @@ class Client {
     Date lastUpdated
 
     static constraints = {
+        primaryPhone(nullable:true)
         secondPhone(nullable:true)
     }
 }

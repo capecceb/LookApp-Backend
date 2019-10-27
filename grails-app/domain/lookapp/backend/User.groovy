@@ -16,6 +16,7 @@ class User {
     static constraints = {
         fullName(nullable:true)
         password(nullable:true)
+        branch(nullable:true)
     }
 
     def beforeInsert() {

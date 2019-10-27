@@ -19,6 +19,7 @@ class Professional {
         phone(nullable:true)
         email(nullable:true)
         workingHours(nullable:true)
+        branch(nullable:true)
     }
 }
 

@@ -14,6 +14,14 @@ class BootStrap {
     private addData(){
         User.withNewTransaction {
 
+            Branch branch = new Branch()
+            branch.name = "Hair&Head_Pacheco"
+            branch.address = "Henry Ford 1234"
+            branch.status = BranchStatus.ACTIVE            
+            branch.professionals = new ArrayList<Professional>()
+            branch.users = new ArrayList<User>()
+            branch.save()
+
             Rol administrador = new Rol(name: "Administrador").save()
             Rol supervidor = new Rol(name: "Supervisor").save()
             Rol contador = new Rol(name: "Contador").save()
@@ -41,7 +49,10 @@ class BootStrap {
             nico.roles = new ArrayList<Rol>()
             nico.roles.add(contador)
             nico.status = UserStatus.INACTIVE
+            nico.branch = branch
             nico.save()
+
+            branch.users.add(nico)
 
             User jere = new User()
             jere.fullName = "jere"
@@ -122,7 +133,10 @@ class BootStrap {
             professional.workingHours=new ArrayList<WorkingHour>()
             professional.workingHours.add(workingHourMonday)
             professional.workingHours.add(workingHourSaturday)
+            professional.branch = branch
             professional.save()
+
+            branch.professionals.add(professional)
 
             Client cliente = new Client()
             cliente.name = "cliente1"
@@ -188,7 +202,11 @@ class BootStrap {
             professional1.workingHours.add(workingHourMonday)
             professional1.workingHours.add(workingHourSaturday)
             professional1.workingHours.add(workingHourFriday)
+            professional1.branch = branch
             professional1.save()
+
+            branch.professionals.add(professional1)
+            branch.save(flush:true)
 
             Appointment turn3=new Appointment()
             turn3.local="San Miguel"
@@ -200,16 +218,6 @@ class BootStrap {
             turn3.services.add(service3)
             turn3.status = AppointmentStatus.OPEN
             turn3.save()
-
-            Branch branch = new Branch()
-            branch.name = "Hair&Head_Pachecho"
-            branch.address = "Henry Ford 1234"
-            branch.status = BranchStatus.ACTIVE
-            branch.user = nico
-            branch.professionals = new ArrayList<Professional>()
-            branch.professionals.add(professional)
-            branch.professionals.add(professional1)
-            branch.save()
 
         }
     }

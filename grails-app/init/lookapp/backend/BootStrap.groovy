@@ -133,6 +133,7 @@ class BootStrap {
             cliente.name = "cliente1"
             cliente.lastName = "apellido"
             cliente.DNI= "151515"
+            cliente.email= "cliente@gmail.com"
             cliente.primaryPhone= 12312
             cliente.secondPhone= 15151666
             cliente.status = ClientStatus.VIP
@@ -143,6 +144,7 @@ class BootStrap {
             cliente1.name = "cliente2"
             cliente1.lastName = "apellido1"
             cliente1.DNI= "1312315"
+            cliente1.email= "otroCliente@gmail.com"
             cliente1.primaryPhone= 12312
             cliente1.secondPhone= 123333
             cliente1.status = ClientStatus.NORMAL
@@ -205,6 +207,16 @@ class BootStrap {
             turn3.services.add(service3)
             turn3.status = AppointmentStatus.OPEN
             turn3.save()
+
+            Branch branch = new Branch()
+            branch.name = "Hair&Head_Pachecho"
+            branch.address = "Henry Ford 1234"
+            branch.status = BranchStatus.ACTIVE
+            branch.user = nico
+            branch.professionals = new ArrayList<Professional>()
+            branch.professionals.add(professional)
+            branch.professionals.add(professional1)
+            branch.save()
 
         }
     }

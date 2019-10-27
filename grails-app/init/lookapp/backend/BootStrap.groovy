@@ -111,6 +111,11 @@ class BootStrap {
             workingHourSunday.endHour=18
             workingHourSunday.save()
 
+            Point point = new Point()
+            point.changePay = 2
+            point.changePurchase = 10
+            point.save()
+
             Professional professional=new Professional()
             professional.name="Pedro"
             professional.lastName = "apellido"
@@ -132,6 +137,7 @@ class BootStrap {
             cliente.primaryPhone= 12312
             cliente.secondPhone= 15151666
             cliente.status = ClientStatus.VIP
+            cliente.point = 100
             cliente.save()
 
             Client cliente1 = new Client()
@@ -142,6 +148,7 @@ class BootStrap {
             cliente1.primaryPhone= 12312
             cliente1.secondPhone= 123333
             cliente1.status = ClientStatus.NORMAL
+            cliente1.point = 1000
             cliente1.save()
 
             Appointment turn=new Appointment()

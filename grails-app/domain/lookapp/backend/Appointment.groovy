@@ -13,6 +13,7 @@ class Appointment {
     Date lastUpdated
     AppointmentStatus status
     static hasMany = [services: Service]
+    static hasManyPayments = [payments: Payment]
     static constraints = {
         client(nullable:true)
         professional(nullable:true)

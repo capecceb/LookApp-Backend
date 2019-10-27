@@ -9,6 +9,7 @@ class Client {
     String DNI
     int primaryPhone
     int secondPhone
+    int point
     ClientStatus status
 
     Date dateCreated
@@ -16,5 +17,6 @@ class Client {
 
     static constraints = {
         secondPhone(nullable:true)
+        point(nulleble:true)
     }
 }

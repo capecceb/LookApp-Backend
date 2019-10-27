@@ -29,10 +29,10 @@ beans = {
     }
 
     ClientRenderer(JsonRenderer, Client) {
-        includes = ['id','name','lastName','DNI','primaryPhone','secondPhone', 'status']
+        includes = ['id','name','lastName','DNI','primaryPhone','secondPhone', 'status', 'point']
     }
 
     ClientRenderer(JsonCollectionRenderer, Client) {
-        includes = ['id','name','lastName','DNI','primaryPhone','secondPhone', 'status']
+        includes = ['id','name','lastName','DNI','primaryPhone','secondPhone', 'status', 'point']
     }
 }

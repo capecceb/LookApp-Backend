@@ -1,5 +1,5 @@
 package lookapp.backend
 
 enum AppointmentStatus {
-    OPEN,PAID,CANCELED,EXPIRED
+    OPEN,PAID,CANCELED,EXPIRED,PARCIALPAID,PENDINGPAID
 }

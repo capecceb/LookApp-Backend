@@ -9,9 +9,11 @@ class Professional {
     String phone
     String email
     ProfessionalStatus status
+    Branch branch
     Date dateCreated
     Date lastUpdated
-    static hasMany = [services: Service, workingHours:WorkingHour]
+
+    static hasMany = [services: Service, workingHours:WorkingHour ]
     static constraints = {
         lastName(nullable:true)
         phone(nullable:true)

@@ -7,6 +7,7 @@ class User {
     String password
     String fullName
     UserStatus status
+    Branch branch
 
     Date dateCreated
     Date lastUpdated

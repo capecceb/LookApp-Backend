@@ -10,15 +10,13 @@ class Branch {
     
     BranchStatus status
 
-    User user 
-
     Date dateCreated
     Date lastUpdated
 
-    static hasMany = [professionals : Professional]
+    static hasMany = [professionals : Professional , users : User]
 
     static constraints = {
         professionals(nullable:true)
-        user(nullable:true)
+        users(nullable:true)
     }
 }

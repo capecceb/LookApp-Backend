@@ -7,6 +7,7 @@ class User {
     String password
     String fullName
     UserStatus status
+    Branch branch
 
     Date dateCreated
     Date lastUpdated
@@ -15,6 +16,7 @@ class User {
     static constraints = {
         fullName(nullable:true)
         password(nullable:true)
+        branch(nullable:true)
     }
 
     def beforeInsert() {

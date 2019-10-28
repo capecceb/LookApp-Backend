@@ -4,6 +4,8 @@ import lookapp.backend.Appointment
 import lookapp.backend.Client
 import lookapp.backend.User
 import lookapp.backend.Professional
+import lookapp.backend.Branch
+
 // Place your Spring DSL code here
 beans = {
     UserRenderer(JsonRenderer, User) {
@@ -35,4 +37,13 @@ beans = {
     ClientRenderer(JsonCollectionRenderer, Client) {
         includes = ['id','name','lastName','DNI','primaryPhone','secondPhone', 'status', 'email']
     }
+
+    BranchRenderer(JsonRenderer, Branch) {
+        // includes = ['name', 'address', 'users', 'professionals']
+    }
+
+    BranchRenderer(JsonCollectionRenderer, Branch) {
+    //    includes = ['name', 'address', 'users', 'professionals']
+    }
+
 }

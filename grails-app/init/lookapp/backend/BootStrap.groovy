@@ -22,6 +22,14 @@ class BootStrap {
             branch.users = new ArrayList<User>()
             branch.save()
 
+            Branch branch2 = new Branch()
+            branch2.name = "Hair&Head_San_Miguel"
+            branch2.address = "Paunero 1234"
+            branch2.status = BranchStatus.ACTIVE            
+            branch2.professionals = new ArrayList<Professional>()
+            branch2.users = new ArrayList<User>()
+            branch2.save()
+
             Rol administrador = new Rol(name: "Administrador").save()
             Rol supervidor = new Rol(name: "Supervisor").save()
             Rol contador = new Rol(name: "Contador").save()
@@ -33,7 +41,10 @@ class BootStrap {
             pedro.roles = new ArrayList()
             pedro.roles.add(administrador)
             pedro.status = UserStatus.ACTIVE
+            pedro.branch = branch2
             pedro.save()
+
+            branch2.users.add(pedro)
 
             User bruno = new User()
             bruno.fullName = "bruno"
@@ -41,7 +52,10 @@ class BootStrap {
             bruno.roles = new ArrayList<Rol>()
             bruno.roles.add(supervidor)
             bruno.status = UserStatus.ACTIVE
+            bruno.branch = branch2
             bruno.save()
+
+            branch2.users.add(bruno)
 
             User nico = new User()
             nico.fullName = "nico"
@@ -60,6 +74,7 @@ class BootStrap {
             jere.roles = new ArrayList<Rol>()
             jere.roles.add(contador)
             jere.status = UserStatus.INACTIVE
+            jere.branch = null
             jere.save()
 
             Service service=new Service()
@@ -137,6 +152,7 @@ class BootStrap {
             professional.save()
 
             branch.professionals.add(professional)
+            branch.save(flush:true)
 
             Client cliente = new Client()
             cliente.name = "cliente1"
@@ -202,11 +218,11 @@ class BootStrap {
             professional1.workingHours.add(workingHourMonday)
             professional1.workingHours.add(workingHourSaturday)
             professional1.workingHours.add(workingHourFriday)
-            professional1.branch = branch
+            professional1.branch = branch2
             professional1.save()
 
-            branch.professionals.add(professional1)
-            branch.save(flush:true)
+            branch2.professionals.add(professional1)
+            branch2.save(flush:true)
 
             Appointment turn3=new Appointment()
             turn3.local="San Miguel"

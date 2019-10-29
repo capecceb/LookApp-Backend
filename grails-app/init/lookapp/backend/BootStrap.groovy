@@ -16,7 +16,9 @@ class BootStrap {
 
             Branch branch = new Branch()
             branch.name = "Hair&Head_Pacheco"
-            branch.address = "Henry Ford 1234"
+            branch.location = "Pacheco"
+            branch.street_name = "Henry Ford"
+            branch.street_number = 1234
             branch.status = BranchStatus.ACTIVE            
             branch.professionals = new ArrayList<Professional>()
             branch.users = new ArrayList<User>()
@@ -24,7 +26,9 @@ class BootStrap {
 
             Branch branch2 = new Branch()
             branch2.name = "Hair&Head_San_Miguel"
-            branch2.address = "Paunero 1234"
+            branch2.location = "San Miguel"
+            branch2.street_name = "Paunero"
+            branch2.street_number = 5678
             branch2.status = BranchStatus.ACTIVE            
             branch2.professionals = new ArrayList<Professional>()
             branch2.users = new ArrayList<User>()

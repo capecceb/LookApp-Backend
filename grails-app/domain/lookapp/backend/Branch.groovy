@@ -5,9 +5,11 @@ import grails.rest.Resource
 
 @Resource(uri='/branches')
 class Branch {
-    String name;
-    String address;
-    
+    String name
+    String location
+    String street_name
+    Integer street_number
+
     BranchStatus status
 
     Date dateCreated

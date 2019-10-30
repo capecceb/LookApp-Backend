@@ -10,7 +10,7 @@ class Branch {
     
     BranchStatus status
 
-    User user 
+    User user
 
     Date dateCreated
     Date lastUpdated

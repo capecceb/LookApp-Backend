@@ -26,18 +26,16 @@ class PaymentController {
             respond(res, status: 400)
             return
         }
-        Payment payment = new Payment()
-
         BigDecimal amount=new BigDecimal(params.amount)
-
+        Appointment appointment
         try {
-            payment = paymentService.save(payment, params.appointmentId, amount, params.currency, params.clientId, params.points)
+            appointment = paymentService.save(params.appointmentId, amount, params.currency, params.clientId, params.points)
         } catch (Exception e) {
             res["message"] = e.message
             respond(res, status: 500)
             return
         }
-        respond(payment, status: 201)
+        respond(appointment, status: 201)
     }
 
     private String validate(def params, def verifyParams) {

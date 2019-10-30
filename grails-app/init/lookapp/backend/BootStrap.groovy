@@ -111,11 +111,6 @@ class BootStrap {
             workingHourSunday.endHour=18
             workingHourSunday.save()
 
-            Point point = new Point()
-            point.changePay = 2
-            point.changePurchase = 10
-            point.save()
-
             Professional professional=new Professional()
             professional.name="Pedro"
             professional.lastName = "apellido"
@@ -218,6 +213,8 @@ class BootStrap {
             branch.professionals.add(professional1)
             branch.save()
 
+            Config configChangePay=new Config(key: "changePay",value:"1").save()
+            Config configChangePurchase=new Config(key: "changePurchase",value:"1").save()
         }
     }
 

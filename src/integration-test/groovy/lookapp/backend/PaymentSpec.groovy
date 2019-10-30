@@ -47,14 +47,14 @@ class PaymentSpec extends Specification {
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/payments/1"), Map)
 
         then: 'The result is ...'
-        response.status().code == 200
-        response.body().local == "casa"
+        final HttpClientResponseException exception = thrown()
+        exception.message == "Not Found"
     }
 
     void "test pay a appointment"() {
         def body=[:]
         given: 'a new appointment'
-        body["amount"]=1
+        body["amount"]=100
         body["clientId"]=1
         body["appointmentId"]=1
         body["currency"]="ARS"
@@ -63,6 +63,7 @@ class PaymentSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 201
+        response.body().status["name"] == "PARTIAL_PAID"
     }
 
 }

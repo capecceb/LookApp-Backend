@@ -59,23 +59,23 @@ class AppointmentStatusSpec extends Specification {
         exception.message == "Not Found"
     }
 
-    void "test paid appointment"() {
+    void "test set a appointment to pending of payment"() {
         def body=[:]
 
-        when: 'I try get a list of appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/2/paid",body), List)
+        when: 'I try set a appointment pending'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/2/pending",body), List)
 
         then: 'The result is ...'
         response.status().code == 200
         response.body().size() == 1
-        response.body()[0].status.name == "PAID"
+        response.body()[0].status.name == "PENDING_PAID"
     }
     void "test paid failed appointment"() {
         def body=[:]
 
         when: 'I try get a list of appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/2/paid",body), List)
-        response = client.toBlocking().exchange(HttpRequest.POST("/appointments/2/paid",body), List)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/2/pending",body), List)
+        response = client.toBlocking().exchange(HttpRequest.POST("/appointments/2/pending",body), List)
 
         then: 'The result is ...'
         final HttpClientResponseException  exception = thrown()

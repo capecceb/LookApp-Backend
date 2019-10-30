@@ -4,10 +4,10 @@ import grails.gorm.transactions.Transactional
 
 @Transactional
 class PaymentService {
-    def save(Payment payment, Integer appointmentId, BigDecimal amount, String currency, Integer clientId, Integer points) {
+    def save(Integer appointmentId, BigDecimal amount, String currency, Integer clientId, Integer points) {
 
         BigDecimal totalCost = 0;
-        BigDecimal parcialAmount = 0;
+        BigDecimal totalAmount = 0;
         int newPoints = 0;
         def services = new ArrayList<>()
 
@@ -27,34 +27,38 @@ class PaymentService {
             appointment.payments = new ArrayList<>()
         }
         for (Payment pay in appointment.payments) {
-            parcialAmount += pay.amount
+            totalAmount += pay.amount
         }
-        payment.appointment = appointment
-        payment.amount = amount
-        payment.currency = currency
-        appointment.payments.add(payment)
         if (amount != 0) {
-            newPoints = amount * Point.changePay
+            newPoints = amount.toInteger() * Integer.parseInt(Config.findByKey("changePay").value)
             client.points += newPoints
         }
         BigDecimal amountFromPoints
-        if (points != 0) {
-            amountFromPoints = points / Point.changePurchase
+        if (points != null) {
+            amountFromPoints = points / Integer.parseInt(Config.findByKey("changePurchase").value)
+            totalAmount += amountFromPoints
             client.points -= points
         }
-        amount += parcialAmount + amountFromPoints
-        if (totalCost > amount) {
-            appointment.status.PARTIAL_PAID
+        if (totalCost > totalAmount) {
+            appointment.status=AppointmentStatus.PARTIAL_PAID
         }
-        if (totalCost == amount) {
-            appointment.status.PAID
+        if (totalCost == totalAmount) {
+            appointment.status=AppointmentStatus.PAID
         }
-        if(totalCost < amount) {
-            throw new BadRequestException("Error")
+        if (totalCost < totalAmount) {
+            throw new BadRequestException("Error payment exceeds cost")
         }
-        appointment.save()
-        client.save()
+
+        Payment payment = new Payment()
+        payment.appointment=appointment
+        payment.amount = amount
+        payment.currency = currency
         payment.save()
-        return payment
+
+        appointment.payments.add(payment)
+        appointment.save()
+
+        client.save()
+        return appointment
     }
 }

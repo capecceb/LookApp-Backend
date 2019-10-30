@@ -4,7 +4,7 @@ import grails.gorm.transactions.Transactional
 
 @Transactional
 class PaymentService {
-    def save(Payment payment, Integer appointmentId, BigDecimal amount, Integer clientId, int points) {
+    def save(Payment payment, Integer appointmentId, BigDecimal amount, String currency, Integer clientId, Integer points) {
 
         BigDecimal totalCost = 0;
         BigDecimal parcialAmount = 0;
@@ -15,8 +15,6 @@ class PaymentService {
         if (appointment == null) {
             throw new BadRequestException("Invalid appointment id")
         }
-        payment.appointment = appointment
-
         Client client = Client.get(clientId)
         if (client == null) {
             throw new BadRequestException("Invalid client id")
@@ -25,30 +23,34 @@ class PaymentService {
         for (Service service in services) {
             totalCost += service.price
         }
-        if (appointment.payments == null){
+        if (appointment.payments == null) {
             appointment.payments = new ArrayList<>()
         }
-        for( Payment pay in appointment.payments){
+        for (Payment pay in appointment.payments) {
             parcialAmount += pay.amount
         }
+        payment.appointment = appointment
         payment.amount = amount
+        payment.currency = currency
         appointment.payments.add(payment)
-        if(amount !=0){
+        if (amount != 0) {
             newPoints = amount * Point.changePay
+            client.points += newPoints
         }
-        if(points !=0){
-            points = points/Point.changePurchase
+        BigDecimal amountFromPoints
+        if (points != 0) {
+            amountFromPoints = points / Point.changePurchase
+            client.points -= points
         }
-
-        amount += parcialAmount + points
-        if(totalCost > amount){
-            appointment.status.PARCIALPAID
+        amount += parcialAmount + amountFromPoints
+        if (totalCost > amount) {
+            appointment.status.PARTIAL_PAID
         }
-        if(totalCost == amount){
+        if (totalCost == amount) {
             appointment.status.PAID
         }
-        if(amount == 0){
-            appointment.status.PENDINGPAID
+        if(totalCost < amount) {
+            throw new BadRequestException("Error")
         }
         appointment.save()
         client.save()

@@ -19,6 +19,7 @@ class LoginController {
         def passwordAsMD5 = password.encodeAsMD5()
         if(user==null || user.password!=passwordAsMD5) {
             respond(res,status: 401)
+            return
         }
         respond(user,status: 200)
     }

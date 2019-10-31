@@ -5,7 +5,8 @@ import grails.rest.Resource
 class User {
     String email
     String password
-    String fullName
+    String name
+    String lastName
     UserStatus status
     Branch branch
 
@@ -14,7 +15,8 @@ class User {
 
     static hasMany = [roles: Rol]
     static constraints = {
-        fullName(nullable:true)
+        name(nullable:true)
+        lastName(nullable:true)
         password(nullable:true)
         branch(nullable:true)
     }
@@ -23,4 +25,7 @@ class User {
         password=password.encodeAsMD5()
     }
 
+    def beforeUpdate() {
+        password=password.encodeAsMD5()
+    }
 }

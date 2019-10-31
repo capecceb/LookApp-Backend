@@ -39,7 +39,7 @@ class BootStrap {
             Rol contador = new Rol(name: "Contador").save()
 
             User pedro = new User()
-            pedro.fullName = "pedro"
+            pedro.name = "pedro"
             pedro.email = "juan@yahoo.com"
             pedro.password = "pedro"
             pedro.roles = new ArrayList()
@@ -51,8 +51,8 @@ class BootStrap {
             branch2.users.add(pedro)
 
             User bruno = new User()
-            bruno.fullName = "bruno"
-            bruno.email = "juan@yahoo.com"
+            bruno.name = "bruno"
+            bruno.email = "bruno@yahoo.com"
             bruno.roles = new ArrayList<Rol>()
             bruno.roles.add(supervidor)
             bruno.status = UserStatus.ACTIVE
@@ -62,7 +62,7 @@ class BootStrap {
             branch2.users.add(bruno)
 
             User nico = new User()
-            nico.fullName = "nico"
+            nico.name = "nico"
             nico.email = "nicolas@yahoo.com"
             nico.roles = new ArrayList<Rol>()
             nico.roles.add(contador)
@@ -73,7 +73,7 @@ class BootStrap {
             branch.users.add(nico)
 
             User jere = new User()
-            jere.fullName = "jere"
+            jere.name = "jere"
             jere.email = "jeremias@yahoo.com"
             jere.roles = new ArrayList<Rol>()
             jere.roles.add(contador)

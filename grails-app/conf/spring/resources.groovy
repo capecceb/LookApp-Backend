@@ -23,27 +23,24 @@ beans = {
     }
 
     AppointmentRenderer(JsonRenderer, Appointment) {
-        includes = ['id','services','local','dayHour','status','client','professional']
+        includes = ['id', 'services', 'local', 'dayHour', 'status', 'client', 'professional']
     }
 
     AppointmentsRenderer(JsonCollectionRenderer, Appointment) {
-        includes = ['id','services','local','dayHour','status','client','professional']
+        includes = ['id', 'services', 'local', 'dayHour', 'status', 'client', 'professional']
     }
 
     ClientRenderer(JsonRenderer, Client) {
-        includes = ['id','name','lastName','DNI','primaryPhone','secondPhone', 'status', 'email']
+        includes = ['id', 'name', 'lastName', 'DNI', 'primaryPhone', 'secondPhone', 'status', 'email']
     }
 
-    ClientRenderer(JsonCollectionRenderer, Client) {
-        includes = ['id','name','lastName','DNI','primaryPhone','secondPhone', 'status', 'email']
+    ClientsRenderer(JsonCollectionRenderer, Client) {
+        includes = ['id', 'name', 'lastName', 'DNI', 'primaryPhone', 'secondPhone', 'status', 'email']
     }
 
     BranchRenderer(JsonRenderer, Branch) {
-        // includes = ['name', 'address', 'users', 'professionals']
     }
-
-    BranchRenderer(JsonCollectionRenderer, Branch) {
-    //    includes = ['name', 'address', 'users', 'professionals']
+    BranchesRenderer(JsonCollectionRenderer, Branch) {
     }
 
 }

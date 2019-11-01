@@ -14,10 +14,8 @@ class LoginController {
             respond(res,status: 401)
             return
         }
-        User user=User.findByEmail(params.email)
-        String password=params.password
-        def passwordAsMD5 = password.encodeAsMD5()
-        if(user==null || user.password!=passwordAsMD5) {
+        User user=User.findByEmailAndStatus(params.email,UserStatus.ACTIVE)
+        if(user==null || user.password!=params.password) {
             respond(res,status: 401)
             return
         }

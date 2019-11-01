@@ -19,13 +19,10 @@ class User {
         lastName(nullable:true)
         password(nullable:true)
         branch(nullable:true)
+        email(unique:true)
     }
 
-    def beforeInsert() {
-        password=password.encodeAsMD5()
-    }
-
-    def beforeUpdate() {
-        password=password.encodeAsMD5()
+    static mapping = {
+        email index:'email_idx'
     }
 }

@@ -77,8 +77,9 @@ class BootStrap {
             jere.email = "jeremias@yahoo.com"
             jere.roles = new ArrayList<Rol>()
             jere.roles.add(contador)
-            jere.status = UserStatus.INACTIVE
+            jere.status = UserStatus.ACTIVE
             jere.branch = null
+            jere.password = "test"
             jere.save()
 
             Service service = new Service()

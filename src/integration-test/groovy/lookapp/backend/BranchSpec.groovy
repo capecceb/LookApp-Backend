@@ -31,7 +31,7 @@ class BranchSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 4
+        response.body().size() == 2
         response.body()[0].name == "Hair&Head_Pacheco"
     }
 
@@ -76,12 +76,12 @@ class BranchSpec extends Specification {
 
     void "test add branch"() {
         def body=[:]
-
-        //TODO: Crear user y professional para agregar a la sucursal    
-
         given: 'a new branch'
+        body["branch"]=1
         body["name"]="Hair&Head_Microcentro"
-        body["address"] = "9deJulio 1234"
+        body["street_name"] = "munoz"
+        body["street_number"] = "2016"
+        body["location"] = "San Miguel"
         body["status"] = "ACTIVE"
 
         when: 'I try to add a branch'
@@ -95,14 +95,18 @@ class BranchSpec extends Specification {
      void "test add failed branch"() {
         def body=[:]
         given: 'a empty branch'
-        body["name"]="Hair&Head_Pacheco"
+        body["branch"]=1
+        body["street_name"] = "munoz"
+        body["street_number"] = "2016"
+        body["location"] = "San Miguel"
+        body["status"] = "ACTIVE"
 
         when: 'I try add a branch'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/branches",body), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "Property [address] of [class lookapp.backend.User] can´t be null"
+        exception.message == "La propiedad [name] de la clase [class lookapp.backend.Branch] no puede ser nulo"
     }
 
 }

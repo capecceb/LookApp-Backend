@@ -8,7 +8,7 @@ class Branch {
     String name
     String location
     String street_name
-    Integer street_number
+    String street_number
 
     BranchStatus status
 

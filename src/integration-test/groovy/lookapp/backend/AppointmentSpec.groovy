@@ -59,6 +59,7 @@ class AppointmentSpec extends Specification {
         body["status"]="OPEN"
         body["dayHour"]= "2019-10-07T14:00:00.000Z"
         body["services"]=[1]
+        body["branch"]=1
         when: 'I try add a appointment'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments",body), Map)
 
@@ -72,7 +73,7 @@ class AppointmentSpec extends Specification {
         body["local"]="editado"
         body["dayHour"]= "2019-10-07T17:00:00.000Z"
         body["services"]=[1]
-
+        body["branch"]=1
         when: 'I try update a appointment'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/appointments/1",body), Map)
 
@@ -87,6 +88,7 @@ class AppointmentSpec extends Specification {
         body["local"]="noExiste"
         body["dayHour"]= "2019-10-07T20:00:00.000Z"
         body["services"]=[1]
+        body["branch"]=1
         when: 'I try update a appointment'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/appointments/200",body), Map)
 
@@ -102,6 +104,7 @@ class AppointmentSpec extends Specification {
         body["client"] = 1
         body["status"] = "OPEN"
         body["services"] = [1]
+        body["branch"]=1
         when: 'I try add a appointment'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments", body), Map)
 

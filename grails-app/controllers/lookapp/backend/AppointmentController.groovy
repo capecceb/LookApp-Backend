@@ -20,7 +20,7 @@ class AppointmentController {
     def create() {
         def res = [:]
         def params = request.getJSON()
-        String result = validate(params,["dayHour","services","local"])
+        String result = validate(params,["dayHour","services","local","branch"])
         if (result != null) {
             res["message"] = result
             respond(res, status: 400)
@@ -31,7 +31,7 @@ class AppointmentController {
 
         try {
             appointment = appointmentService.save(appointment, params.local, beginDate,
-                    params.services, params.client, params.professional)
+                    params.services, params.client, params.professional,params.branch)
         } catch (BadRequestException e) {
             res["message"] = e.message
             respond(res, status: 400)
@@ -44,7 +44,7 @@ class AppointmentController {
         def res = [:]
         def params = request.getJSON()
         def queryParams = getParams()
-        String result = validate(params,["dayHour","services","local"])
+        String result = validate(params,["dayHour","services","local","branch"])
         if (result != null) {
             res["message"] = result
             respond(res, status: 400)
@@ -59,7 +59,7 @@ class AppointmentController {
         }
         try {
             appointment = appointmentService.save(appointment, params.local, beginDate,
-                    params.services, params.client, params.professional)
+                    params.services, params.client, params.professional,params.branch)
         } catch (BadRequestException e) {
             res["message"] = e.message
             respond(res, status: 400)

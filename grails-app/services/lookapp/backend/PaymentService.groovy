@@ -10,15 +10,16 @@ class PaymentService {
         BigDecimal totalAmount = 0;
         int newPoints = 0;
         def services = new ArrayList<>()
+        Client client = null
 
         Appointment appointment = Appointment.get(appointmentId)
         if (appointment == null) {
             throw new BadRequestException("Invalid appointment id")
         }
-        Client client = Client.get(clientId)
-        if (client == null) {
-            throw new BadRequestException("Invalid client id")
+        if(clientId != null) {
+            client =  Client.get(clientId)
         }
+
         services = appointment.services
         for (Service service in services) {
             totalCost += service.price
@@ -29,16 +30,24 @@ class PaymentService {
         for (Payment pay in appointment.payments) {
             totalAmount += pay.amount
         }
-        if (amount != 0) {
+        BigDecimal amountFromPoints = 0;
+        if (points != null && client != null) {
+            if(client.points >= points) {
+                amountFromPoints = points / Integer.parseInt(Config.findByKey("changePurchase").value)
+                client.points -= points
+            }else{
+                throw new BadRequestException("The amount of client points is insufficient")
+            }
+        }else if(points != null && client == null)
+        {
+            throw new BadRequestException("Error: Can't make a payment with points without a client")
+        }
+        if (amount != 0 && client != null) {
             newPoints = amount.toInteger() * Integer.parseInt(Config.findByKey("changePay").value)
             client.points += newPoints
+            client.save()
         }
-        BigDecimal amountFromPoints
-        if (points != null) {
-            amountFromPoints = points / Integer.parseInt(Config.findByKey("changePurchase").value)
-            totalAmount += amountFromPoints
-            client.points -= points
-        }
+        totalAmount += amount + amountFromPoints
         if (totalCost > totalAmount) {
             appointment.status=AppointmentStatus.PARTIAL_PAID
         }
@@ -58,7 +67,6 @@ class PaymentService {
         appointment.payments.add(payment)
         appointment.save()
 
-        client.save()
         return appointment
     }
 }

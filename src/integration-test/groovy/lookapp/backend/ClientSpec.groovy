@@ -33,7 +33,7 @@ class ClientSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 2
+        response.body().size() == 3
         response.body()[0].name == "cliente1"
     }
 

@@ -51,7 +51,7 @@ class PaymentSpec extends Specification {
         exception.message == "Not Found"
     }
 
-    void "test pay a appointment"() {
+    void "test partial pay a appointment"() {
         def body=[:]
         given: 'a new appointment'
         body["amount"]=100
@@ -65,5 +65,142 @@ class PaymentSpec extends Specification {
         response.status().code == 201
         response.body().status["name"] == "PARTIAL_PAID"
     }
+    void "test pay a appointment"() {
+        def body=[:]
+        given: 'a new appointment'
+        body["amount"]=250
+        body["clientId"]=2
+        body["appointmentId"]=2
+        body["currency"]="ARS"
+        when: 'I try pay a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/2/pay",body), Map)
 
+        then: 'The result is ...'
+        response.status().code == 201
+        response.body().status["name"] == "PAID"
+    }
+
+    void "try to pay an appointment, with points and cash"() {
+        def body=[:]
+        given: 'a new appointment'
+        body["amount"]=100
+        body["points"]=50
+        body["clientId"]=2
+        body["appointmentId"]=3
+        body["currency"]="ARS"
+        when: 'I try pay a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/3/pay",body), Map)
+
+        then: 'The result is ...'
+        response.status().code == 201
+        response.body().status["name"] == "PAID"
+    }
+
+    void "try to pay an appointment, with points"() {
+        def body=[:]
+        given: 'a new appointment'
+        body["amount"]=0
+        body["points"]=150
+        body["clientId"]=2
+        body["appointmentId"]=4
+        body["currency"]="ARS"
+        when: 'I try pay a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/4/pay",body), Map)
+
+        then: 'The result is ...'
+        response.status().code == 201
+        response.body().status["name"] == "PAID"
+    }
+
+    void "test  failed payment invalid appointment"() {
+        def body=[:]
+        given: 'a new appointment'
+        body["amount"]=100
+        body["points"]=50
+        body["clientId"]=2
+        body["appointmentId"]=15
+        body["currency"]="ARS"
+        when: 'I try pay a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/3/pay",body), Map)
+
+        then: 'The result is ...'
+        final HttpClientResponseException exception = thrown()
+        exception.message == "Invalid appointment id"
+    }
+
+    void "test partial pay a appointment, with points"() {
+        def body=[:]
+        given: 'a new appointment'
+        body["amount"]=0
+        body["points"]=100
+        body["clientId"]=2
+        body["appointmentId"]=5
+        body["currency"]="ARS"
+        when: 'I try pay a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/5/pay",body), Map)
+
+        then: 'The result is ...'
+        response.status().code == 201
+        response.body().status["name"] == "PARTIAL_PAID"
+    }
+
+    void "test pay a appointment, with points is insufficient"() {
+        def body=[:]
+        given: 'a new appointment'
+        body["amount"]=0
+        body["points"]=150
+        body["clientId"]=3
+        body["appointmentId"]=6
+        body["currency"]="ARS"
+        when: 'I try pay a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/6/pay",body), Map)
+
+        then: 'The result is ...'
+        final HttpClientResponseException exception = thrown()
+        exception.message == "The amount of client points is insufficient"
+    }
+
+    void "test pay a appointment, payment exceeds cost"() {
+        def body=[:]
+        given: 'a new appointment'
+        body["amount"]=300
+        body["clientId"]=3
+        body["appointmentId"]=6
+        body["currency"]="ARS"
+        when: 'I try pay a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/6/pay",body), Map)
+
+        then: 'The result is ...'
+        final HttpClientResponseException exception = thrown()
+        exception.message == "Error payment exceeds cost"
+    }
+
+    void "test pay a appointment, with a empty client"() {
+        def body=[:]
+        given: 'a new appointment'
+        body["amount"]=150
+        body["appointmentId"]=7
+        body["currency"]="ARS"
+        when: 'I try pay a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/7/pay",body), Map)
+
+        then: 'The result is ...'
+        response.status().code == 201
+        response.body().status["name"] == "PAID"
+    }
+
+    void "test pay a appointment, with a empty client and points"() {
+        def body=[:]
+        given: 'a new appointment'
+        body["amount"]=100
+        body["points"]=50
+        body["appointmentId"]=7
+        body["currency"]="ARS"
+        when: 'I try pay a appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/7/pay",body), Map)
+
+        then: 'The result is ...'
+        final HttpClientResponseException exception = thrown()
+        exception.message == "Error: Can't make a payment with points without a client"
+    }
 }

@@ -20,7 +20,7 @@ class PaymentController {
     def pay() {
         def res = [:]
         def params = request.getJSON()
-        String result = validate(params, ["currency", "appointmentId", "clientId", "amount"])
+        String result = validate(params, ["currency", "appointmentId"])
         if (result != null) {
             res["message"] = result
             respond(res, status: 400)
@@ -41,9 +41,6 @@ class PaymentController {
     private String validate(def params, def verifyParams) {
         if (verifyParams.contains("appointmentId") && params.appointmentId == null) {
             return "appointmentId cant be null"
-        }
-        if (verifyParams.contains("clientId") && params.clientId == null) {
-            return "clientId cant be null"
         }
         return null
     }

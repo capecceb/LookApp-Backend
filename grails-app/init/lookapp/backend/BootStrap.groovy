@@ -146,6 +146,17 @@ class BootStrap {
             cliente1.points = 1000
             cliente1.save()
 
+            Client cliente2 = new Client()
+            cliente2.name = "clien"
+            cliente2.lastName = "sinPuntos"
+            cliente2.DNI= "1312315"
+            cliente2.email= "otroCliente@gmail.com"
+            cliente2.primaryPhone= 12312
+            cliente2.secondPhone= 123333
+            cliente2.status = ClientStatus.NORMAL
+            cliente2.points = 0
+            cliente2.save()
+
             Appointment turn=new Appointment()
             turn.local="casa"
             turn.client = cliente
@@ -172,6 +183,7 @@ class BootStrap {
             turn2.local="San Miguel"
             Calendar cal2 = Calendar.getInstance()
             cal2.set(2019,9, 30)
+            turn2.client =cliente1
             turn2.dayHour= cal2.getTime()
             turn2.services=new ArrayList<Service>()
             turn2.services.add(service3)
@@ -202,6 +214,49 @@ class BootStrap {
             turn3.services.add(service3)
             turn3.status = AppointmentStatus.OPEN
             turn3.save()
+
+            Appointment turn4=new Appointment()
+            turn4.local="San Miguel"
+            Calendar cal4 = Calendar.getInstance()
+            cal4.set(2019,10, 30)
+            turn4.client =cliente1
+            turn4.dayHour= cal4.getTime()
+            turn4.services=new ArrayList<Service>()
+            turn4.services.add(service3)
+            turn4.status = AppointmentStatus.OPEN
+            turn4.save()
+
+            Appointment turn5=new Appointment()
+            turn5.local="San Miguel"
+            Calendar cal5 = Calendar.getInstance()
+            cal5.set(2019,10, 29)
+            turn5.client =cliente1
+            turn5.dayHour= cal5.getTime()
+            turn5.services=new ArrayList<Service>()
+            turn5.services.add(service3)
+            turn5.status = AppointmentStatus.OPEN
+            turn5.save()
+
+            Appointment turn6=new Appointment()
+            turn6.local="San Miguel"
+            Calendar cal6 = Calendar.getInstance()
+            cal6.set(2019,10, 28)
+            turn6.client =cliente
+            turn6.dayHour= cal6.getTime()
+            turn6.services=new ArrayList<Service>()
+            turn6.services.add(service3)
+            turn6.status = AppointmentStatus.OPEN
+            turn6.save()
+
+            Appointment turn7=new Appointment()
+            turn7.local="San Miguel"
+            Calendar cal7 = Calendar.getInstance()
+            cal7.set(2019,10, 27)
+            turn7.dayHour= cal7.getTime()
+            turn7.services=new ArrayList<Service>()
+            turn7.services.add(service3)
+            turn7.status = AppointmentStatus.OPEN
+            turn7.save()
 
             Branch branch = new Branch()
             branch.name = "Hair&Head_Pachecho"

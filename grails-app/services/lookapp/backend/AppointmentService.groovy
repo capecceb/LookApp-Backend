@@ -6,17 +6,16 @@ import grails.gorm.transactions.Transactional
 class AppointmentService {
 
     def save(Appointment appointment, String local, Date beginDate, List<Service> services,
-             Integer clientId, Integer professionalId) {
+             Integer clientId, Integer professionalId,Integer branch) {
         int duration
+
+        appointment.services = new ArrayList<>()
         for (Integer serviceId : services) {
             Service service = Service.get(serviceId)
             if (service == null) {
                 throw new BadRequestException("Invalid service id")
             }
             duration = service.duration
-            if (appointment.services == null) {
-                appointment.services = new ArrayList<>()
-            }
             appointment.services.add(service)
         }
         Calendar calendar = Calendar.getInstance();
@@ -26,6 +25,7 @@ class AppointmentService {
         appointment.dayHour = beginDate
         appointment.endDate = endDate
         appointment.local = local
+        appointment.branch=Branch.get(branch)
         if (clientId != null) {
             Client client = Client.get(clientId)
             if (client == null) {

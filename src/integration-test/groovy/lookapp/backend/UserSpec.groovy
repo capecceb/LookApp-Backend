@@ -78,7 +78,7 @@ class UserSpec extends Specification {
     void "test add user"() {
         def body=[:]
         given: 'a new user'
-        body["email"]="juan@yahoo.com"
+        body["email"]="juan@gmail.com"
         body["status"] = "ACTIVE"
 
         when: 'I try add a user'
@@ -86,13 +86,13 @@ class UserSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 201
-        response.body().email == "juan@yahoo.com"
+        response.body().email == "juan@gmail.com"
     }
 
     void "test add failed user"() {
         def body=[:]
         given: 'a empty user'
-        body["email"]="juan@yahoo.com"
+        body["email"]="w.e.l.p.91@yahoo.com"
 
         when: 'I try add a user'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/users",body), Map)

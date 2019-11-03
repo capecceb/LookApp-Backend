@@ -5,20 +5,24 @@ import grails.rest.Resource
 class User {
     String email
     String password
-    String fullName
+    String name
+    String lastName
     UserStatus status
+    Branch branch
 
     Date dateCreated
     Date lastUpdated
 
     static hasMany = [roles: Rol]
     static constraints = {
-        fullName(nullable:true)
+        name(nullable:true)
+        lastName(nullable:true)
         password(nullable:true)
+        branch(nullable:true)
+        email(unique:true)
     }
 
-    def beforeInsert() {
-        password=password.encodeAsMD5()
+    static mapping = {
+        email index:'email_idx'
     }
-
 }

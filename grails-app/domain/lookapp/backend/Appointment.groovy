@@ -8,7 +8,7 @@ class Appointment {
     String local
     Client client
     Professional professional
-
+    Branch branch
     Date dateCreated
     Date lastUpdated
     AppointmentStatus status
@@ -22,8 +22,5 @@ class Appointment {
 
     def beforeInsert() {
         status = AppointmentStatus.OPEN
-    }
-
-    def beforeUpdate() {
     }
 }

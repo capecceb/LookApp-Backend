@@ -5,20 +5,20 @@ import grails.rest.Resource
 
 @Resource(uri='/branches')
 class Branch {
-    String name;
-    String address;
-    
-    BranchStatus status
+    String name
+    String location
+    String street_name
+    String street_number
 
-    User user
+    BranchStatus status
 
     Date dateCreated
     Date lastUpdated
 
-    static hasMany = [professionals : Professional]
+    static hasMany = [professionals : Professional , users : User]
 
     static constraints = {
         professionals(nullable:true)
-        user(nullable:true)
+        users(nullable:true)
     }
 }

@@ -106,7 +106,7 @@ class AppointmentController {
         respond(appointment, status: 200)
     }
 
-    def paid() {
+    def pending() {
         def res = [:]
         def params = getParams()
         Appointment appointment = Appointment.get(params.id)
@@ -120,7 +120,7 @@ class AppointmentController {
             respond(res, status: 400)
             return
         }
-        appointment.status = AppointmentStatus.PAID
+        appointment.status = AppointmentStatus.PENDING_PAID
         Appointment.withNewTransaction {
             appointment.save()
         }

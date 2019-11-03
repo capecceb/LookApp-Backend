@@ -167,6 +167,7 @@ class BootStrap {
             cliente.primaryPhone = 12312
             cliente.secondPhone = 15151666
             cliente.status = ClientStatus.VIP
+            cliente.points = 100
             cliente.save()
 
             Client cliente1 = new Client()
@@ -177,6 +178,7 @@ class BootStrap {
             cliente1.primaryPhone = 12312
             cliente1.secondPhone = 123333
             cliente1.status = ClientStatus.NORMAL
+            cliente1.points = 1000
             cliente1.save()
 
             Appointment turn = new Appointment()
@@ -244,6 +246,18 @@ class BootStrap {
             turn3.branch = branch
             turn3.save()
 
+            Branch branch = new Branch()
+            branch.name = "Hair&Head_Pachecho"
+            branch.address = "Henry Ford 1234"
+            branch.status = BranchStatus.ACTIVE
+            branch.user = nico
+            branch.professionals = new ArrayList<Professional>()
+            branch.professionals.add(professional)
+            branch.professionals.add(professional1)
+            branch.save()
+
+            Config configChangePay=new Config(key: "changePay",value:"1").save()
+            Config configChangePurchase=new Config(key: "changePurchase",value:"1").save()
         }
     }
 

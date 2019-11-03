@@ -12,15 +12,15 @@ class Appointment {
     Date dateCreated
     Date lastUpdated
     AppointmentStatus status
-    static hasMany = [services: Service]
+    static hasMany = [services: Service, payments: Payment]
     static constraints = {
-        client(nullable:true)
-        professional(nullable:true)
-        endDate(nullable:true)
-        dayHour(column:"begin_date")
+        client(nullable: true)
+        professional(nullable: true)
+        endDate(nullable: true)
+        dayHour(column: "begin_date")
     }
 
     def beforeInsert() {
-        status=AppointmentStatus.OPEN
+        status = AppointmentStatus.OPEN
     }
 }

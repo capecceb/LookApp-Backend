@@ -5,7 +5,7 @@ import grails.rest.Resource
 class Service {
 
     String name
-    int duration
+    Integer duration
     BigDecimal price
 
     Date dateCreated

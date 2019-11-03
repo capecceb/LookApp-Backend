@@ -10,9 +10,12 @@ class UrlMappings {
         "/appointments"(controller: 'appointment', action:'create',method:'POST')
         "/appointments/$id"(controller: 'appointment', action:'update',method:'PUT')
         "/appointments/$id/cancel"(controller: 'appointment', action:'cancel',method:'POST')
-        "/appointments/$id/paid"(controller: 'appointment', action:'paid',method:'POST')
+        "/appointments/$id/pending"(controller: 'appointment', action:'pending',method:'POST')
+        "/appointments/$id/pay"(controller: 'payment', action:'pay',method:'POST')
         "/appointments/search"(controller: 'appointment', action:'search',method:'GET')
         "/professionals/search"(controller: 'appointment', action:'searchProfessionals')
+        "/payments"(controller: 'payment', action:'list',method:'GET')
+        "/payments/$id"(controller: 'payment', action:'show',method:'GET')
 
         "500"(controller: 'application', action:'error')
         "404"(view: '/notFound')

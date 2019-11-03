@@ -149,6 +149,49 @@ class AppointmentController {
         respond(resultProfessionals, status: 200)
     }
 
+    private Client getClient(Integer clientId){
+        Client client = Client.get(clientId)
+        if (client == null) {
+            throw new BadRequestException("Invalid client id")
+        }
+        return client
+    }
+
+    private Professional getProfessional(Integer professionalId,Day day,Integer beginDate,Integer endDate){
+        Professional professional = Professional.get(professionalId)
+        if (professional == null) {
+            throw new BadRequestException("Invalid professional id")
+        }
+        if (professional.status != ProfessionalStatus.ACTIVE) {
+            throw new BadRequestException("Error the professional isn't active")
+        }
+        boolean isWorking=false
+        for(WorkingHour workingHour:professional.workingHours){
+            if(workingHour.days==day){
+                if(workingHour.beginHour<=beginHour && workingHour.endHour>endHour){
+                    isWorking=true
+                }
+            }
+        }
+        if(!isWorking){
+            throw new BadRequestException("The professional does not work at that time")
+        }
+        def criteria = Appointment.createCriteria()
+        List<Appointment> appointmentList = criteria.list {
+            lt("dayHour", endDate)
+            gt("endDate", beginDate)
+            eq("status", AppointmentStatus.OPEN)
+            eq("professional", professional)
+            if (appointment.id != null) {
+                ne("id", appointment.id)
+            }
+        }
+        if (appointmentList.size() > 0) {
+            throw new BadRequestException("professional is busy")
+        }
+        return professional
+    }
+
     private String validate(def params,def verifyParams) {
         if (verifyParams.contains("dayHour") && params.dayHour == null) {
             return "dayHour cant be null"

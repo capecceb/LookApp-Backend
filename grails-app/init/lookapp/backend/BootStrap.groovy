@@ -267,6 +267,7 @@ class BootStrap {
             turn4.services=new ArrayList<Service>()
             turn4.services.add(service3)
             turn4.status = AppointmentStatus.OPEN
+            turn4.branch = branch
             turn4.save()
 
             Appointment turn5=new Appointment()
@@ -278,6 +279,7 @@ class BootStrap {
             turn5.services=new ArrayList<Service>()
             turn5.services.add(service3)
             turn5.status = AppointmentStatus.OPEN
+            turn5.branch = branch
             turn5.save()
 
             Appointment turn6=new Appointment()
@@ -289,6 +291,7 @@ class BootStrap {
             turn6.services=new ArrayList<Service>()
             turn6.services.add(service3)
             turn6.status = AppointmentStatus.OPEN
+            turn6.branch = branch
             turn6.save()
 
             Appointment turn7=new Appointment()
@@ -299,17 +302,8 @@ class BootStrap {
             turn7.services=new ArrayList<Service>()
             turn7.services.add(service3)
             turn7.status = AppointmentStatus.OPEN
+            turn7.branch = branch
             turn7.save()
-
-            Branch branch = new Branch()
-            branch.name = "Hair&Head_Pachecho"
-            branch.address = "Henry Ford 1234"
-            branch.status = BranchStatus.ACTIVE
-            branch.user = nico
-            branch.professionals = new ArrayList<Professional>()
-            branch.professionals.add(professional)
-            branch.professionals.add(professional1)
-            branch.save()
 
             Config configChangePay=new Config(key: "changePay",value:"1").save()
             Config configChangePurchase=new Config(key: "changePurchase",value:"1").save()

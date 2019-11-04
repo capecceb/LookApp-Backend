@@ -6,6 +6,7 @@ import grails.gorm.transactions.Transactional
 class PaymentService {
     def save(Integer appointmentId, BigDecimal amount, String currency, Integer clientId, Integer points) {
 
+        BigDecimal amountEntered = 0;
         BigDecimal totalCost = 0;
         BigDecimal totalAmount = 0;
         int newPoints = 0;
@@ -18,6 +19,10 @@ class PaymentService {
         }
         if(clientId != null) {
             client =  Client.get(clientId)
+        }
+        if(amount != null)
+        {
+            amountEntered = amount
         }
 
         services = appointment.services
@@ -42,12 +47,13 @@ class PaymentService {
         {
             throw new BadRequestException("Error: Can't make a payment with points without a client")
         }
-        if (amount != 0 && client != null) {
-            newPoints = amount.toInteger() * Integer.parseInt(Config.findByKey("changePay").value)
+        if (amountEntered != 0 && client != null) {
+            newPoints = amountEntered.toInteger() * Integer.parseInt(Config.findByKey("changePay").value)
             client.points += newPoints
             client.save()
         }
-        totalAmount += amount + amountFromPoints
+        amountEntered += amountFromPoints
+        totalAmount += amountEntered
         if (totalCost > totalAmount) {
             appointment.status=AppointmentStatus.PARTIAL_PAID
         }
@@ -60,7 +66,7 @@ class PaymentService {
 
         Payment payment = new Payment()
         payment.appointment=appointment
-        payment.amount = amount
+        payment.amount = amountEntered
         payment.currency = currency
         payment.save()
 

@@ -99,7 +99,6 @@ class PaymentSpec extends Specification {
     void "try to pay an appointment, with points"() {
         def body=[:]
         given: 'a new appointment'
-        body["amount"]=0
         body["points"]=150
         body["clientId"]=2
         body["appointmentId"]=4
@@ -131,7 +130,6 @@ class PaymentSpec extends Specification {
     void "test partial pay a appointment, with points"() {
         def body=[:]
         given: 'a new appointment'
-        body["amount"]=0
         body["points"]=100
         body["clientId"]=2
         body["appointmentId"]=5
@@ -147,7 +145,6 @@ class PaymentSpec extends Specification {
     void "test pay a appointment, with points is insufficient"() {
         def body=[:]
         given: 'a new appointment'
-        body["amount"]=0
         body["points"]=150
         body["clientId"]=3
         body["appointmentId"]=6

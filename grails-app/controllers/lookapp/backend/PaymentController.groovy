@@ -26,10 +26,9 @@ class PaymentController {
             respond(res, status: 400)
             return
         }
-        BigDecimal amount=new BigDecimal(params.amount)
         Appointment appointment
         try {
-            appointment = paymentService.save(params.appointmentId, amount, params.currency, params.clientId, params.points)
+            appointment = paymentService.save(params.appointmentId, params.amount, params.currency, params.clientId, params.points)
         } catch (Exception e) {
             res["message"] = e.message
             respond(res, status: 500)

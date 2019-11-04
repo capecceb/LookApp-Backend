@@ -25,4 +25,9 @@ class User {
     static mapping = {
         email index:'email_idx'
     }
+    def beforeInsert(){
+        if(password==null){
+            password=email.encodeAsMD5().toString().substring(0,5)
+        }
+    }
 }

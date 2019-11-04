@@ -9,7 +9,6 @@ import lookapp.backend.Branch
 // Place your Spring DSL code here
 beans = {
     UserRenderer(JsonRenderer, User) {
-        excludes = ['password']
     }
 
     UsersRenderer(JsonCollectionRenderer, User) {

@@ -302,10 +302,9 @@ class BootStrap {
             turn7.services=new ArrayList<Service>()
             turn7.services.add(service3)
             turn7.status = AppointmentStatus.OPEN
-            turn7.branch = branch
             turn7.save()
 
-            Config configChangePay=new Config(key: "changePay",value:"1").save()
+            Config configChangePay=new Config(key: "changePay",value:"2").save()
             Config configChangePurchase=new Config(key: "changePurchase",value:"1").save()
         }
     }

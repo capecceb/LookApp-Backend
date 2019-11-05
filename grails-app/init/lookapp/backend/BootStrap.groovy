@@ -304,8 +304,8 @@ class BootStrap {
             turn7.status = AppointmentStatus.OPEN
             turn7.save()
 
-            Config configChangePay=new Config(key: "changePay",value:"2").save()
-            Config configChangePurchase=new Config(key: "changePurchase",value:"1").save()
+            Config configChangePay=new Config(key: "changePay",value:"1").save()
+            Config configChangePurchase=new Config(key: "changePurchase",value:"2").save()
         }
     }
 

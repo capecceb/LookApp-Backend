@@ -51,7 +51,7 @@ class PaymentService {
             newPoints = amountEntered.toInteger() * Integer.parseInt(Config.findByKey("changePay").value)
             client.points += newPoints
         }
-        client.save()
+        if(client!=null)  client.save()
         amountEntered += amountFromPoints
         totalAmount += amountEntered
         if (totalCost > totalAmount) {

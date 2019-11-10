@@ -249,13 +249,13 @@ class BootStrap {
             Appointment turn3 = new Appointment()
             turn3.local = "San Miguel"
             Calendar cal3 = Calendar.getInstance()
-            cal2.set(2019, 9, 30)
+            cal3.set(2019, 9, 30)
             turn3.dayHour = cal2.getTime()
             turn3.professional = professional
             turn3.services = new ArrayList<Service>()
             turn3.services.add(service3)
             turn3.status = AppointmentStatus.OPEN
-            turn3.branch = branch
+            turn3.branch = branch2
             turn3.save()
 
             Appointment turn4=new Appointment()
@@ -295,14 +295,39 @@ class BootStrap {
             turn6.save()
 
             Appointment turn7=new Appointment()
-            turn7.local="San Miguel"
+            turn7.local="???"
             Calendar cal7 = Calendar.getInstance()
             cal7.set(2019,10, 27)
             turn7.dayHour= cal7.getTime()
             turn7.services=new ArrayList<Service>()
             turn7.services.add(service3)
-            turn7.status = AppointmentStatus.OPEN
+            turn7.status = AppointmentStatus.PAID
+            turn7.branch = branch
             turn7.save()
+
+            Appointment turn8=new Appointment()
+            turn8.local="San Miguel8"
+            Calendar cal8 = Calendar.getInstance()
+            cal8.set(2019,10, 25)
+            turn8.dayHour= cal8.getTime()
+            turn8.professional = professional
+            turn8.services=new ArrayList<Service>()
+            turn8.services.add(service3)
+            turn8.services.add(service2)
+            turn8.status = AppointmentStatus.OPEN
+            turn8.branch = branch
+            turn8.save()
+
+            Payment payment = new Payment()
+            payment.appointment = turn8
+            payment.currency= "ARG"
+            payment.amount = 400
+            payment.save()
+
+            turn8.payments= new ArrayList<Payment>()
+            turn8.payments.add(payment)
+            turn8.status =AppointmentStatus.PAID
+            turn8.save()
 
             Config configChangePay=new Config(key: "changePay",value:"1").save()
             Config configChangePurchase=new Config(key: "changePurchase",value:"2").save()

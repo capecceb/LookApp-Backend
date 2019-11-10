@@ -33,7 +33,7 @@ class ReportSpec extends Specification {
         def body=[:]
 
         when: 'I try get a list of appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportProfessional", body), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportProfessional", body), List)
 
         then: 'The result is ...'
         response.status().code == 200

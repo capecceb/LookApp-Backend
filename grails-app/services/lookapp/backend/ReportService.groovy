@@ -7,7 +7,9 @@ class ReportService {
     def generate(Date fromDate, Date toDate, Integer branchId) {
 
         //List<ProfessionalReport> reports
-        List<ProfessionalReport> reports = new ArrayList<>();
+         List<ProfessionalReport> reports = new ArrayList<>();
+        //HashSet<ProfessionalReport> reports = new HashSet<ProfessionalReport>();
+
         Branch branch = null;
 
         ArrayList<Appointment> appointments = Appointment.list()
@@ -58,6 +60,7 @@ class ReportService {
                 newReport.setTotalAmount(totalCost)
 
                 reports.add(newReport)
+
             }
 //me falta ver como los agrego sin repetir a la lisata que voy a enviar.
         }

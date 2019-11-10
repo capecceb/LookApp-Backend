@@ -329,6 +329,54 @@ class BootStrap {
             turn8.status =AppointmentStatus.PAID
             turn8.save()
 
+            Appointment turn9=new Appointment()
+            turn9.local="San Miguel9"
+            Calendar cal9 = Calendar.getInstance()
+            cal9.set(2019,10, 25)
+            turn9.dayHour= cal9.getTime()
+            turn9.professional = professional1
+            turn9.services=new ArrayList<Service>()
+            turn9.services.add(service3)
+            turn9.status = AppointmentStatus.OPEN
+            turn9.branch = branch
+            turn9.save()
+
+            Payment payment1 = new Payment()
+            payment1.appointment = turn9
+            payment1.currency= "ARG"
+            payment1.amount = 150
+            payment1.save()
+
+            turn9.payments= new ArrayList<Payment>()
+            turn9.payments.add(payment1)
+            turn9.status =AppointmentStatus.PAID
+            turn9.save()
+
+            Appointment turn10=new Appointment()
+            turn10.local="San Miguel10"
+            Calendar cal10 = Calendar.getInstance()
+            cal10.set(2019,11, 05)
+            turn10.dayHour= cal10.getTime()
+            turn10.professional = professional
+            turn10.services=new ArrayList<Service>()
+            turn10.services.add(service3)
+            turn10.services.add(service2)
+            turn10.services.add(service)
+            turn10.status = AppointmentStatus.OPEN
+            turn10.branch = branch
+            turn10.save()
+
+            Payment payment3 = new Payment()
+            payment3.appointment = turn10
+            payment3.currency= "ARG"
+            payment3.amount = 600
+            payment3.save()
+
+            turn10.payments= new ArrayList<Payment>()
+            turn10.payments.add(payment3)
+            turn10.status =AppointmentStatus.PAID
+            turn10.save()
+
             Config configChangePay=new Config(key: "changePay",value:"1").save()
             Config configChangePurchase=new Config(key: "changePurchase",value:"2").save()
         }

@@ -26,6 +26,6 @@ class ReportController {
             respond(res, status: 500)
             return
         }
-        respond(report, status: 200)
+        respond(reports, status: 200)
     }
 }

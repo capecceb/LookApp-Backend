@@ -377,6 +377,29 @@ class BootStrap {
             turn10.status =AppointmentStatus.PAID
             turn10.save()
 
+            Appointment turn11=new Appointment()
+            turn11.local="San Migue11"
+            Calendar cal11 = Calendar.getInstance()
+            cal11.set(2019,10, 25)
+            turn11.dayHour= cal11.getTime()
+            turn11.professional = professional1
+            turn11.services=new ArrayList<Service>()
+            turn11.services.add(service)
+            turn11.status = AppointmentStatus.OPEN
+            turn11.branch = branch
+            turn11.save()
+
+            Payment payment4 = new Payment()
+            payment4.appointment = turn11
+            payment4.currency= "ARG"
+            payment4.amount = 200
+            payment4.save()
+
+            turn11.payments= new ArrayList<Payment>()
+            turn11.payments.add(payment4)
+            turn11.status =AppointmentStatus.PAID
+            turn11.save()
+
             Config configChangePay=new Config(key: "changePay",value:"1").save()
             Config configChangePurchase=new Config(key: "changePurchase",value:"2").save()
         }

@@ -58,8 +58,20 @@ class ReportService {
                 Professional profecional = appointment.getProfessional()
                 newReport.setProfessional(profecional)
                 newReport.setTotalAmount(totalCost)
-
-                reports.add(newReport)
+                boolean exist = false
+                if(reports.size() == 0) {
+                    reports.add(newReport)
+                }else{
+                    for(ProfessionalReport report in reports) {
+                       if(report.professional == newReport.professional) {
+                           exist = true
+                           report.totalAmount += newReport.totalAmount
+                       }
+                    }
+                    if(!exist){
+                        reports.add(newReport)
+                    }
+                }
 
             }
 //me falta ver como los agrego sin repetir a la lisata que voy a enviar.

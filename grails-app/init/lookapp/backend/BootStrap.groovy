@@ -168,6 +168,8 @@ class BootStrap {
             cliente.secondPhone = 15151666
             cliente.status = ClientStatus.VIP
             cliente.points = 100
+            cliente.accountancy = new Accountancy()
+            cliente.accountancy.accountMovements = new ArrayList<AccountMovement>()
             cliente.save()
 
             Client cliente1 = new Client()
@@ -179,7 +181,30 @@ class BootStrap {
             cliente1.secondPhone = 123333
             cliente1.status = ClientStatus.NORMAL
             cliente1.points = 1000
+            cliente1.accountancy = new Accountancy()
+            cliente1.accountancy.accountMovements = new ArrayList<AccountMovement>()
             cliente1.save()
+
+            Appointment turn1 = new Appointment()
+            turn1.local = "San Miguel"
+            turn1.client = cliente1
+            Calendar cal1 = Calendar.getInstance()
+            cal1.set(2019, 9, 28)
+            turn1.dayHour = cal1.getTime()
+            turn1.services = new ArrayList<Service>()
+            turn1.services.add(service2)
+            turn1.status = AppointmentStatus.OPEN
+            turn1.branch = branch
+            turn1.save()
+
+            AccountMovement movimiento = new AccountMovement()
+            movimiento.amount =  500
+            movimiento.id = 1
+            movimiento.appointment = turn1
+            movimiento.save()
+
+            cliente.accountancy.accountMovements.add(movimiento)
+            cliente.save()
 
             Client cliente2 = new Client()
             cliente2.name = "clien"
@@ -190,6 +215,8 @@ class BootStrap {
             cliente2.secondPhone= 123333
             cliente2.status = ClientStatus.NORMAL
             cliente2.points = 0
+            cliente2.accountancy = new Accountancy()
+            cliente2.accountancy.accountMovements = new ArrayList<AccountMovement>()
             cliente2.save()
 
             Appointment turn = new Appointment()
@@ -203,18 +230,6 @@ class BootStrap {
             turn.status = AppointmentStatus.OPEN
             turn.branch = branch
             turn.save()
-
-            Appointment turn1 = new Appointment()
-            turn1.local = "San Miguel"
-            turn1.client = cliente1
-            Calendar cal1 = Calendar.getInstance()
-            cal1.set(2019, 9, 28)
-            turn1.dayHour = cal1.getTime()
-            turn1.services = new ArrayList<Service>()
-            turn1.services.add(service2)
-            turn1.status = AppointmentStatus.OPEN
-            turn1.branch = branch
-            turn1.save()
 
             Appointment turn2 = new Appointment()
             turn2.local = "San Miguel"
@@ -344,6 +359,32 @@ class BootStrap {
             promotionPoint.services.add(service)
             promotionPoint.save()
 
+<<<<<<< Updated upstream
+=======
+            Appointment turn11=new Appointment()
+            turn11.local="San Migue11"
+            Calendar cal11 = Calendar.getInstance()
+            cal11.set(2019,10, 25)
+            turn11.dayHour= cal11.getTime()
+            turn11.professional = professional1
+            turn11.services=new ArrayList<Service>()
+            turn11.services.add(service)
+            turn11.status = AppointmentStatus.OPEN
+            turn11.branch = branch
+            turn11.save()
+
+            Payment payment4 = new Payment()
+            payment4.appointment = turn11
+            payment4.currency= "ARG"
+            payment4.amount = 200
+            payment4.save()
+
+            turn11.payments= new ArrayList<Payment>()
+            turn11.payments.add(payment4)
+            turn11.status =AppointmentStatus.PAID
+            turn11.save()
+
+>>>>>>> Stashed changes
             Config configChangePay=new Config(key: "changePay",value:"1").save()
             Config configChangePurchase=new Config(key: "changePurchase",value:"2").save()
         }

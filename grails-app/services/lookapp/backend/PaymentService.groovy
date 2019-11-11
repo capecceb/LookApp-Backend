@@ -71,6 +71,17 @@ class PaymentService {
         appointment.payments.add(payment)
         appointment.save()
 
+<<<<<<< Updated upstream
+=======
+        AccountMovement accountMovement = new AccountMovement()
+        accountMovement.amount = totalAmount
+        accountMovement.appointment = appointment
+        accountMovement.save(flush: true)
+
+        client.accountancy.accountMovements.add(accountMovement)
+        client.save(flush: true)
+
+>>>>>>> Stashed changes
         return appointment
     }
 

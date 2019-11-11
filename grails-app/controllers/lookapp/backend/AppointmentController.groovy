@@ -127,6 +127,28 @@ class AppointmentController {
         Appointment.withNewTransaction {
             appointment.save()
         }
+<<<<<<< Updated upstream
+=======
+
+        services = appointment.services
+        for (Service service in services) {
+            totalCost += service.price
+        }
+
+        AccountMovement accountMovement = new AccountMovement()
+        accountMovement.appointment = appointment
+        accountMovement.amount = - (totalCost)
+        AccountMovement.withNewTransaction {
+            accountMovement.save()
+        }
+
+        Client client = Client.get(appointment.client.id)
+        client.accountancy.accountMovements.add(accountMovement)
+        Client.withNewTransaction {
+            client.save()
+        }
+
+>>>>>>> Stashed changes
         respond(appointment, status: 200)
     }
 

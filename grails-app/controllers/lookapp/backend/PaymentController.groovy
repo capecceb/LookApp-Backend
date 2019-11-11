@@ -28,7 +28,7 @@ class PaymentController {
         }
         Appointment appointment
         try {
-            appointment = paymentService.save(params.appointmentId, params.amount, params.currency, params.clientId, params.points)
+            appointment = paymentService.save(params.appointmentId as Long, params.amount as BigDecimal, params.currency as String, params.clientId as Long, params.points as Integer)
         } catch (Exception e) {
             res["message"] = e.message
             respond(res, status: 500)

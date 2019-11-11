@@ -12,6 +12,7 @@ class Client {
     String secondPhone
     Integer points
     ClientStatus status
+    Accountancy accountancy
 
     Date dateCreated
     Date lastUpdated

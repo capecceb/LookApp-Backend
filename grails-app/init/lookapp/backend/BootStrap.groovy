@@ -264,13 +264,13 @@ class BootStrap {
             Appointment turn3 = new Appointment()
             turn3.local = "San Miguel"
             Calendar cal3 = Calendar.getInstance()
-            cal2.set(2019, 9, 30)
+            cal3.set(2019, 9, 30)
             turn3.dayHour = cal2.getTime()
             turn3.professional = professional
             turn3.services = new ArrayList<Service>()
             turn3.services.add(service3)
             turn3.status = AppointmentStatus.OPEN
-            turn3.branch = branch
+            turn3.branch = branch2
             turn3.save()
 
             Appointment turn4=new Appointment()
@@ -310,15 +310,87 @@ class BootStrap {
             turn6.save()
 
             Appointment turn7=new Appointment()
-            turn7.local="San Miguel"
+            turn7.local="???"
             Calendar cal7 = Calendar.getInstance()
             cal7.set(2019,10, 27)
             turn7.dayHour= cal7.getTime()
             turn7.services=new ArrayList<Service>()
             turn7.services.add(service3)
-            turn7.status = AppointmentStatus.OPEN
+            turn7.status = AppointmentStatus.PAID
+            turn7.branch = branch
             turn7.save()
 
+            Appointment turn8=new Appointment()
+            turn8.local="San Miguel8"
+            Calendar cal8 = Calendar.getInstance()
+            cal8.set(2019,10, 25)
+            turn8.dayHour= cal8.getTime()
+            turn8.professional = professional
+            turn8.services=new ArrayList<Service>()
+            turn8.services.add(service3)
+            turn8.services.add(service2)
+            turn8.status = AppointmentStatus.OPEN
+            turn8.branch = branch
+            turn8.save()
+
+            Payment payment = new Payment()
+            payment.appointment = turn8
+            payment.currency= "ARG"
+            payment.amount = 400
+            payment.save()
+
+            turn8.payments= new ArrayList<Payment>()
+            turn8.payments.add(payment)
+            turn8.status =AppointmentStatus.PAID
+            turn8.save()
+
+            Appointment turn9=new Appointment()
+            turn9.local="San Miguel9"
+            Calendar cal9 = Calendar.getInstance()
+            cal9.set(2019,10, 25)
+            turn9.dayHour= cal9.getTime()
+            turn9.professional = professional1
+            turn9.services=new ArrayList<Service>()
+            turn9.services.add(service3)
+            turn9.status = AppointmentStatus.OPEN
+            turn9.branch = branch
+            turn9.save()
+
+            Payment payment1 = new Payment()
+            payment1.appointment = turn9
+            payment1.currency= "ARG"
+            payment1.amount = 150
+            payment1.save()
+
+            turn9.payments= new ArrayList<Payment>()
+            turn9.payments.add(payment1)
+            turn9.status =AppointmentStatus.PAID
+            turn9.save()
+
+            Appointment turn10=new Appointment()
+            turn10.local="San Miguel10"
+            Calendar cal10 = Calendar.getInstance()
+            cal10.set(2019,11, 05)
+            turn10.dayHour= cal10.getTime()
+            turn10.professional = professional
+            turn10.services=new ArrayList<Service>()
+            turn10.services.add(service3)
+            turn10.services.add(service2)
+            turn10.services.add(service)
+            turn10.status = AppointmentStatus.OPEN
+            turn10.branch = branch
+            turn10.save()
+
+            Payment payment3 = new Payment()
+            payment3.appointment = turn10
+            payment3.currency= "ARG"
+            payment3.amount = 600
+            payment3.save()
+
+            turn10.payments= new ArrayList<Payment>()
+            turn10.payments.add(payment3)
+            turn10.status =AppointmentStatus.PAID
+            turn10.save()
 
             Promotion promotion=new Promotion()
             promotion.name="Descuentos"
@@ -358,10 +430,8 @@ class BootStrap {
             promotionPoint.services=new ArrayList<Service>()
             promotionPoint.services.add(service)
             promotionPoint.save()
-
-<<<<<<< Updated upstream
-=======
-            Appointment turn11=new Appointment()
+			
+			Appointment turn11=new Appointment()
             turn11.local="San Migue11"
             Calendar cal11 = Calendar.getInstance()
             cal11.set(2019,10, 25)
@@ -384,7 +454,6 @@ class BootStrap {
             turn11.status =AppointmentStatus.PAID
             turn11.save()
 
->>>>>>> Stashed changes
             Config configChangePay=new Config(key: "changePay",value:"1").save()
             Config configChangePurchase=new Config(key: "changePurchase",value:"2").save()
         }

@@ -112,6 +112,8 @@ class AppointmentController {
     def pending() {
         def res = [:]
         def params = getParams()
+        BigDecimal totalCost = 0;
+        def services = new ArrayList()
         Appointment appointment = Appointment.get(params.id)
         if (appointment == null) {
             res["message"] = "Not Found"
@@ -127,8 +129,7 @@ class AppointmentController {
         Appointment.withNewTransaction {
             appointment.save()
         }
-<<<<<<< Updated upstream
-=======
+
 
         services = appointment.services
         for (Service service in services) {
@@ -144,11 +145,11 @@ class AppointmentController {
 
         Client client = Client.get(appointment.client.id)
         client.accountancy.accountMovements.add(accountMovement)
+        client.accountancy.accountMovement.add(accountMovement)
         Client.withNewTransaction {
             client.save()
         }
 
->>>>>>> Stashed changes
         respond(appointment, status: 200)
     }
 

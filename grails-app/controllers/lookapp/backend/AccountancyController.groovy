@@ -8,6 +8,7 @@ class AccountancyController {
 
         Client client = Client.get(clientId)
         List<AccountMovement> accountMovements = client.accountancy.accountMovements
+        List<AccountMovement> accountMovements = client.accountancy.accountMovement
         respond(accountMovements, status: 200)
     }
 

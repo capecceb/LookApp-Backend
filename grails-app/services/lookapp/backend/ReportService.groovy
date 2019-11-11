@@ -73,6 +73,8 @@ class ReportService {
                     }
                 }
 
+                reports.add(newReport)
+
             }
 //me falta ver como los agrego sin repetir a la lisata que voy a enviar.
         }

@@ -112,6 +112,8 @@ class AppointmentController {
     def pending() {
         def res = [:]
         def params = getParams()
+        BigDecimal totalCost = 0;
+        def services = new ArrayList()
         Appointment appointment = Appointment.get(params.id)
         if (appointment == null) {
             res["message"] = "Not Found"
@@ -127,6 +129,25 @@ class AppointmentController {
         Appointment.withNewTransaction {
             appointment.save()
         }
+
+        services = appointment.services
+        for (Service service in services) {
+            totalCost += service.price
+        }
+
+        AccountMovement accountMovement = new AccountMovement()
+        accountMovement.appointment = appointment
+        accountMovement.amount = - (totalCost)
+        AccountMovement.withNewTransaction {
+            accountMovement.save()
+        }
+
+        Client client = Client.get(appointment.client.id)
+        client.accountancy.accountMovement.add(accountMovement)
+        Client.withNewTransaction {
+            client.save()
+        }
+
         respond(appointment, status: 200)
     }
 

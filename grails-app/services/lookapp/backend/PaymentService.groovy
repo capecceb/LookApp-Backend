@@ -71,6 +71,14 @@ class PaymentService {
         appointment.payments.add(payment)
         appointment.save()
 
+        AccountMovement accountMovement = new AccountMovement()
+        accountMovement.amount = totalAmount
+        accountMovement.appointment = appointment
+        accountMovement.save(flush: true)
+
+        client.accountancy.accountMovement.add(accountMovement)
+        client.save(flush: true)
+
         return appointment
     }
 

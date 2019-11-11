@@ -240,7 +240,7 @@ class BootStrap {
             professional1.workingHours.add(workingHourMonday)
             professional1.workingHours.add(workingHourSaturday)
             professional1.workingHours.add(workingHourFriday)
-            professional1.branch = branch2
+            professional1.branch = branch
             professional1.save()
 
             branch2.professionals.add(professional1)

@@ -133,21 +133,21 @@ class AppointmentSpec extends Specification {
 
     }
 
-    void "test add appointments with professional out of time"() {
+    void "test add appointments with professionals out of time"() {
         def body = [:]
         given: 'a new appointment'
         body["local"] = "turnNew"
         body["client"] = 1
         body["services"] = [1]
         body["branch"]=1
-        body["dayHour"]= "2019-11-02T07:00:00Z"
+        body["dayHour"]= "2019-11-01T07:00:00Z"
         body["professional"]=1
         when: 'I try add a appointment'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments", body), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "The professional does not work at that time"
+        exception.message == "there are no free professionals"
     }
     void "test adding appointments with a professional one day that doesn't work"() {
         def body = [:]
@@ -156,7 +156,7 @@ class AppointmentSpec extends Specification {
         body["client"] = 1
         body["services"] = [1]
         body["branch"]=1
-        body["dayHour"]= "2019-11-01T07:00:00Z"
+        body["dayHour"]= "2019-11-01T12:00:00Z"
         body["professional"]=1
         when: 'I try add a appointment'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments", body), Map)
@@ -183,7 +183,7 @@ class AppointmentSpec extends Specification {
 
     void "test search professionals"() {
         when: 'I try search a appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/professionals/search?beginDate=2019-11-02T13:00&endDate=2019-11-02T14:00"), List)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/professionals/search?beginDate=2019-11-02T13:00&endDate=2019-11-02T14:00&branch=1"), List)
 
         then: 'The result is ...'
         response.status().code == 200

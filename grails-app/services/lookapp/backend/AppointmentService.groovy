@@ -6,7 +6,7 @@ import grails.gorm.transactions.Transactional
 class AppointmentService {
 
     Appointment save(Appointment appointment, String local, Date beginDate, List<Service> services,
-             Integer clientId, Integer professionalId,Integer branch) {
+             Integer clientId, Integer professionalId,Integer branchId) {
         int duration
 
         appointment.services = new ArrayList<>()
@@ -26,24 +26,23 @@ class AppointmentService {
         appointment.dayHour = beginDate
         appointment.endDate = endDate
         appointment.local = local
-        appointment.branch=Branch.get(branch)
+        appointment.branch=Branch.get(branchId)
         if (clientId != null) {
             appointment.client = getClient(clientId)
         }
+        List<Professional> professionals = availableProfessionals(appointment.id, beginDate, endDate,appointment.branch)
+        if (professionals.size() == 0) {
+            throw new BadRequestException("there are no free professionals")
+        }
         if (professionalId != null) {
-            appointment.professional = validateProfessional(professionalId,appointment.id,beginDate,endDate)
-        } else {
-            List<Professional> professionals = availableProfessionals(appointment.id, beginDate, endDate)
-            if (professionals.size() == 0) {
-                throw new BadRequestException("there are no free professionals")
-            }
+            appointment.professional = validateProfessional(professionalId,appointment.id,beginDate,endDate,appointment.branch)
         }
         appointment.status = AppointmentStatus.OPEN
         appointment.save()
         return appointment
     }
 
-    List<Professional> availableProfessionals(Long appointmentId, Date beginDate, Date endDate) {
+    List<Professional> availableProfessionals(Long appointmentId, Date beginDate, Date endDate,Branch branch) {
         def res = [:]
 
         Calendar calendarBegin = Calendar.getInstance()
@@ -57,6 +56,7 @@ class AppointmentService {
         def professionCriteria = Professional.createCriteria()
         List<Professional> professionals = professionCriteria.list {
             eq("status",ProfessionalStatus.ACTIVE)
+            eq("branch",branch)
             workingHours {
                 eq("days", day)
                 lte("beginHour", calendarBegin.get(Calendar.HOUR_OF_DAY))
@@ -68,6 +68,7 @@ class AppointmentService {
         List<Appointment> appointmentList = appointmentCriteria.list {
             lte("dayHour", endDate)
             gt("endDate", beginDate)
+            eq("branch",branch)
             eq("status",AppointmentStatus.OPEN)
             if (appointmentId != null) {
                 ne("id", appointmentId)
@@ -116,14 +117,14 @@ class AppointmentService {
         return client
     }
 
-    private Professional validateProfessional(Integer professionalId,Long appointmentId,Date beginDate, Date endDate){
+    private Professional validateProfessional(Integer professionalId,Long appointmentId,Date beginDate, Date endDate,Branch branch){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(beginDate)
-        int beginHour=calendar.get(Calendar.HOUR)
+        int beginHour=calendar.get(Calendar.HOUR_OF_DAY)
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         Day day = Day.byId(dayOfWeek)
         calendar.setTime(endDate)
-        int endHour=calendar.get(Calendar.HOUR)
+        int endHour=calendar.get(Calendar.HOUR_OF_DAY)
 
         Professional professional = Professional.get(professionalId)
         if (professional == null) {
@@ -135,7 +136,7 @@ class AppointmentService {
         boolean isWorking=false
         for(WorkingHour workingHour:professional.workingHours){
             if(workingHour.days==day){
-                if(workingHour.beginHour<=beginHour && workingHour.endHour>endHour){
+                if(workingHour.beginHour<=beginHour && workingHour.endHour>=endHour){
                     isWorking=true
                 }
             }
@@ -145,9 +146,10 @@ class AppointmentService {
         }
         def criteria = Appointment.createCriteria()
         List<Appointment> appointmentList = criteria.list {
-            lt("dayHour", endDate)
+            lte("dayHour", endDate)
             gt("endDate", beginDate)
             eq("status", AppointmentStatus.OPEN)
+            eq("branch",branch)
             eq("professional", professional)
             if (appointmentId != null) {
                 ne("id", appointmentId)

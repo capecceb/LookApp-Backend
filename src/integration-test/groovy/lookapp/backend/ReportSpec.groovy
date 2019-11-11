@@ -37,6 +37,8 @@ class ReportSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
+        response.body().size() == 2
+        response.body()[0].totalAmount == 1000
     }
 
     void "test list report, only branch 1"() {
@@ -44,20 +46,37 @@ class ReportSpec extends Specification {
         body["branchId"]=1
 
         when: 'I try get a list of appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportProfessional", body), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportProfessional", body), List)
 
         then: 'The result is ...'
         response.status().code == 200
+        response.body().size() == 1
+        response.body()[0].totalAmount == 1000
     }
 
-    void "test list report, only dates older than 30/9/2019"() {
+    void "test list report, only dates older than 08/11/2019"() {
         def body=[:]
-        body["fechaDesde"]="2019-10-29T17:00:00.000Z"
+        body["fromDate"]="2019-11-08T17:00:00.000Z"
 
         when: 'I try get a list of appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportProfessional", body), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportProfessional", body), List)
 
         then: 'The result is ...'
         response.status().code == 200
+        response.body().size() == 2
+        response.body()[0].totalAmount == 400
+    }
+
+    void "test list report, only dates before than 08/11/2019"() {
+        def body=[:]
+        body["toDate"]="2019-11-08T17:00:00.000Z"
+
+        when: 'I try get a list of appointment'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportProfessional", body), List)
+
+        then: 'The result is ...'
+        response.status().code == 200
+        response.body().size() == 1
+        response.body()[0].totalAmount == 600
     }
 }

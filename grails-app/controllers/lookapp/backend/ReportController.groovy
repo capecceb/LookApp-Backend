@@ -13,10 +13,10 @@ class ReportController {
         List<ProfessionalReport> reports
         Date fromDate = null
         Date toDate = null
-        if(params.fechaDesde !=null ){
+        if(params.fromDate !=null ){
             fromDate = DateTimeParser.parse(params.fromDate)
         }
-        if(params.fechaHasta !=null ){
+        if(params.toDate !=null ){
             toDate = DateTimeParser.parse(params.toDate)
         }
         try {

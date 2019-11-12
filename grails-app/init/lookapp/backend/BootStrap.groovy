@@ -240,7 +240,7 @@ class BootStrap {
             professional1.workingHours.add(workingHourMonday)
             professional1.workingHours.add(workingHourSaturday)
             professional1.workingHours.add(workingHourFriday)
-            professional1.branch = branch2
+            professional1.branch = branch
             professional1.save()
 
             branch2.professionals.add(professional1)
@@ -304,6 +304,7 @@ class BootStrap {
             turn7.status = AppointmentStatus.PAID
             turn7.branch = branch
             turn7.save()
+
 
             Appointment turn8=new Appointment()
             turn8.local="San Miguel8"
@@ -399,6 +400,46 @@ class BootStrap {
             turn11.payments.add(payment4)
             turn11.status =AppointmentStatus.PAID
             turn11.save()
+
+
+            Promotion promotion=new Promotion()
+            promotion.name="Descuentos"
+            promotion.status=PromotionStatus.ACTIVE
+            promotion.type=PromotionType.DISCOUNT
+            cal.set(2018,1, 1)
+            promotion.startDate=cal.getTime()
+            cal.set(2048,1, 1)
+            promotion.endDate=cal.getTime()
+            promotion.discount=20
+            promotion.services=new ArrayList<Service>()
+            promotion.services.add(service)
+            promotion.save()
+
+            Promotion promotionExpired=new Promotion()
+            promotionExpired.name="Descuentos expirados"
+            promotionExpired.status=PromotionStatus.ACTIVE
+            promotionExpired.type=PromotionType.DISCOUNT
+            cal.set(2018,1, 1)
+            promotionExpired.startDate=cal.getTime()
+            cal.set(2018,1, 2)
+            promotionExpired.endDate=cal.getTime()
+            promotionExpired.discount=10
+            promotionExpired.services=new ArrayList<Service>()
+            promotionExpired.services.add(service)
+            promotionExpired.save()
+
+            Promotion promotionPoint=new Promotion()
+            promotionPoint.name="Promoción de Puntos"
+            promotionPoint.status=PromotionStatus.ACTIVE
+            promotionPoint.type=PromotionType.POINT
+            cal.set(2018,1, 1)
+            promotionPoint.startDate=cal.getTime()
+            cal.set(2048,1, 2)
+            promotionPoint.endDate=cal.getTime()
+            promotionPoint.discount=10
+            promotionPoint.services=new ArrayList<Service>()
+            promotionPoint.services.add(service)
+            promotionPoint.save()
 
             Config configChangePay=new Config(key: "changePay",value:"1").save()
             Config configChangePurchase=new Config(key: "changePurchase",value:"2").save()

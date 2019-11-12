@@ -83,7 +83,7 @@ class PaymentSpec extends Specification {
     void "try to pay an appointment, with points and cash"() {
         def body=[:]
         given: 'a new appointment'
-        body["amount"]=100
+        body["amount"]=125
         body["points"]=50
         body["clientId"]=2
         body["appointmentId"]=3
@@ -99,7 +99,7 @@ class PaymentSpec extends Specification {
     void "try to pay an appointment, with points"() {
         def body=[:]
         given: 'a new appointment'
-        body["points"]=150
+        body["points"]=300
         body["clientId"]=2
         body["appointmentId"]=4
         body["currency"]="ARS"

@@ -37,14 +37,14 @@ class PaymentSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 0
+        response.body().size() == 4
     }
 
     void "test get a payment"() {
         def body=[:]
 
         when: 'I try get a list of appointments'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/payments/1"), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/payments/9"), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()

@@ -72,7 +72,7 @@ class ServiceReportSpec extends Specification {
         then: 'The result is ...'
         response.status().code == 200
         response.body().size() == 3
-        response.body()[0].quantity == 1
+        response.body()[0].quantity == 2
     }
 
     void "test list report, test all filters"() {

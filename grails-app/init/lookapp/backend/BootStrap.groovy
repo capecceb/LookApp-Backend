@@ -301,7 +301,7 @@ class BootStrap {
             turn7.dayHour= cal7.getTime()
             turn7.services=new ArrayList<Service>()
             turn7.services.add(service3)
-            turn7.status = AppointmentStatus.PAID
+            turn7.status = AppointmentStatus.OPEN
             turn7.branch = branch
             turn7.save()
 

@@ -6,12 +6,8 @@ import grails.gorm.transactions.Transactional
 class ProfessionalReportService {
     def generate(Date fromDate, Date toDate, Integer branchId) {
 
-        //List<ProfessionalReport> reports
-         List<ProfessionalReport> reports = new ArrayList<>();
-        //HashSet<ProfessionalReport> reports = new HashSet<ProfessionalReport>();
-
+        List<ProfessionalReport> reports = new ArrayList<>();
         Branch branch = null;
-
         ArrayList<Appointment> appointments = Appointment.list()
         def payments = new ArrayList<>()
         if(branchId != null) {

@@ -30,7 +30,7 @@ class ServiceReportSpec extends Specification {
         def body=[:]
 
         when: 'I try get a report'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportService", body), List)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/servicesreports", body), List)
 
         then: 'The result is ...'
         response.status().code == 200
@@ -42,7 +42,7 @@ class ServiceReportSpec extends Specification {
         body["branchId"]=1
 
         when: 'I try get a report'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportService", body), List)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/servicesreports", body), List)
 
         then: 'The result is ...'
         response.status().code == 200
@@ -55,7 +55,7 @@ class ServiceReportSpec extends Specification {
         body["fromDate"]="2019-11-08T17:00:00.000Z"
 
         when: 'I try get a report'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportService", body), List)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/servicesreports", body), List)
 
         then: 'The result is ...'
         response.status().code == 200
@@ -67,7 +67,7 @@ class ServiceReportSpec extends Specification {
         body["toDate"]="2019-11-08T17:00:00.000Z"
 
         when: 'I try get a report'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportService", body), List)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/servicesreports", body), List)
 
         then: 'The result is ...'
         response.status().code == 200
@@ -83,7 +83,7 @@ class ServiceReportSpec extends Specification {
         body["toDate"]="2019-11-28T17:00:00.000Z"
 
         when: 'I try get a report'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/reportService", body), List)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/servicesreports", body), List)
 
         then: 'The result is ...'
         response.status().code == 200

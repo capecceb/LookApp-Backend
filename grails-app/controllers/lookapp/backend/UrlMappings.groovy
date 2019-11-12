@@ -16,9 +16,8 @@ class UrlMappings {
         "/professionals/search"(controller: 'appointment', action:'searchProfessionals')
         "/payments"(controller: 'payment', action:'list',method:'GET')
         "/payments/$id"(controller: 'payment', action:'show',method:'GET')
-
-        "/reportProfessional"(controller: 'professionalReport', action:'listProfessional',method:'POST')
-        "/reportService"(controller: 'serviceReport', action:'listService',method:'POST')
+        "/professionalsreports"(controller: 'professionalReport', action:'listProfessional',method:'POST')
+        "/servicesreports"(controller: 'serviceReport', action:'listService',method:'POST')
 
         "500"(controller: 'application', action:'error')
         "404"(view: '/notFound')

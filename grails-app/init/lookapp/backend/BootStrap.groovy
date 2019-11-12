@@ -198,13 +198,14 @@ class BootStrap {
             turn1.save()
 
             AccountMovement movimiento = new AccountMovement()
+            movimiento.amount = new BigDecimal(0)
             movimiento.amount =  500
             movimiento.id = 1
-            movimiento.appointment = turn1
-            movimiento.save()
+            movimiento.save(flush: true)
 
             cliente.accountancy.accountMovements.add(movimiento)
-            cliente.save()
+            println("Amount" + movimiento.amount)
+            cliente.save(flush: true)
 
             Client cliente2 = new Client()
             cliente2.name = "clien"

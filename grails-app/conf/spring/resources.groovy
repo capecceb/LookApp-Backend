@@ -6,6 +6,8 @@ import lookapp.backend.ProfessionalReport
 import lookapp.backend.User
 import lookapp.backend.Professional
 import lookapp.backend.Branch
+import lookapp.backend.Accountancy
+import lookapp.backend.AccountMovement
 
 // Place your Spring DSL code here
 beans = {
@@ -44,6 +46,21 @@ beans = {
     }
 
     ProfessionalReportsRenderer(JsonCollectionRenderer, ProfessionalReport) {
+    }
+
+    AccountancyRenderer(JsonRenderer, Accountancy){
+
+    }
+
+    AccountancysRenderer(JsonCollectionRenderer, Accountancy) {
+    }
+
+    AccountMovementRenderer(JsonRenderer, AccountMovement){
+
+    }
+
+    AccountMovementsRenderer(JsonCollectionRenderer, AccountMovement){
+
     }
 
 }

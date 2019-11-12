@@ -73,7 +73,6 @@ class PaymentService {
 
         AccountMovement accountMovement = new AccountMovement()
         accountMovement.amount = totalAmount
-        accountMovement.appointment = appointment
         accountMovement.save(flush: true)
 
         client.accountancy.accountMovements.add(accountMovement)

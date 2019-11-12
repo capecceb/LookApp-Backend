@@ -2,6 +2,9 @@ import grails.rest.render.json.JsonRenderer
 import grails.rest.render.json.JsonCollectionRenderer
 import lookapp.backend.Appointment
 import lookapp.backend.Client
+import lookapp.backend.ProfessionalReport
+import lookapp.backend.Service
+import lookapp.backend.ServiceReport
 import lookapp.backend.User
 import lookapp.backend.Professional
 import lookapp.backend.Branch
@@ -35,7 +38,26 @@ beans = {
 
     BranchRenderer(JsonRenderer, Branch) {
     }
+
     BranchesRenderer(JsonCollectionRenderer, Branch) {
+    }
+
+    ProfessionalReportRenderer(JsonRenderer, ProfessionalReport) {
+    }
+
+    ProfessionalReportsRenderer(JsonCollectionRenderer, ProfessionalReport) {
+    }
+
+    ServiceReportsRenderer(JsonRenderer, ServiceReport) {
+    }
+
+    ServiceReportsRenderer(JsonCollectionRenderer, ServiceReport) {
+    }
+
+    ServiceRenderer(JsonRenderer, Service) {
+    }
+
+    ServiceRenderer(JsonCollectionRenderer, Service) {
     }
 
 }

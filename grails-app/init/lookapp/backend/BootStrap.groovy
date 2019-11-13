@@ -277,7 +277,7 @@ class BootStrap {
             Appointment turn4=new Appointment()
             turn4.local="San Miguel"
             Calendar cal4 = Calendar.getInstance()
-            cal4.set(2019,10, 30)
+            cal4.set(2019,9, 30)
             turn4.client =cliente1
             turn4.dayHour= cal4.getTime()
             turn4.services=new ArrayList<Service>()
@@ -289,7 +289,7 @@ class BootStrap {
             Appointment turn5=new Appointment()
             turn5.local="San Miguel"
             Calendar cal5 = Calendar.getInstance()
-            cal5.set(2019,10, 29)
+            cal5.set(2019,9, 29)
             turn5.client =cliente1
             turn5.dayHour= cal5.getTime()
             turn5.services=new ArrayList<Service>()
@@ -301,7 +301,7 @@ class BootStrap {
             Appointment turn6=new Appointment()
             turn6.local="San Miguel"
             Calendar cal6 = Calendar.getInstance()
-            cal6.set(2019,10, 28)
+            cal6.set(2019,9, 28)
             turn6.client =cliente
             turn6.dayHour= cal6.getTime()
             turn6.services=new ArrayList<Service>()
@@ -313,18 +313,18 @@ class BootStrap {
             Appointment turn7=new Appointment()
             turn7.local="???"
             Calendar cal7 = Calendar.getInstance()
-            cal7.set(2019,10, 27)
+            cal7.set(2019,9, 27)
             turn7.dayHour= cal7.getTime()
             turn7.services=new ArrayList<Service>()
             turn7.services.add(service3)
-            turn7.status = AppointmentStatus.PAID
+            turn7.status = AppointmentStatus.OPEN
             turn7.branch = branch
             turn7.save()
 
             Appointment turn8=new Appointment()
             turn8.local="San Miguel8"
             Calendar cal8 = Calendar.getInstance()
-            cal8.set(2019,10, 25)
+            cal8.set(2019,10, 13)
             turn8.dayHour= cal8.getTime()
             turn8.professional = professional
             turn8.services=new ArrayList<Service>()
@@ -348,13 +348,13 @@ class BootStrap {
             Appointment turn9=new Appointment()
             turn9.local="San Miguel9"
             Calendar cal9 = Calendar.getInstance()
-            cal9.set(2019,10, 25)
+            cal9.set(2019,10, 10)
             turn9.dayHour= cal9.getTime()
             turn9.professional = professional1
             turn9.services=new ArrayList<Service>()
             turn9.services.add(service3)
             turn9.status = AppointmentStatus.OPEN
-            turn9.branch = branch
+            turn9.branch = branch2
             turn9.save()
 
             Payment payment1 = new Payment()
@@ -371,7 +371,7 @@ class BootStrap {
             Appointment turn10=new Appointment()
             turn10.local="San Miguel10"
             Calendar cal10 = Calendar.getInstance()
-            cal10.set(2019,11, 05)
+            cal10.set(2019,10, 05)
             turn10.dayHour= cal10.getTime()
             turn10.professional = professional
             turn10.services=new ArrayList<Service>()
@@ -431,7 +431,7 @@ class BootStrap {
             promotionPoint.services=new ArrayList<Service>()
             promotionPoint.services.add(service)
             promotionPoint.save()
-			
+
 			Appointment turn11=new Appointment()
             turn11.local="San Migue11"
             Calendar cal11 = Calendar.getInstance()

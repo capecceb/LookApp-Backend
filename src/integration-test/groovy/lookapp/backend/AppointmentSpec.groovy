@@ -37,7 +37,7 @@ class AppointmentSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 7
+        response.body().size() == 12
         response.body()[0].local == "casa"
     }
 
@@ -119,13 +119,13 @@ class AppointmentSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 1
+        response.body().size() == 3
         response.body()[0].local == "San Miguel"
     }
 
     void "test search appointments with no results"() {
         when: 'I try search a appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/appointments/search?professional=2"), List)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/appointments/search?professional=3"), List)
 
         then: 'The result is ...'
         response.status().code == 200

@@ -3,15 +3,11 @@ package lookapp.backend
 import grails.gorm.transactions.Transactional
 
 @Transactional
-class ReportService {
+class ProfessionalReportService {
     def generate(Date fromDate, Date toDate, Integer branchId) {
 
-        //List<ProfessionalReport> reports
-         List<ProfessionalReport> reports = new ArrayList<>();
-        //HashSet<ProfessionalReport> reports = new HashSet<ProfessionalReport>();
-
+        List<ProfessionalReport> reports = new ArrayList<>();
         Branch branch = null;
-
         ArrayList<Appointment> appointments = Appointment.list()
         def payments = new ArrayList<>()
         if(branchId != null) {
@@ -20,7 +16,7 @@ class ReportService {
 
         if(toDate != null) {
             for (int i = 0; i < appointments.size(); i++) {
-               if(appointments.get(i).getDayHour() < toDate) {
+               if(appointments.get(i).dayHour > toDate) {
                    appointments.remove(i)
                    i--
                }
@@ -28,7 +24,7 @@ class ReportService {
         }
         if(fromDate != null) {
             for (int i = 0; i < appointments.size(); i++) {
-                if(appointments.get(i).getDayHour() > fromDate) {
+                if(appointments.get(i).dayHour < fromDate) {
                     appointments.remove(i)
                     i--
                 }
@@ -72,11 +68,9 @@ class ReportService {
                         reports.add(newReport)
                     }
                 }
-
+				
                 reports.add(newReport)
-
             }
-//me falta ver como los agrego sin repetir a la lisata que voy a enviar.
         }
         return reports
     }

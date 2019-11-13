@@ -1,26 +1,26 @@
 package lookapp.backend
 
-class ReportController {
+class ServiceReportController {
 
     static responseFormats = ['json', 'xml']
 
-    def reportService
+    def serviceReportService
 
-    def listProfessional() {
+    def listService() {
         def res = [:]
         def params = request.getJSON()
 
-        List<ProfessionalReport> reports
+        List<ServiceReport> reports
         Date fromDate = null
         Date toDate = null
-        if(params.fechaDesde !=null ){
+        if(params.fromDate !=null ){
             fromDate = DateTimeParser.parse(params.fromDate)
         }
-        if(params.fechaHasta !=null ){
+        if(params.toDate !=null ){
             toDate = DateTimeParser.parse(params.toDate)
         }
         try {
-            reports = reportService.generate(fromDate, toDate, params.branchId)
+            reports = serviceReportService.generate(fromDate, toDate, params.branchId)
         } catch (Exception e) {
             res["message"] = e.message
             respond(res, status: 500)

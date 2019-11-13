@@ -48,7 +48,7 @@ beans = {
     ProfessionalReportsRenderer(JsonCollectionRenderer, ProfessionalReport) {
     }
 
-    ServiceReportsRenderer(JsonRenderer, ServiceReport) {
+    ServiceReportRenderer(JsonRenderer, ServiceReport) {
     }
 
     ServiceReportsRenderer(JsonCollectionRenderer, ServiceReport) {

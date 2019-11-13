@@ -137,7 +137,7 @@ class AppointmentController {
         }
 
         AccountMovement accountMovement = new AccountMovement()
-        accountMovement.appointment = appointment
+        accountMovement.appointmentId = appointment.id
         accountMovement.amount = - (totalCost)
         AccountMovement.withNewTransaction {
             accountMovement.save()
@@ -145,7 +145,6 @@ class AppointmentController {
 
         Client client = Client.get(appointment.client.id)
         client.accountancy.accountMovements.add(accountMovement)
-        client.accountancy.accountMovement.add(accountMovement)
         Client.withNewTransaction {
             client.save()
         }

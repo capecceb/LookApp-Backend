@@ -16,6 +16,7 @@ class UrlMappings {
         "/professionals/search"(controller: 'appointment', action:'searchProfessionals')
         "/payments"(controller: 'payment', action:'list',method:'GET')
         "/payments/$id"(controller: 'payment', action:'show',method:'GET')
+        "/email"(controller: 'email', action:'send',method:'GET')
 
         "500"(controller: 'application', action:'error')
         "404"(view: '/notFound')

@@ -101,3 +101,4 @@ environments:
             dialect: org.hibernate.dialect.MySQL5InnoDBDialect
             username: "root"
             password: "root"
+

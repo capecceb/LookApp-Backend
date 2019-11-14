@@ -64,6 +64,8 @@ dependencies {
     testCompile "io.micronaut:micronaut-http-client"
     testCompile "org.grails:grails-web-testing-support"
     runtime "mysql:mysql-connector-java:5.1.46"
+    compile 'org.grails.plugins:mail:3.0.0'
+
 }
 
 bootRun {

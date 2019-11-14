@@ -72,7 +72,7 @@ class PaymentService {
         appointment.save()
 
         AccountMovement accountMovement = new AccountMovement()
-        accountMovement.appointmentId = appointment.id
+        accountMovement.appointment = appointment
         accountMovement.amount = totalAmount
         accountMovement.save()
 

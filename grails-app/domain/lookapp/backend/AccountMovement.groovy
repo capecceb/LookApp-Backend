@@ -2,7 +2,7 @@ package lookapp.backend
 
 class AccountMovement {
 
-    Integer appointmentId
+    Appointment appointment
     BigDecimal amount
     Date dateCreated
 

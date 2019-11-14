@@ -20,6 +20,7 @@ class AppointmentSpec extends Specification {
     @Shared
     @AutoCleanup
     HttpClient client
+    AppointmentService appointmentService
 
     static SimpleDateFormat sdfCrud = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
@@ -189,6 +190,16 @@ class AppointmentSpec extends Specification {
         response.status().code == 200
         response.body().size() == 2
 
+    }
+
+    void "test expire appointment"(){
+        given: 'one appointment to expire'
+        when: 'execute a job'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/appointments/1"), Map)
+
+        then: 'The result is ...'
+        response.status().code == 200
+        response.body().status.name == "EXPIRED"
     }
 
 }

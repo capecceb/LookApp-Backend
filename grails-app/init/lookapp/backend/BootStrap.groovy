@@ -198,6 +198,8 @@ class BootStrap {
             Calendar cal = Calendar.getInstance()
             cal.set(2019, 9, 29)
             turn.dayHour = cal.getTime()
+            cal.add(Calendar.MINUTE,60)
+            turn.endDate = cal.getTime()
             turn.services = new ArrayList<Service>()
             turn.services.add(service)
             turn.status = AppointmentStatus.OPEN

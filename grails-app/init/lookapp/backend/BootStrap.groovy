@@ -197,15 +197,20 @@ class BootStrap {
             turn1.branch = branch
             turn1.save()
 
-            AccountMovement movimiento = new AccountMovement()
-            movimiento.amount = new BigDecimal(0)
-            movimiento.amount =  500
-            movimiento.id = 1
-            movimiento.save(flush: true)
+//            AccountMovement movimiento = new AccountMovement()
+//            movimiento.amount = new BigDecimal(0)
+//            movimiento.amount =  500
+//            movimiento.id = 1
+//            movimiento.save(flush: true)
+//
+//            AccountMovement movimientoPendiente = new AccountMovement()
+//            movimientoPendiente.amount = -2500
+//            movimientoPendiente.id = 2
+//            movimientoPendiente.save(flush: true)
 
-            cliente.accountancy.accountMovements.add(movimiento)
-            println("Amount" + movimiento.amount)
-            cliente.save(flush: true)
+//            cliente.accountancy.accountMovements.add(movimiento)
+//            cliente.accountancy.accountMovements.add(movimientoPendiente)
+//            cliente.save(flush: true)
 
             Client cliente2 = new Client()
             cliente2.name = "clien"

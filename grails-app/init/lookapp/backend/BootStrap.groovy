@@ -202,6 +202,8 @@ class BootStrap {
             turn.services.add(service)
             turn.status = AppointmentStatus.OPEN
             turn.branch = branch
+            turn.totalPrice = 200
+            turn.totalToPay = 200
             turn.save()
 
             Appointment turn1 = new Appointment()
@@ -214,6 +216,8 @@ class BootStrap {
             turn1.services.add(service2)
             turn1.status = AppointmentStatus.OPEN
             turn1.branch = branch
+            turn1.totalPrice = 250
+            turn1.totalToPay = 250
             turn1.save()
 
             Appointment turn2 = new Appointment()
@@ -226,6 +230,8 @@ class BootStrap {
             turn2.services.add(service3)
             turn2.status = AppointmentStatus.OPEN
             turn2.branch = branch
+            turn2.totalPrice = 150
+            turn2.totalToPay = 150
             turn2.save()
 
             Professional professional1 = new Professional()
@@ -256,6 +262,8 @@ class BootStrap {
             turn3.services.add(service3)
             turn3.status = AppointmentStatus.OPEN
             turn3.branch = branch2
+            turn3.totalPrice = 150
+            turn3.totalToPay = 150
             turn3.save()
 
             Appointment turn4=new Appointment()
@@ -268,6 +276,8 @@ class BootStrap {
             turn4.services.add(service3)
             turn4.status = AppointmentStatus.OPEN
             turn4.branch = branch
+            turn4.totalPrice = 150
+            turn4.totalToPay = 150
             turn4.save()
 
             Appointment turn5=new Appointment()
@@ -280,6 +290,8 @@ class BootStrap {
             turn5.services.add(service3)
             turn5.status = AppointmentStatus.OPEN
             turn5.branch = branch
+            turn5.totalPrice = 150
+            turn5.totalToPay = 150
             turn5.save()
 
             Appointment turn6=new Appointment()
@@ -292,6 +304,8 @@ class BootStrap {
             turn6.services.add(service3)
             turn6.status = AppointmentStatus.OPEN
             turn6.branch = branch
+            turn6.totalPrice = 150
+            turn6.totalToPay = 150
             turn6.save()
 
             Appointment turn7=new Appointment()
@@ -303,6 +317,8 @@ class BootStrap {
             turn7.services.add(service3)
             turn7.status = AppointmentStatus.OPEN
             turn7.branch = branch
+            turn7.totalPrice = 150
+            turn7.totalToPay = 150
             turn7.save()
 
 
@@ -317,6 +333,8 @@ class BootStrap {
             turn8.services.add(service2)
             turn8.status = AppointmentStatus.OPEN
             turn8.branch = branch
+            turn8.totalPrice = 400
+            turn8.totalToPay = 400
             turn8.save()
 
             Payment payment = new Payment()
@@ -340,6 +358,8 @@ class BootStrap {
             turn9.services.add(service3)
             turn9.status = AppointmentStatus.OPEN
             turn9.branch = branch2
+            turn9.totalPrice = 150
+            turn9.totalToPay = 150
             turn9.save()
 
             Payment payment1 = new Payment()
@@ -365,6 +385,8 @@ class BootStrap {
             turn10.services.add(service)
             turn10.status = AppointmentStatus.OPEN
             turn10.branch = branch
+            turn10.totalPrice = 500
+            turn10.totalToPay = 500
             turn10.save()
 
             Payment payment3 = new Payment()
@@ -388,6 +410,8 @@ class BootStrap {
             turn11.services.add(service)
             turn11.status = AppointmentStatus.OPEN
             turn11.branch = branch2
+            turn11.totalPrice = 500
+            turn11.totalToPay = 500
             turn11.save()
 
             Payment payment4 = new Payment()

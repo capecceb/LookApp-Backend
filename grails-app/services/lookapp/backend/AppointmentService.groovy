@@ -8,16 +8,10 @@ class AppointmentService {
     Appointment save(Appointment appointment, String local, Date beginDate, List<Service> services,
              Integer clientId, Integer professionalId,Integer branchId) {
         int duration
+        BigDecimal totalPrice
+        BigDecimal totalPay
+        Float discount
 
-        appointment.services = new ArrayList<>()
-        for (Integer serviceId : services) {
-            Service service = Service.get(serviceId)
-            if (service == null) {
-                throw new BadRequestException("Invalid service id")
-            }
-            duration = service.duration
-            appointment.services.add(service)
-        }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(beginDate)
         calendar.add(Calendar.MINUTE, duration)
@@ -26,7 +20,23 @@ class AppointmentService {
         appointment.dayHour = beginDate
         appointment.endDate = endDate
         appointment.local = local
-        appointment.branch=Branch.get(branchId)
+        appointment.branch = Branch.get(branchId)
+
+        appointment.services = new ArrayList<>()
+        for (Integer serviceId : services) {
+            Service service = Service.get(serviceId)
+            if (service == null) {
+                throw new BadRequestException("Invalid service id")
+            }
+            discount = verifyDiscounts(beginDate,service)
+            duration += service.duration
+            totalPrice += service.price
+            totalPay += service.price * discount
+            appointment.services.add(service)
+        }
+        appointment.totalPrice = totalPrice
+        appointment.totalToPay = totalPay
+
         if (clientId != null) {
             appointment.client = getClient(clientId)
         }
@@ -159,5 +169,25 @@ class AppointmentService {
             throw new BadRequestException("professional is busy")
         }
         return professional
+    }
+
+    private Float verifyDiscounts(Date beginDate,Service service){
+        Float discount=100
+        Date now=new Date()
+        def promotionCriteria = Promotion.createCriteria()
+        List<Promotion> promotions = promotionCriteria.list {
+            lte("startDate", beginDate)
+            gte("endDate", beginDate)
+            eq("status",PromotionStatus.ACTIVE)
+            eq("type",PromotionType.DISCOUNT)
+            services{
+                eq("id",service.id)
+            }
+        }
+        for (Promotion promotion : promotions) {
+            discount=discount-promotion.discount
+        }
+        if(discount<0) discount=0
+        return discount/100
     }
 }

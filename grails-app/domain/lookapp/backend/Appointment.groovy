@@ -11,6 +11,9 @@ class Appointment {
     Branch branch
     Date dateCreated
     Date lastUpdated
+    BigDecimal totalPrice
+    BigDecimal totalToPay
+
     AppointmentStatus status
     static hasMany = [services: Service, payments: Payment]
     static constraints = {

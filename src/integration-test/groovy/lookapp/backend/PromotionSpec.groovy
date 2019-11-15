@@ -28,7 +28,7 @@ class PromotionSpec extends Specification {
     void "test list promotions"() {
         def body=[:]
 
-        when: 'I try get a list of clients'
+        when: 'I try get a list of promotion'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/promotions"), List)
 
         then: 'The result is ...'
@@ -40,7 +40,7 @@ class PromotionSpec extends Specification {
     void "test get a promotion"() {
         def body=[:]
 
-        when: 'I try get a list of clients'
+        when: 'I try get a promotion'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/promotions/1"), Map)
 
         then: 'The result is ...'
@@ -63,7 +63,7 @@ class PromotionSpec extends Specification {
 
     void "test update failed clients"() {
         def body=[:]
-        given: 'a changes for the client'
+        given: 'a changes for the promotion'
         body["id"]=5
         body["name"]="noExiste"
 
@@ -104,11 +104,28 @@ class PromotionSpec extends Specification {
         body["endDate"]="2019-10-08T14:00:00.000Z"
         body["services"] = [1]
 
-        when: 'I try add a client'
+        when: 'I try add a promotion'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/promotions",body), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
         exception.message == "La propiedad [name] de la clase [class lookapp.backend.Promotion] no puede ser nulo"
+    }
+    void "test search promotions without date"() {
+        when: 'I try search a promotion'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/promotions/search"), List)
+
+        then: 'The result is ...'
+        final HttpClientResponseException exception = thrown()
+        exception.message == "the date param is required"
+    }
+
+    void "test search promotions "() {
+        when: 'I try search a promotion'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/promotions/search?date=2018-03-03T07:00"), List)
+
+        then: 'The result is ...'
+        response.status().code == 200
+        response.body().size() == 1
     }
 }

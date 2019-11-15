@@ -2,7 +2,6 @@ package lookapp.backend
 
 import grails.rest.Resource
 
-@Resource(uri='/promotions')
 class Promotion {
 
     String name

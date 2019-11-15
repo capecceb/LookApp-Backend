@@ -101,4 +101,14 @@ environments:
             dialect: org.hibernate.dialect.MySQL5InnoDBDialect
             username: "root"
             password: "root"
-
+grails:
+    mail:
+        host: "smtp.gmail.com"
+        port: 587
+        username: "alpaint@gmail.com"
+        password: "alpaint1234"
+        props : [
+                "mail.smtp.auth":"true",
+                "mail.smtp.socketFactory.port":"587",
+                "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                "mail.smtp.socketFactory.fallback":"false"]

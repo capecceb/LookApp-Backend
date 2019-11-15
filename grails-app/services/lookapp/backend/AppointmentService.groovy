@@ -5,6 +5,8 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class AppointmentService {
 
+    def MailService
+
     Appointment save(Appointment appointment, String local, Date beginDate, List<Service> services,
              Integer clientId, Integer professionalId,Integer branch) {
         int duration

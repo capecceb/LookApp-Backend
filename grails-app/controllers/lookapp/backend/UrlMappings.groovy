@@ -19,6 +19,8 @@ class UrlMappings {
         "/payments/$id"(controller: 'payment', action:'show',method:'GET')
         "/professionalsreports"(controller: 'professionalReport', action:'listProfessional',method:'POST')
         "/servicesreports"(controller: 'serviceReport', action:'listService',method:'POST')
+        "/promotions/search"(controller: 'promotion', action:'search',method:'GET')
+        "/promotions"(resources:"promotion")
 
         "500"(controller: 'application', action:'error')
         "404"(view: '/notFound')

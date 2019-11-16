@@ -7,7 +7,6 @@ class PaymentService {
     def save(Long appointmentId, BigDecimal amount, String currency, Long clientId, Integer points) {
 
         BigDecimal amountEntered = 0;
-        BigDecimal totalCost = 0;
         BigDecimal totalAmount = 0;
 
         Client client = null
@@ -21,12 +20,6 @@ class PaymentService {
         if (amount != null) {
             amountEntered = amount
         }
-        for (Service service in appointment.services) {
-            //verify if there are a promotions with discounts
-            Float discount = verifyDiscounts(service)
-            totalCost += service.price * discount
-        }
-        totalCost=totalCost.setScale(2,BigDecimal.ROUND_DOWN)
         if (appointment.payments == null) {
             appointment.payments = new ArrayList<>()
         }
@@ -37,7 +30,7 @@ class PaymentService {
         if (points != null && client != null) {
             if (client.points >= points) {
                 //verify if there are a promotions with points
-                Float pointFactor = verifyPointFactor(appointment.services)
+                Float pointFactor = verifyPointFactor(appointment.dayHour,appointment.services)
                 amountFromPoints = points / Integer.parseInt(Config.findByKey("changePurchase").value) * pointFactor
                 client.points -= points
             } else {
@@ -52,13 +45,13 @@ class PaymentService {
         }
         if(client!=null)  client.save()
         totalAmount = amountEntered + amountFromPoints
-        if (totalCost > totalAmount) {
+        if (appointment.totalToPay > totalAmount) {
             appointment.status = AppointmentStatus.PARTIAL_PAID
         }
-        if (totalCost == totalAmount) {
+        if (appointment.totalToPay == totalAmount) {
             appointment.status = AppointmentStatus.PAID
         }
-        if (totalCost < totalAmount) {
+        if (appointment.totalToPay < totalAmount) {
             throw new BadRequestException("Error payment exceeds cost")
         }
 
@@ -74,34 +67,13 @@ class PaymentService {
         return appointment
     }
 
-    private Float verifyDiscounts(Service service){
-        Float discount=100
-        Date now=new Date()
-        def promotionCriteria = Promotion.createCriteria()
-        List<Promotion> promotions = promotionCriteria.list {
-            lte("startDate", now)
-            gte("endDate", now)
-            eq("status",PromotionStatus.ACTIVE)
-            eq("type",PromotionType.DISCOUNT)
-            services{
-                eq("id",service.id)
-            }
-        }
-        for (Promotion promotion : promotions) {
-            discount=discount-promotion.discount
-        }
-        if(discount<0) discount=0
-        return discount/100
-    }
-
-    private Float verifyPointFactor(Set<Service> servicesToVerify){
+    private Float verifyPointFactor(Date beginDate,Set<Service> servicesToVerify){
         Float pointFactor=1
-        Date now=new Date()
         def ids=servicesToVerify.collect{element -> return element.id}
         def promotionCriteria = Promotion.createCriteria()
         List<Promotion> promotions = promotionCriteria.list {
-            lte("startDate", now)
-            gte("endDate", now)
+            lte("startDate", beginDate)
+            gte("endDate", beginDate)
             eq("status",PromotionStatus.ACTIVE)
             eq("type",PromotionType.POINT)
             services{

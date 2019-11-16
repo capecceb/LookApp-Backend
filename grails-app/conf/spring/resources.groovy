@@ -3,6 +3,7 @@ import grails.rest.render.json.JsonCollectionRenderer
 import lookapp.backend.Appointment
 import lookapp.backend.Client
 import lookapp.backend.ProfessionalReport
+import lookapp.backend.Promotion
 import lookapp.backend.Service
 import lookapp.backend.ServiceReport
 import lookapp.backend.User
@@ -58,6 +59,12 @@ beans = {
     }
 
     ServiceRenderer(JsonCollectionRenderer, Service) {
+    }
+
+    PromotionRenderer(JsonRenderer, Promotion) {
+    }
+
+    PromotionsRenderer(JsonCollectionRenderer, Promotion) {
     }
 
 }

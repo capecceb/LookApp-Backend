@@ -29,7 +29,7 @@ class AppointmentService {
             if (service == null) {
                 throw new BadRequestException("Invalid service id")
             }
-            discount = verifyDiscounts(beginDate,service)
+            discount = verifyDiscounts(appointment,beginDate,service)
             duration += service.duration
             totalPrice += service.price
             totalPay += service.price * discount
@@ -182,7 +182,7 @@ class AppointmentService {
         }
     }
   
-    private Float verifyDiscounts(Date beginDate,Service service){
+    private Float verifyDiscounts(Appointment appointment,Date beginDate,Service service){
         Float discount=100
         Date now=new Date()
         def promotionCriteria = Promotion.createCriteria()
@@ -195,8 +195,10 @@ class AppointmentService {
                 eq("id",service.id)
             }
         }
+        appointment.promotions=new ArrayList<>()
         for (Promotion promotion : promotions) {
             discount=discount-promotion.discount
+            appointment.promotions.add(promotion)
         }
         if(discount<0) discount=0
         return discount/100

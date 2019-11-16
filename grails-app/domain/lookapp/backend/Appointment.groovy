@@ -16,7 +16,7 @@ class Appointment {
     BigDecimal totalToPay
 
     AppointmentStatus status
-    static hasMany = [services: Service, payments: Payment]
+    static hasMany = [services: Service, payments: Payment, promotions:Promotion]
     static constraints = {
         client(nullable: true)
         professional(nullable: true)

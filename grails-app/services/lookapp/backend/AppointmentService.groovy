@@ -1,6 +1,7 @@
 package lookapp.backend
 
 import grails.gorm.transactions.Transactional
+import jline.internal.Log
 
 @Transactional
 class AppointmentService {
@@ -171,6 +172,16 @@ class AppointmentService {
         return professional
     }
 
+    def expireAppointments() {
+        List<Appointment> appointments=Appointment.findAllByStatusAndEndDateLessThan(AppointmentStatus.OPEN,new Date())
+        Log.info("appointments to expire ${appointments.size()}")
+        for(Appointment appointment:appointments){
+            Log.info("appointment ${appointment.id} EXPIRED")
+            appointment.status=AppointmentStatus.EXPIRED
+            appointment.save()
+        }
+    }
+  
     private Float verifyDiscounts(Date beginDate,Service service){
         Float discount=100
         Date now=new Date()

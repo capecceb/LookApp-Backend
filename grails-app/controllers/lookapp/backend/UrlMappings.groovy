@@ -13,6 +13,7 @@ class UrlMappings {
         "/appointments/$id/pending"(controller: 'appointment', action:'pending',method:'POST')
         "/appointments/$id/pay"(controller: 'payment', action:'pay',method:'POST')
         "/appointments/search"(controller: 'appointment', action:'search',method:'GET')
+        "/appointments/expire"(controller: 'appointment', action:'expire',method:'POST')
         "/professionals/search"(controller: 'appointment', action:'searchProfessionals')
         "/payments"(controller: 'payment', action:'list',method:'GET')
         "/payments/$id"(controller: 'payment', action:'show',method:'GET')

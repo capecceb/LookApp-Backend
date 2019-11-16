@@ -20,6 +20,7 @@ apply plugin:"org.grails.plugins.views-json"
 
 repositories {
     maven { url "https://repo.grails.org/grails/core" }
+    maven { url "https://mvnrepository.com/artifact/" }
 }
 
 configurations {
@@ -64,6 +65,8 @@ dependencies {
     testCompile "io.micronaut:micronaut-http-client"
     testCompile "org.grails:grails-web-testing-support"
     runtime "mysql:mysql-connector-java:5.1.46"
+    compile 'org.grails.plugins:quartz:2.0.13'
+    compile 'org.quartz-scheduler:quartz:2.2.1'
 }
 
 bootRun {

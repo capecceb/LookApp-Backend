@@ -24,8 +24,4 @@ class Appointment {
         dayHour(column: "begin_date")
         eventId(nullable: true)
     }
-
-    def beforeInsert() {
-        status = AppointmentStatus.OPEN
-    }
 }

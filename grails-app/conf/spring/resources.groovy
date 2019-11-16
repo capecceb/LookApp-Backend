@@ -16,7 +16,6 @@ beans = {
     }
 
     UsersRenderer(JsonCollectionRenderer, User) {
-        excludes = ['password']
     }
 
     ProfessionalRenderer(JsonRenderer, Professional) {
@@ -58,7 +57,7 @@ beans = {
     ServiceRenderer(JsonRenderer, Service) {
     }
 
-    ServiceRenderer(JsonCollectionRenderer, Service) {
+    ServicesRenderer(JsonCollectionRenderer, Service) {
     }
 
     PromotionRenderer(JsonRenderer, Promotion) {
@@ -66,5 +65,4 @@ beans = {
 
     PromotionsRenderer(JsonCollectionRenderer, Promotion) {
     }
-
 }

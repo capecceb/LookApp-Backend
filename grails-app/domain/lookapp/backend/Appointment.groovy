@@ -9,6 +9,7 @@ class Appointment {
     Client client
     Professional professional
     Branch branch
+    String eventId
     Date dateCreated
     Date lastUpdated
     BigDecimal totalPrice
@@ -21,6 +22,7 @@ class Appointment {
         professional(nullable: true)
         endDate(nullable: true)
         dayHour(column: "begin_date")
+        eventId(nullable: true)
     }
 
     def beforeInsert() {

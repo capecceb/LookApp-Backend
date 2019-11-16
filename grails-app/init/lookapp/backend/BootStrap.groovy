@@ -8,6 +8,7 @@ class BootStrap {
         }
         development {
             addData()
+            AppointmentJob.run()
         }
     }
 
@@ -197,21 +198,6 @@ class BootStrap {
             turn1.branch = branch
             turn1.save()
 
-//            AccountMovement movimiento = new AccountMovement()
-//            movimiento.amount = new BigDecimal(0)
-//            movimiento.amount =  500
-//            movimiento.id = 1
-//            movimiento.save(flush: true)
-//
-//            AccountMovement movimientoPendiente = new AccountMovement()
-//            movimientoPendiente.amount = -2500
-//            movimientoPendiente.id = 2
-//            movimientoPendiente.save(flush: true)
-
-//            cliente.accountancy.accountMovements.add(movimiento)
-//            cliente.accountancy.accountMovements.add(movimientoPendiente)
-//            cliente.save(flush: true)
-
             Client cliente2 = new Client()
             cliente2.name = "clien"
             cliente2.lastName = "sinPuntos"
@@ -231,11 +217,29 @@ class BootStrap {
             Calendar cal = Calendar.getInstance()
             cal.set(2019, 9, 29)
             turn.dayHour = cal.getTime()
+            cal.add(Calendar.MINUTE,60)
+            turn.endDate = cal.getTime()
             turn.services = new ArrayList<Service>()
             turn.services.add(service)
             turn.status = AppointmentStatus.OPEN
             turn.branch = branch
+            turn.totalPrice = 200
+            turn.totalToPay = 200
             turn.save()
+
+            Appointment turn1 = new Appointment()
+            turn1.local = "San Miguel"
+            turn1.client = cliente1
+            Calendar cal1 = Calendar.getInstance()
+            cal1.set(2019, 9, 28)
+            turn1.dayHour = cal1.getTime()
+            turn1.services = new ArrayList<Service>()
+            turn1.services.add(service2)
+            turn1.status = AppointmentStatus.OPEN
+            turn1.branch = branch
+            turn1.totalPrice = 250
+            turn1.totalToPay = 250
+            turn1.save()
 
             Appointment turn2 = new Appointment()
             turn2.local = "San Miguel"
@@ -247,6 +251,8 @@ class BootStrap {
             turn2.services.add(service3)
             turn2.status = AppointmentStatus.OPEN
             turn2.branch = branch
+            turn2.totalPrice = 150
+            turn2.totalToPay = 150
             turn2.save()
 
             Professional professional1 = new Professional()
@@ -277,6 +283,8 @@ class BootStrap {
             turn3.services.add(service3)
             turn3.status = AppointmentStatus.OPEN
             turn3.branch = branch2
+            turn3.totalPrice = 150
+            turn3.totalToPay = 150
             turn3.save()
 
             Appointment turn4=new Appointment()
@@ -289,6 +297,8 @@ class BootStrap {
             turn4.services.add(service3)
             turn4.status = AppointmentStatus.OPEN
             turn4.branch = branch
+            turn4.totalPrice = 150
+            turn4.totalToPay = 150
             turn4.save()
 
             Appointment turn5=new Appointment()
@@ -301,6 +311,8 @@ class BootStrap {
             turn5.services.add(service3)
             turn5.status = AppointmentStatus.OPEN
             turn5.branch = branch
+            turn5.totalPrice = 150
+            turn5.totalToPay = 150
             turn5.save()
 
             Appointment turn6=new Appointment()
@@ -313,6 +325,8 @@ class BootStrap {
             turn6.services.add(service3)
             turn6.status = AppointmentStatus.OPEN
             turn6.branch = branch
+            turn6.totalPrice = 150
+            turn6.totalToPay = 150
             turn6.save()
 
             Appointment turn7=new Appointment()
@@ -324,6 +338,8 @@ class BootStrap {
             turn7.services.add(service3)
             turn7.status = AppointmentStatus.OPEN
             turn7.branch = branch
+            turn7.totalPrice = 150
+            turn7.totalToPay = 150
             turn7.save()
 
             Appointment turn8=new Appointment()
@@ -337,6 +353,8 @@ class BootStrap {
             turn8.services.add(service2)
             turn8.status = AppointmentStatus.OPEN
             turn8.branch = branch
+            turn8.totalPrice = 400
+            turn8.totalToPay = 400
             turn8.save()
 
             Payment payment = new Payment()
@@ -360,6 +378,8 @@ class BootStrap {
             turn9.services.add(service3)
             turn9.status = AppointmentStatus.OPEN
             turn9.branch = branch2
+            turn9.totalPrice = 150
+            turn9.totalToPay = 150
             turn9.save()
 
             Payment payment1 = new Payment()
@@ -385,6 +405,8 @@ class BootStrap {
             turn10.services.add(service)
             turn10.status = AppointmentStatus.OPEN
             turn10.branch = branch
+            turn10.totalPrice = 500
+            turn10.totalToPay = 500
             turn10.save()
 
             Payment payment3 = new Payment()
@@ -397,6 +419,31 @@ class BootStrap {
             turn10.payments.add(payment3)
             turn10.status =AppointmentStatus.PAID
             turn10.save()
+
+            Appointment turn11=new Appointment()
+            turn11.local="San Migue11"
+            Calendar cal11 = Calendar.getInstance()
+            cal11.set(2019,10, 25)
+            turn11.dayHour= cal11.getTime()
+            turn11.professional = professional1
+            turn11.services=new ArrayList<Service>()
+            turn11.services.add(service)
+            turn11.status = AppointmentStatus.OPEN
+            turn11.branch = branch2
+            turn11.totalPrice = 500
+            turn11.totalToPay = 500
+            turn11.save()
+
+            Payment payment4 = new Payment()
+            payment4.appointment = turn11
+            payment4.currency= "ARG"
+            payment4.amount = 200
+            payment4.save()
+
+            turn11.payments= new ArrayList<Payment>()
+            turn11.payments.add(payment4)
+            turn11.status =AppointmentStatus.PAID
+            turn11.save()
 
             Promotion promotion=new Promotion()
             promotion.name="Descuentos"

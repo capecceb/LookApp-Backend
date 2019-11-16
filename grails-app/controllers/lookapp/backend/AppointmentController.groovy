@@ -174,6 +174,11 @@ class AppointmentController {
         respond(resultProfessionals, status: 200)
     }
 
+    def expire(){
+        appointmentService.expireAppointments()
+        respond(null, status: 200)
+    }
+
     private Client getClient(Integer clientId){
         Client client = Client.get(clientId)
         if (client == null) {

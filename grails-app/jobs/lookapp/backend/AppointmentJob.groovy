@@ -1,17 +1,19 @@
 package lookapp.backend
 
-import jline.internal.Log
-
 class AppointmentJob {
 
     AppointmentService appointmentService
-
+    static boolean isRun = false
     static triggers = {
-      simple repeatInterval: 60000l // execute job once in 5 seconds
+        simple repeatInterval: 60000l // execute job once in 5 seconds
+    }
+
+    static void run() {
+        this.isRun = true
     }
 
     def execute() {
         // execute job
-        appointmentService.expireAppointments()
+        if(this.isRun) appointmentService.expireAppointments()
     }
 }

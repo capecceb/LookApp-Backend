@@ -193,13 +193,25 @@ class AppointmentSpec extends Specification {
     }
 
     void "test expire appointment"(){
+        def body = [:]
         given: 'one appointment to expire'
+        HttpResponse<Map> responseInitial = client.toBlocking().exchange(HttpRequest.GET("/appointments/1"), Map)
+        responseInitial.status().code == 200
+        responseInitial.body().status.name == "OPEN"
+
         when: 'execute a job'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/appointments/1"), Map)
+        HttpResponse<Map> responsePost = client.toBlocking().exchange(HttpRequest.POST("/appointments/expire", body), Map)
+        responsePost.status().code == 200
 
         then: 'The result is ...'
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/appointments/1"), Map)
         response.status().code == 200
         response.body().status.name == "EXPIRED"
+
+
+
+
+
     }
 
 }

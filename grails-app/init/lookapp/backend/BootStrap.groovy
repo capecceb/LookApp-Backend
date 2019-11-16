@@ -8,6 +8,7 @@ class BootStrap {
         }
         development {
             addData()
+            AppointmentJob.run()
         }
     }
 

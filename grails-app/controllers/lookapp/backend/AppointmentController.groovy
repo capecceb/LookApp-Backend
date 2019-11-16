@@ -153,7 +153,8 @@ class AppointmentController {
     }
 
     def expire(){
-
+        appointmentService.expireAppointments()
+        respond(null, status: 200)
     }
 
     private Client getClient(Integer clientId){

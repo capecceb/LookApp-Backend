@@ -37,14 +37,14 @@ class PaymentSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 0
+        response.body().size() == 4
     }
 
     void "test get a payment"() {
         def body=[:]
 
         when: 'I try get a list of appointments'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/payments/1"), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.GET("/payments/9"), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
@@ -83,7 +83,7 @@ class PaymentSpec extends Specification {
     void "try to pay an appointment, with points and cash"() {
         def body=[:]
         given: 'a new appointment'
-        body["amount"]=100
+        body["amount"]=125
         body["points"]=50
         body["clientId"]=2
         body["appointmentId"]=3
@@ -99,7 +99,7 @@ class PaymentSpec extends Specification {
     void "try to pay an appointment, with points"() {
         def body=[:]
         given: 'a new appointment'
-        body["points"]=150
+        body["points"]=300
         body["clientId"]=2
         body["appointmentId"]=4
         body["currency"]="ARS"

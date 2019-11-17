@@ -71,17 +71,20 @@ class AppointmentController {
     def searchProfessionals() {
         def res = [:]
         def params = getParams()
-        String result = validate(params,["beginDate","endDate"])
+        String result = validate(params,["beginDate","endDate","branch"])
         if (result != null) {
             res["message"] = result
             respond(res, status: 400)
             return
         }
-
+        Branch branch=Branch.get(params.branch)
+        if(branch==null){
+            res["message"] = "branch not found"
+        }
         Date begin = DateTimeParser.parseSearchFormat(params.beginDate)
         Date end = DateTimeParser.parseSearchFormat(params.endDate)
 
-        List<Professional> resultProfessionals = appointmentService.availableProfessionals(null, begin, end)
+        List<Professional> resultProfessionals = appointmentService.availableProfessionals(null, begin, end,branch)
         respond(resultProfessionals, status: 200)
     }
 
@@ -147,6 +150,11 @@ class AppointmentController {
         Long professional = params.professional as Long
         List<Professional> resultProfessionals = appointmentService.searchAppointments(professional,begin, end)
         respond(resultProfessionals, status: 200)
+    }
+
+    def expire(){
+        appointmentService.expireAppointments()
+        respond(null, status: 200)
     }
 
     private Client getClient(Integer clientId){

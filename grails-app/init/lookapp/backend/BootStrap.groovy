@@ -8,6 +8,7 @@ class BootStrap {
         }
         development {
             addData()
+            AppointmentJob.run()
         }
     }
 
@@ -196,36 +197,44 @@ class BootStrap {
             turn.local = "casa"
             turn.client = cliente
             Calendar cal = Calendar.getInstance()
-            cal.set(2019, 9, 29)
+            cal.set(2019, 9, 29,9,0,0)
             turn.dayHour = cal.getTime()
+            cal.add(Calendar.MINUTE,60)
+            turn.endDate = cal.getTime()
             turn.services = new ArrayList<Service>()
             turn.services.add(service)
             turn.status = AppointmentStatus.OPEN
             turn.branch = branch
+            turn.totalPrice = 200
+            turn.totalToPay = 200
             turn.save()
 
             Appointment turn1 = new Appointment()
             turn1.local = "San Miguel"
             turn1.client = cliente1
             Calendar cal1 = Calendar.getInstance()
-            cal1.set(2019, 9, 28)
+            cal1.set(2019, 9, 28,9,0,0)
             turn1.dayHour = cal1.getTime()
             turn1.services = new ArrayList<Service>()
             turn1.services.add(service2)
             turn1.status = AppointmentStatus.OPEN
             turn1.branch = branch
+            turn1.totalPrice = 250
+            turn1.totalToPay = 250
             turn1.save()
 
             Appointment turn2 = new Appointment()
             turn2.local = "San Miguel"
             Calendar cal2 = Calendar.getInstance()
-            cal2.set(2019,9, 30)
+            cal2.set(2019,9, 30,9,0,0)
             turn2.client =cliente1
             turn2.dayHour= cal2.getTime()
             turn2.services=new ArrayList<Service>()
             turn2.services.add(service3)
             turn2.status = AppointmentStatus.OPEN
             turn2.branch = branch
+            turn2.totalPrice = 150
+            turn2.totalToPay = 150
             turn2.save()
 
             Professional professional1 = new Professional()
@@ -240,7 +249,7 @@ class BootStrap {
             professional1.workingHours.add(workingHourMonday)
             professional1.workingHours.add(workingHourSaturday)
             professional1.workingHours.add(workingHourFriday)
-            professional1.branch = branch2
+            professional1.branch = branch
             professional1.save()
 
             branch2.professionals.add(professional1)
@@ -249,64 +258,218 @@ class BootStrap {
             Appointment turn3 = new Appointment()
             turn3.local = "San Miguel"
             Calendar cal3 = Calendar.getInstance()
-            cal2.set(2019, 9, 30)
+            cal3.set(2019, 9, 30,9,0,0)
             turn3.dayHour = cal2.getTime()
             turn3.professional = professional
             turn3.services = new ArrayList<Service>()
             turn3.services.add(service3)
             turn3.status = AppointmentStatus.OPEN
-            turn3.branch = branch
+            turn3.branch = branch2
+            turn3.totalPrice = 150
+            turn3.totalToPay = 150
             turn3.save()
 
             Appointment turn4=new Appointment()
             turn4.local="San Miguel"
             Calendar cal4 = Calendar.getInstance()
-            cal4.set(2019,10, 30)
+            cal4.set(2019,9, 30,9,0,0)
             turn4.client =cliente1
             turn4.dayHour= cal4.getTime()
             turn4.services=new ArrayList<Service>()
             turn4.services.add(service3)
             turn4.status = AppointmentStatus.OPEN
             turn4.branch = branch
+            turn4.totalPrice = 150
+            turn4.totalToPay = 150
             turn4.save()
 
             Appointment turn5=new Appointment()
             turn5.local="San Miguel"
             Calendar cal5 = Calendar.getInstance()
-            cal5.set(2019,10, 29)
+            cal5.set(2019,9, 29,9,0,0)
             turn5.client =cliente1
             turn5.dayHour= cal5.getTime()
             turn5.services=new ArrayList<Service>()
             turn5.services.add(service3)
             turn5.status = AppointmentStatus.OPEN
             turn5.branch = branch
+            turn5.totalPrice = 150
+            turn5.totalToPay = 150
             turn5.save()
 
             Appointment turn6=new Appointment()
             turn6.local="San Miguel"
             Calendar cal6 = Calendar.getInstance()
-            cal6.set(2019,10, 28)
+            cal6.set(2019,9, 28,9,0,0)
             turn6.client =cliente
             turn6.dayHour= cal6.getTime()
             turn6.services=new ArrayList<Service>()
             turn6.services.add(service3)
             turn6.status = AppointmentStatus.OPEN
             turn6.branch = branch
+            turn6.totalPrice = 150
+            turn6.totalToPay = 150
             turn6.save()
 
             Appointment turn7=new Appointment()
-            turn7.local="San Miguel"
+            turn7.local="???"
             Calendar cal7 = Calendar.getInstance()
-            cal7.set(2019,10, 27)
+            cal7.set(2019,9, 27,9,0,0)
             turn7.dayHour= cal7.getTime()
             turn7.services=new ArrayList<Service>()
             turn7.services.add(service3)
             turn7.status = AppointmentStatus.OPEN
             turn7.branch = branch
+            turn7.totalPrice = 150
+            turn7.totalToPay = 150
             turn7.save()
 
+
+            Appointment turn8=new Appointment()
+            turn8.local="San Miguel8"
+            Calendar cal8 = Calendar.getInstance()
+            cal8.set(2019,10, 13,9,0,0)
+            turn8.dayHour= cal8.getTime()
+            turn8.professional = professional
+            turn8.services=new ArrayList<Service>()
+            turn8.services.add(service3)
+            turn8.services.add(service2)
+            turn8.status = AppointmentStatus.OPEN
+            turn8.branch = branch
+            turn8.totalPrice = 400
+            turn8.totalToPay = 400
+            turn8.save()
+
+            Payment payment = new Payment()
+            payment.appointment = turn8
+            payment.currency= "ARG"
+            payment.amount = 400
+            payment.save()
+
+            turn8.payments= new ArrayList<Payment>()
+            turn8.payments.add(payment)
+            turn8.status =AppointmentStatus.PAID
+            turn8.save()
+
+            Appointment turn9=new Appointment()
+            turn9.local="San Miguel9"
+            Calendar cal9 = Calendar.getInstance()
+            cal9.set(2019,10, 10,9,0,0)
+            turn9.dayHour= cal9.getTime()
+            turn9.professional = professional1
+            turn9.services=new ArrayList<Service>()
+            turn9.services.add(service3)
+            turn9.status = AppointmentStatus.OPEN
+            turn9.branch = branch2
+            turn9.totalPrice = 150
+            turn9.totalToPay = 150
+            turn9.save()
+
+            Payment payment1 = new Payment()
+            payment1.appointment = turn9
+            payment1.currency= "ARG"
+            payment1.amount = 150
+            payment1.save()
+
+            turn9.payments= new ArrayList<Payment>()
+            turn9.payments.add(payment1)
+            turn9.status =AppointmentStatus.PAID
+            turn9.save()
+
+            Appointment turn10=new Appointment()
+            turn10.local="San Miguel10"
+            Calendar cal10 = Calendar.getInstance()
+            cal10.set(2019,10, 05,9,0,0)
+            turn10.dayHour= cal10.getTime()
+            turn10.professional = professional
+            turn10.services=new ArrayList<Service>()
+            turn10.services.add(service3)
+            turn10.services.add(service2)
+            turn10.services.add(service)
+            turn10.status = AppointmentStatus.OPEN
+            turn10.branch = branch
+            turn10.totalPrice = 500
+            turn10.totalToPay = 500
+            turn10.save()
+
+            Payment payment3 = new Payment()
+            payment3.appointment = turn10
+            payment3.currency= "ARG"
+            payment3.amount = 600
+            payment3.save()
+
+            turn10.payments= new ArrayList<Payment>()
+            turn10.payments.add(payment3)
+            turn10.status =AppointmentStatus.PAID
+            turn10.save()
+
+            Appointment turn11=new Appointment()
+            turn11.local="San Migue11"
+            Calendar cal11 = Calendar.getInstance()
+            cal11.set(2019,10, 25,9,0,0)
+            turn11.dayHour= cal11.getTime()
+            turn11.professional = professional1
+            turn11.services=new ArrayList<Service>()
+            turn11.services.add(service)
+            turn11.status = AppointmentStatus.OPEN
+            turn11.branch = branch2
+            turn11.totalPrice = 500
+            turn11.totalToPay = 500
+            turn11.save()
+
+            Payment payment4 = new Payment()
+            payment4.appointment = turn11
+            payment4.currency= "ARG"
+            payment4.amount = 200
+            payment4.save()
+
+            turn11.payments= new ArrayList<Payment>()
+            turn11.payments.add(payment4)
+            turn11.status =AppointmentStatus.PAID
+            turn11.save()
+
+
+            Promotion promotion=new Promotion()
+            promotion.name="Descuentos"
+            promotion.status=PromotionStatus.ACTIVE
+            promotion.type=PromotionType.DISCOUNT
+            cal.set(2018,1, 1)
+            promotion.startDate=cal.getTime()
+            cal.set(2048,1, 1)
+            promotion.endDate=cal.getTime()
+            promotion.discount=20
+            promotion.services=new ArrayList<Service>()
+            promotion.services.add(service)
+            promotion.save()
+
+            Promotion promotionExpired=new Promotion()
+            promotionExpired.name="Descuentos expirados"
+            promotionExpired.status=PromotionStatus.ACTIVE
+            promotionExpired.type=PromotionType.DISCOUNT
+            cal.set(2018,1, 1,9,0,0)
+            promotionExpired.startDate=cal.getTime()
+            cal.set(2018,1, 2,9,0,0)
+            promotionExpired.endDate=cal.getTime()
+            promotionExpired.discount=10
+            promotionExpired.services=new ArrayList<Service>()
+            promotionExpired.services.add(service)
+            promotionExpired.save()
+
+            Promotion promotionPoint=new Promotion()
+            promotionPoint.name="Promoción de Puntos"
+            promotionPoint.status=PromotionStatus.ACTIVE
+            promotionPoint.type=PromotionType.POINT
+            cal.set(2018,1, 1,9,0,0)
+            promotionPoint.startDate=cal.getTime()
+            cal.set(2048,1, 2,9,0,0)
+            promotionPoint.endDate=cal.getTime()
+            promotionPoint.pointFactor=2
+            promotionPoint.services=new ArrayList<Service>()
+            promotionPoint.services.add(service)
+            promotionPoint.save()
+
             Config configChangePay=new Config(key: "changePay",value:"1").save()
-            Config configChangePurchase=new Config(key: "changePurchase",value:"1").save()
+            Config configChangePurchase=new Config(key: "changePurchase",value:"2").save()
         }
     }
 

@@ -30,11 +30,7 @@ class PaymentService {
         if (points != null && client != null) {
             if (client.points >= points) {
                 //verify if there are a promotions with points
-                client == null ? println("client es null") : println("client no es null")
-                appointment.dayHour == null ? println("appointmenr day hour es null") : println("appointmenr day hour no es null")
-                appointment.services == null ? println("appointmenr services es null") : println("appointmenr services no es null")
                 Float pointFactor = verifyPointFactor(appointment.dayHour,appointment.services)
-                println("Paso verify point factor")
                 amountFromPoints = points / Integer.parseInt(Config.findByKey("changePurchase").value) * pointFactor
                 client.points -= points
             } else {
@@ -75,7 +71,6 @@ class PaymentService {
         if(appointment.status == AppointmentStatus.PAID){
             accountMovement.amount = appointment.totalToPay
             client.accountancy.accountMovements.add(accountMovement)
-            println("total paid")
         }
         else if(appointment.status == AppointmentStatus.PARTIAL_PAID){
             if(client.accountancy.accountMovements.size() < 1){
@@ -83,24 +78,18 @@ class PaymentService {
                 accountMovement.amount = -(appointment.totalToPay)
                 accountMovement.save()
                 client.accountancy.accountMovements.add(accountMovement)
-                println("Registrado costo total : " + appointment.totalToPay)
 
                 AccountMovement movementPartialPaid = new AccountMovement()
                 movementPartialPaid.appointment = appointment
                 movementPartialPaid.amount = totalAmount
                 movementPartialPaid.save()
                 client.accountancy.accountMovements.add(movementPartialPaid)
-                println("Registrado monton pagado: " + totalAmount)
-
-                println("partial paid with no movements, amount entered: " + totalAmount )
             }
             else{
                 accountMovement.amount = totalAmount
                 accountMovement.save()
 
                 client.accountancy.accountMovements.add(accountMovement)
-
-                println("partial paid with movements, amount: " + totalAmount)
             }
         }
 
@@ -130,33 +119,19 @@ class PaymentService {
 
     private Float verifyPointFactor(Date beginDate,Set<Service> servicesToVerify){
         Float pointFactor = 1
-        println("Entro al verify point factor")
         def ids = servicesToVerify.collect{element -> return element.id}
-        println("paso service to verify")
         def promotionCriteria = Promotion.createCriteria()
-        println("paso prmotion.create Criteria")
         List<Promotion> promotions = promotionCriteria.list {
             lte("startDate", beginDate)
-            println("start date: " + beginDate)
             gte("endDate", beginDate)
-            println("end Date: " + beginDate)
             eq("status", PromotionStatus.ACTIVE)
-            println("status: " + PromotionStatus.ACTIVE)
             eq("type", PromotionType.POINT)
-            println("type: " + PromotionType.POINT)
             services{
                 inList("id",ids)
-                println("services ids")
             }
-            println("salio de services")
         } as List<Promotion>
-        println("paso list<promotion>")
         for (Promotion promotion : promotions) {
-            println("entro al for de promotions")
-            Float proFactor = promotion.pointFactor
-            println("aisgno profactor")
-            pointFactor = (pointFactor as Float) * (proFactor as Float)
-            println("point factor * pormotion point factor: " + pointFactor)
+            if(promotion.pointFactor!=null) pointFactor = pointFactor * promotion.pointFactor
         }
         return pointFactor
     }

@@ -12,7 +12,7 @@ class Client {
     String secondPhone
     Integer points
     ClientStatus status
-    Accountancy accountancy
+    Accountancy accountancy = new Accountancy()
 
     Date dateCreated
     Date lastUpdated

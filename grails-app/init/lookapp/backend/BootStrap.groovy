@@ -203,7 +203,7 @@ class BootStrap {
             turn.local = "casa"
             turn.client = cliente
             Calendar cal = Calendar.getInstance()
-            cal.set(2019, 9, 29)
+            cal.set(2019, 9, 29,9,0,0)
             turn.dayHour = cal.getTime()
             cal.add(Calendar.MINUTE,60)
             turn.endDate = cal.getTime()
@@ -219,7 +219,7 @@ class BootStrap {
             turn1.local = "San Miguel"
             turn1.client = cliente1
             Calendar cal1 = Calendar.getInstance()
-            cal1.set(2019, 9, 28)
+            cal1.set(2019, 9, 28,9,0,0)
             turn1.dayHour = cal1.getTime()
             turn1.services = new ArrayList<Service>()
             turn1.services.add(service2)
@@ -232,7 +232,7 @@ class BootStrap {
             Appointment turn2 = new Appointment()
             turn2.local = "San Miguel"
             Calendar cal2 = Calendar.getInstance()
-            cal2.set(2019,9, 30)
+            cal2.set(2019,9, 30,9,0,0)
             turn2.client =cliente1
             turn2.dayHour= cal2.getTime()
             turn2.services=new ArrayList<Service>()
@@ -264,7 +264,7 @@ class BootStrap {
             Appointment turn3 = new Appointment()
             turn3.local = "San Miguel"
             Calendar cal3 = Calendar.getInstance()
-            cal3.set(2019, 9, 30)
+            cal3.set(2019, 9, 30,9,0,0)
             turn3.dayHour = cal2.getTime()
             turn3.professional = professional
             turn3.services = new ArrayList<Service>()
@@ -278,7 +278,7 @@ class BootStrap {
             Appointment turn4=new Appointment()
             turn4.local="San Miguel"
             Calendar cal4 = Calendar.getInstance()
-            cal4.set(2019,9, 30)
+            cal4.set(2019,9, 30,9,0,0)
             turn4.client =cliente1
             turn4.dayHour= cal4.getTime()
             turn4.services=new ArrayList<Service>()
@@ -292,7 +292,7 @@ class BootStrap {
             Appointment turn5=new Appointment()
             turn5.local="San Miguel"
             Calendar cal5 = Calendar.getInstance()
-            cal5.set(2019,9, 29)
+            cal5.set(2019,9, 29,9,0,0)
             turn5.client =cliente1
             turn5.dayHour= cal5.getTime()
             turn5.services=new ArrayList<Service>()
@@ -306,7 +306,7 @@ class BootStrap {
             Appointment turn6=new Appointment()
             turn6.local="San Miguel"
             Calendar cal6 = Calendar.getInstance()
-            cal6.set(2019,9, 28)
+            cal6.set(2019,9, 28,9,0,0)
             turn6.client =cliente
             turn6.dayHour= cal6.getTime()
             turn6.services=new ArrayList<Service>()
@@ -320,7 +320,7 @@ class BootStrap {
             Appointment turn7=new Appointment()
             turn7.local="???"
             Calendar cal7 = Calendar.getInstance()
-            cal7.set(2019,9, 27)
+            cal7.set(2019,9, 27,9,0,0)
             turn7.dayHour= cal7.getTime()
             turn7.services=new ArrayList<Service>()
             turn7.services.add(service3)
@@ -334,7 +334,7 @@ class BootStrap {
             Appointment turn8=new Appointment()
             turn8.local="San Miguel8"
             Calendar cal8 = Calendar.getInstance()
-            cal8.set(2019,10, 13)
+            cal8.set(2019,10, 13,9,0,0)
             turn8.dayHour= cal8.getTime()
             turn8.professional = professional
             turn8.services=new ArrayList<Service>()
@@ -360,7 +360,7 @@ class BootStrap {
             Appointment turn9=new Appointment()
             turn9.local="San Miguel9"
             Calendar cal9 = Calendar.getInstance()
-            cal9.set(2019,10, 10)
+            cal9.set(2019,10, 10,9,0,0)
             turn9.dayHour= cal9.getTime()
             turn9.professional = professional1
             turn9.services=new ArrayList<Service>()
@@ -385,7 +385,7 @@ class BootStrap {
             Appointment turn10=new Appointment()
             turn10.local="San Miguel10"
             Calendar cal10 = Calendar.getInstance()
-            cal10.set(2019,10, 05)
+            cal10.set(2019,10, 05,9,0,0)
             turn10.dayHour= cal10.getTime()
             turn10.professional = professional
             turn10.services=new ArrayList<Service>()
@@ -412,7 +412,7 @@ class BootStrap {
             Appointment turn11=new Appointment()
             turn11.local="San Migue11"
             Calendar cal11 = Calendar.getInstance()
-            cal11.set(2019,10, 25)
+            cal11.set(2019,10, 25,9,0,0)
             turn11.dayHour= cal11.getTime()
             turn11.professional = professional1
             turn11.services=new ArrayList<Service>()
@@ -452,9 +452,9 @@ class BootStrap {
             promotionExpired.name="Descuentos expirados"
             promotionExpired.status=PromotionStatus.ACTIVE
             promotionExpired.type=PromotionType.DISCOUNT
-            cal.set(2018,1, 1)
+            cal.set(2018,1, 1,9,0,0)
             promotionExpired.startDate=cal.getTime()
-            cal.set(2018,1, 2)
+            cal.set(2018,1, 2,9,0,0)
             promotionExpired.endDate=cal.getTime()
             promotionExpired.discount=10
             promotionExpired.services=new ArrayList<Service>()
@@ -465,11 +465,11 @@ class BootStrap {
             promotionPoint.name="Promoción de Puntos"
             promotionPoint.status=PromotionStatus.ACTIVE
             promotionPoint.type=PromotionType.POINT
-            cal.set(2018,1, 1)
+            cal.set(2018,1, 1,9,0,0)
             promotionPoint.startDate=cal.getTime()
-            cal.set(2048,1, 2)
+            cal.set(2048,1, 2,9,0,0)
             promotionPoint.endDate=cal.getTime()
-            promotionPoint.discount=10
+            promotionPoint.pointFactor=2
             promotionPoint.services=new ArrayList<Service>()
             promotionPoint.services.add(service)
             promotionPoint.save()

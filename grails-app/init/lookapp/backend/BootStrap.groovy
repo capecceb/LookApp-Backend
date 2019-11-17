@@ -186,18 +186,6 @@ class BootStrap {
             cliente1.accountancy.accountMovements = new ArrayList<AccountMovement>()
             cliente1.save()
 
-            Appointment turn1 = new Appointment()
-            turn1.local = "San Miguel"
-            turn1.client = cliente1
-            Calendar cal1 = Calendar.getInstance()
-            cal1.set(2019, 9, 28)
-            turn1.dayHour = cal1.getTime()
-            turn1.services = new ArrayList<Service>()
-            turn1.services.add(service2)
-            turn1.status = AppointmentStatus.OPEN
-            turn1.branch = branch
-            turn1.save()
-
             Client cliente2 = new Client()
             cliente2.name = "clien"
             cliente2.lastName = "sinPuntos"
@@ -342,6 +330,7 @@ class BootStrap {
             turn7.totalToPay = 150
             turn7.save()
 
+
             Appointment turn8=new Appointment()
             turn8.local="San Miguel8"
             Calendar cal8 = Calendar.getInstance()
@@ -445,6 +434,7 @@ class BootStrap {
             turn11.status =AppointmentStatus.PAID
             turn11.save()
 
+
             Promotion promotion=new Promotion()
             promotion.name="Descuentos"
             promotion.status=PromotionStatus.ACTIVE
@@ -483,29 +473,6 @@ class BootStrap {
             promotionPoint.services=new ArrayList<Service>()
             promotionPoint.services.add(service)
             promotionPoint.save()
-
-			Appointment turn11=new Appointment()
-            turn11.local="San Migue11"
-            Calendar cal11 = Calendar.getInstance()
-            cal11.set(2019,10, 25)
-            turn11.dayHour= cal11.getTime()
-            turn11.professional = professional1
-            turn11.services=new ArrayList<Service>()
-            turn11.services.add(service)
-            turn11.status = AppointmentStatus.OPEN
-            turn11.branch = branch
-            turn11.save()
-
-            Payment payment4 = new Payment()
-            payment4.appointment = turn11
-            payment4.currency= "ARG"
-            payment4.amount = 200
-            payment4.save()
-
-            turn11.payments= new ArrayList<Payment>()
-            turn11.payments.add(payment4)
-            turn11.status =AppointmentStatus.PAID
-            turn11.save()
 
             Config configChangePay=new Config(key: "changePay",value:"1").save()
             Config configChangePurchase=new Config(key: "changePurchase",value:"2").save()

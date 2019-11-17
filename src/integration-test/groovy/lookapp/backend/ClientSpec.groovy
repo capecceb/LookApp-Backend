@@ -85,6 +85,7 @@ class ClientSpec extends Specification {
         body["secondPhone"]=33333
         body["status"] = "VIP"
         body["email"]= "newClient@gmail.com"
+        body["accountancy"] = 1
 
         when: 'I try add a client'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/clients",body), Map)

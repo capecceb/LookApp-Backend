@@ -463,7 +463,7 @@ class BootStrap {
             promotionPoint.startDate=cal.getTime()
             cal.set(2048,1, 2,9,0,0)
             promotionPoint.endDate=cal.getTime()
-            promotionPoint.discount=10
+            promotionPoint.pointFactor=2
             promotionPoint.services=new ArrayList<Service>()
             promotionPoint.services.add(service)
             promotionPoint.save()

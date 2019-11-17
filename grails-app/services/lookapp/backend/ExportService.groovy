@@ -26,6 +26,7 @@ class ExportService {
             map = appointment
             map["services"] = appointment.services
             map["payments"] = appointment.payments
+            map["promotions"] = appointment.promotions
             list.add(map)
         }
         res["appointments"] = list
@@ -47,6 +48,14 @@ class ExportService {
             list.add(map)
         }
         res["professionals"] = list
+        list = []
+        for (Promotion promotion : Promotion.findAll()) {
+            def map = [:]
+            map = promotion
+            map["services"] = promotion.services
+            list.add(map)
+        }
+        res["promotions"] = list
         return res
     }
 }

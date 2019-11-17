@@ -109,7 +109,7 @@ class ImportService {
                     def branch=params.branches.find { element -> element.id == object.branch.id}
                     professional.branch=Branch.get(branch.newId)
                 }
-                professional.services.clear()
+                if(professional.services!=null) professional.services.clear()
                 if(object.services!=null){
                     def services=params.services.findAll {
                         element -> element.id in object.services.id
@@ -118,7 +118,7 @@ class ImportService {
                         professional.services.add(Service.get(service.newId))
                     }
                 }
-                professional.workingHours.clear()
+                if(professional.workingHours!=null) professional.workingHours.clear()
                 if(object.workingHours!=null){
                     def workingHours=params.workingHours.findAll {
                         element -> element.id in object.workingHours.id
@@ -131,6 +131,26 @@ class ImportService {
                     professional.save()
                 }
                 object.newId=professional.id
+            }
+        }
+        if(params.promotions){
+            for(def object:params.promotions){
+                Promotion promotion=object
+                promotion.startDate=object.startDate?DateTimeParser.parse(object.startDate):null
+                promotion.endDate=object.endDate?DateTimeParser.parse(object.endDate):null
+                if(promotion.services!=null) promotion.services.clear()
+                if(object.services!=null){
+                    def services=params.services.findAll {
+                        element -> element.id in object.services.id
+                    }
+                    for(def service:services){
+                        promotion.services.add(Service.get(service.newId))
+                    }
+                }
+                Promotion.withNewTransaction {
+                    promotion.save()
+                }
+                object.newId=promotion.id
             }
         }
         if(params.appointments){
@@ -151,13 +171,22 @@ class ImportService {
                     def client=params.clients.find { element -> element.id == object.client.id}
                     appointment.client=Client.get(client.newId)
                 }
-                appointment.services.clear()
+                if(appointment.services!=null) appointment.services.clear()
                 if(object.services!=null){
                     def services=params.services.findAll {
                         element -> element.id in object.services.id
                     }
                     for(def service:services){
                         appointment.services.add(Service.get(service.newId))
+                    }
+                }
+                if(appointment.promotions!=null) appointment.promotions.clear()
+                if(object.promotions!=null){
+                    def promotions=params.promotions.findAll {
+                        element -> element.id in object.promotions.id
+                    }
+                    for(def promotion:promotions){
+                        appointment.promotions.add(Service.get(promotion.newId))
                     }
                 }
                 Appointment.withNewTransaction {
@@ -177,26 +206,5 @@ class ImportService {
                 object.newId=payment.id
             }
         }
-        if(params.promotions){
-            for(def object:params.promotions){
-                Promotion promotion=object
-                promotion.startDate=object.dayHour?DateTimeParser.parse(object.startDate):null
-                promotion.endDate=object.endDate?DateTimeParser.parse(object.endDate):null
-                promotion.services.clear()
-                if(object.services!=null){
-                    def services=params.services.findAll {
-                        element -> element.id in object.services.id
-                    }
-                    for(def service:services){
-                        promotion.services.add(Service.get(service.newId))
-                    }
-                }
-                Promotion.withNewTransaction {
-                    promotion.save()
-                }
-                object.newId=promotion.id
-            }
-        }
     }
-
 }

@@ -1,5 +1,7 @@
 package lookapp.backend
 
+import java.text.SimpleDateFormat
+
 
 class EmailController {
 
@@ -9,20 +11,45 @@ class EmailController {
 
     def MailService
 
-    def create() {
+    def send() {
 
         def res = [:]
         def params = request.getJSON()
 
-
         try {
-            String txt = "se envia desde jere?"
+            Appointment appointment = Appointment.get(params.appointmentId)
+            SimpleDateFormat fech = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat hour = new SimpleDateFormat("HH:mm");
+            String dateString = fech.format( appointment.dayHour   );
+            String hourString = hour.format( appointment.dayHour   );
+            String local = appointment.branch.name
 
+            Client client = Client.get(params.clientId)
+            String clientName = client.name +" "+ client.lastName
+            String mail = client.email
+
+            String bodyText
+            String subjectText
+
+            if(params.id ==1)
+            {
+                bodyText = "Hola "+clientName + "\nSe ha registrado de forma exitosa su reserva de turno. \nPara el dia "+dateString +" a la hora: "+ hourString +"\nEn el local: "+local+"\n\nMuchas gracias por elegirnos\n\nSaludos Hair&Head"
+                subjectText = "Reserva de turno"
+            }
+            if(params.id ==2)
+            {
+                bodyText = "Hola "+clientName + "\nSe ha modificado de forma exitosa su reserva de turno. \nPara el dia "+dateString +" a la hora: "+ hourString +"\nEn el local: "+local+"\n\nMuchas gracias por elegirnos\n\nSaludos Hair&Head"
+                subjectText = "Modificacion de turno"
+            }
+            if(params.id ==3)
+            {
+                bodyText = "Hola "+clientName + "\nSe ha cancelado su reserva de turno. \nPara el dia "+dateString +" a la hora: "+ hourString +"\nEn el local: "+local+"\n\nMuchas gracias por elegirnos\n\nSaludos Hair&Head"
+                subjectText = "Cancelacion de turno"
+            }
             MailService.sendMail {
-                to "jerevallejo@gmail.com"
-                from "jerevallejo@gmail.com"
-                subject "confirmacion de reserva"
-                body txt
+                to mail
+                subject subjectText
+                body bodyText
             }
 
         } catch (Exception e) {
@@ -30,7 +57,6 @@ class EmailController {
             respond(res, status: 500)
             return
         }
-
         respond(status: 200)
     }
 
@@ -44,5 +70,3 @@ class EmailController {
         return null
     }
 }
-//tengo que ver donde envio el mail, en el controller de appointment?
-//en el service de appointment o dejo un endpoint para enviar un mail?c

@@ -21,6 +21,8 @@ class UrlMappings {
         "/servicesreports"(controller: 'serviceReport', action:'listService',method:'POST')
         "/promotions/search"(controller: 'promotion', action:'search',method:'GET')
         "/promotions"(resources:"promotion")
+        "/backup"(controller:"backup", action:'getBackup',method:'GET')
+        "/backup"(controller:"backup", action:'setBackup',method:'POST')
 
         "500"(controller: 'application', action:'error')
         "404"(view: '/notFound')

@@ -128,8 +128,11 @@ class AccountancySpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        !(response.body().accountMovements[1].amount == 50.00)
-        !(response.body().accountMovements[0].amount == -100.00)
+        def total = 0
+        for(AccountMovement move in (response.body().accountMovements as List<AccountMovement>)){
+            total += move.amount
+        }
+        !(total != -50)
     }
 
     void "test pay appointmnet with no client"(){

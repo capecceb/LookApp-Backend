@@ -106,8 +106,8 @@ grails:
     mail:
         host: "smtp.gmail.com"
         port: 587
-        username: "alpaint011@gmail.com"
-        password: "alpaint1234"
+        username: "look.app.ok@gmail.com"
+        password: "lookapp2019"
         props:
             mail.smtp.auth: "true"
             mail.smtp.starttls.enable: "true"

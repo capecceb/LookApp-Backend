@@ -7,8 +7,6 @@ class EmailController {
 
     static responseFormats = ['json', 'xml']
 
-   // def MailService emailService
-
     def MailService
 
     def send() {

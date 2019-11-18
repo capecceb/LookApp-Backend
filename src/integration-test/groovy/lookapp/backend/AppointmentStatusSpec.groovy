@@ -29,7 +29,7 @@ class AppointmentStatusSpec extends Specification {
         def body=[:]
 
         when: 'I try get a list of appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/1/cancel",body), List)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/2/cancel",body), List)
 
         then: 'The result is ...'
         response.status().code == 200
@@ -63,7 +63,7 @@ class AppointmentStatusSpec extends Specification {
         def body=[:]
 
         when: 'I try set a appointment pending'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/2/pending",body), List)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/3/pending",body), List)
 
         then: 'The result is ...'
         response.status().code == 200

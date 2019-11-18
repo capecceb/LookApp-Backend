@@ -48,6 +48,13 @@ class ImportService {
     }
 
     def importData(def params){
+        if(params.configs){
+            for(def object:params.configs){
+                Config config=object
+                config.save()
+                object.newId=config.id
+            }
+        }
         if(params.branches){
             for(def object:params.branches){
                 Branch branch=object

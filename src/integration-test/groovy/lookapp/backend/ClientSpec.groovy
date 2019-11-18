@@ -34,7 +34,7 @@ class ClientSpec extends Specification {
         then: 'The result is ...'
         response.status().code == 200
         response.body().size() == 3
-        response.body()[0].name == "cliente1"
+        response.body()[0].name == "Jeremias"
     }
 
     void "test get a clients"() {
@@ -45,7 +45,7 @@ class ClientSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().name == "cliente1"
+        response.body().name == "Jeremias"
     }
     void "test update client"() {
         def body=[:]

@@ -126,6 +126,6 @@ class PromotionSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 1
+        response.body().size() == 2
     }
 }

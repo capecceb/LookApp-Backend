@@ -37,7 +37,7 @@ class ProfessionalReportSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 3
+        response.body().size() == 2
     }
 
     void "test list report, only branch 1"() {
@@ -49,7 +49,7 @@ class ProfessionalReportSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 2
+        response.body().size() == 1
     }
 
     void "test list report, only dates older than 08/11/2019"() {
@@ -74,8 +74,8 @@ class ProfessionalReportSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 2
-        response.body()[0].totalAmount == 525
+        response.body().size() == 1
+        response.body()[0].totalAmount == 600
     }
 
     void "test list report, test all filters"() {

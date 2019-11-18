@@ -90,13 +90,6 @@ class ImportService {
                 object.newId=service.id
             }
         }
-        if(params.clients){
-            for(def object:params.clients){
-                Client client=object
-                client.save()
-                object.newId=client.id
-            }
-        }
         if(params.workingHours){
             for(def object:params.workingHours){
                 WorkingHour workingHour=object
@@ -225,6 +218,66 @@ class ImportService {
                 }
                 payment.save()
                 object.newId=payment.id
+            }
+        }
+        if(params.accountMovements){
+            for(def object:params.accountMovements){
+                AccountMovement accountMovement=object
+                if(object.appointment!=null){
+                    def appointment=params.appointment.find { element -> element.id == object.appointment.id}
+                    accountMovement.appointment=Appointment.get(appointment.newId)
+                }
+                accountMovement.save()
+                object.newId=accountMovement.id
+            }
+        }
+        if(params.accountancy){
+            for(def object:params.accountancy){
+                Accountancy accountancy=object
+                accountancy.accountMovements=null
+                if(object.accountMovements!=null){
+                    def accountMovements=params.accountMovements.findAll {
+                        element -> element.id in object.accountMovements.id
+                    }
+                    for(def accountMovement:accountMovements){
+                        accountancy.accountMovements.add(AccountMovement.get(accountMovement.newId))
+                    }
+                }
+                accountancy.save()
+                object.newId=accountancy.id
+            }
+        }
+        if(params.clients){
+            for(def object:params.clients){
+                Client client=object
+                if(object.accountancy!=null){
+                    def accountancy=params.accountancy.find { element -> element.id == object.accountancy.id}
+                    client.accountancy=Accountancy.get(accountancy.newId)
+                }
+                client.save()
+                object.newId=client.id
+            }
+        }
+        if(params.serviceReports){
+            for(def object:params.serviceReports){
+                ServiceReport serviceReport=object
+                if(object.service!=null){
+                    def service=params.services.find { element -> element.id == object.service.id}
+                    serviceReport.service=Service.get(service.newId)
+                }
+                serviceReport.save()
+                object.newId=serviceReport.id
+            }
+        }
+        if(params.professionalReports){
+            for(def object:params.professionalReports){
+                ProfessionalReport professionalReport=object
+                if(object.professional!=null){
+                    def professional=params.professionals.find { element -> element.id == object.professional.id}
+                    professionalReport.professional=Professional.get(professional.newId)
+                }
+                professionalReport.save()
+                object.newId=professionalReport.id
             }
         }
     }

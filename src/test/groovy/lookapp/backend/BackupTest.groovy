@@ -31,7 +31,7 @@ class BackupTest extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().get(0).size() == 11
+        response.body().get(0).size() == 15
     }
 
     void "test add import"() {

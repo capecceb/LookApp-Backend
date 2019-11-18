@@ -11,6 +11,9 @@ class ExportService {
         res["workingHours"] = WorkingHour.findAll()
         res["clients"] = Client.findAll()
         res["roles"] = Rol.findAll()
+        res["accountMovements"] = AccountMovement.findAll()
+        res["serviceReports"] = ServiceReport.findAll()
+        res["professionalReports"] = ProfessionalReport.findAll()
 
         def list = []
         for (User user : User.findAll()) {
@@ -56,6 +59,15 @@ class ExportService {
             list.add(map)
         }
         res["promotions"] = list
+        list = []
+        for (Accountancy accountancy : Accountancy.findAll()) {
+            def map = [:]
+            map = accountancy
+            map["accountMovements"] = accountancy.accountMovements
+            list.add(map)
+        }
+        res["accountancy"] = list
+
         return res
     }
 }

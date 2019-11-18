@@ -16,10 +16,10 @@ class ProfessionalReportService {
 
         if(toDate != null) {
             for (int i = 0; i < appointments.size(); i++) {
-               if(appointments.get(i).dayHour > toDate) {
-                   appointments.remove(i)
-                   i--
-               }
+                if(appointments.get(i).dayHour > toDate) {
+                    appointments.remove(i)
+                    i--
+                }
             }
         }
         if(fromDate != null) {
@@ -59,17 +59,15 @@ class ProfessionalReportService {
                     reports.add(newReport)
                 }else{
                     for(ProfessionalReport report in reports) {
-                       if(report.professional == newReport.professional) {
-                           exist = true
-                           report.totalAmount += newReport.totalAmount
-                       }
+                        if(report.professional == newReport.professional) {
+                            exist = true
+                            report.totalAmount += newReport.totalAmount
+                        }
                     }
                     if(!exist){
                         reports.add(newReport)
                     }
                 }
-				
-                reports.add(newReport)
             }
         }
         return reports

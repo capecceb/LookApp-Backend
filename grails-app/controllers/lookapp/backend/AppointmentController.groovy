@@ -130,15 +130,9 @@ class AppointmentController {
             appointment.save()
         }
 
-
-        services = appointment.services
-        for (Service service in services) {
-            totalCost += service.price
-        }
-
         AccountMovement accountMovement = new AccountMovement()
         accountMovement.appointment = appointment
-        accountMovement.amount = - (totalCost)
+        accountMovement.amount = -(appointment.totalToPay)
         AccountMovement.withNewTransaction {
             accountMovement.save()
         }

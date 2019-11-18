@@ -199,6 +199,71 @@ class BootStrap {
             cliente2.accountancy.accountMovements = new ArrayList<AccountMovement>()
             cliente2.save()
 
+            Client cliente3 = new Client()
+            cliente3.name = "cliente3"
+            cliente3.lastName = "apellido3"
+            cliente3.DNI= "14725836"
+            cliente3.email= "otroCliente3@gmail.com"
+            cliente3.primaryPhone= 14586
+            cliente3.secondPhone= 164583
+            cliente3.status = ClientStatus.NORMAL
+            cliente3.points = 0
+            cliente3.accountancy = new Accountancy()
+            cliente3.accountancy.accountMovements = new ArrayList<AccountMovement>()
+            cliente3.save()
+
+            Client cliente4 = new Client()
+            cliente4.name = "cliente4"
+            cliente4.lastName = "apellido4"
+            cliente4.DNI= "32465819"
+            cliente4.email= "otrocliente4@gmail.com"
+            cliente4.primaryPhone= 123546
+            cliente4.secondPhone= 1564984
+            cliente4.status = ClientStatus.NORMAL
+            cliente4.points = 0
+            cliente4.accountancy = new Accountancy()
+            cliente4.accountancy.accountMovements = new ArrayList<AccountMovement>()
+            cliente4.save()
+
+            Client cliente5 = new Client()
+            cliente5.name = "cliente5"
+            cliente5.lastName = "apellido5"
+            cliente5.DNI= "32465819"
+            cliente5.email= "otrocliente5@gmail.com"
+            cliente5.primaryPhone= 123546
+            cliente5.secondPhone= 1564984
+            cliente5.status = ClientStatus.NORMAL
+            cliente5.points = 0
+            cliente5.accountancy = new Accountancy()
+            cliente5.accountancy.accountMovements = new ArrayList<AccountMovement>()
+            cliente5.save()
+
+            Client cliente6 = new Client()
+            cliente6.name = "cliente6"
+            cliente6.lastName = "apellido6"
+            cliente6.DNI= "32465819"
+            cliente6.email= "otrocliente6@gmail.com"
+            cliente6.primaryPhone= 123546
+            cliente6.secondPhone= 1564984
+            cliente6.status = ClientStatus.NORMAL
+            cliente6.points = 0
+            cliente6.accountancy = new Accountancy()
+            cliente6.accountancy.accountMovements = new ArrayList<AccountMovement>()
+            cliente6.save()
+
+            Client cliente7 = new Client()
+            cliente7.name = "cliente7"
+            cliente7.lastName = "apellido7"
+            cliente7.DNI= "32465819"
+            cliente7.email= "otrocliente7@gmail.com"
+            cliente7.primaryPhone= 123546
+            cliente7.secondPhone= 1564984
+            cliente7.status = ClientStatus.NORMAL
+            cliente7.points = 0
+            cliente7.accountancy = new Accountancy()
+            cliente7.accountancy.accountMovements = new ArrayList<AccountMovement>()
+            cliente7.save()
+
             Appointment turn = new Appointment()
             turn.local = "casa"
             turn.client = cliente
@@ -422,6 +487,95 @@ class BootStrap {
             turn11.totalPrice = 500
             turn11.totalToPay = 500
             turn11.save()
+
+            Appointment turn12=new Appointment()
+            turn12.local="San Migue12"
+            Calendar cal12 = Calendar.getInstance()
+            cal11.set(2019,10, 25,9,0,0)
+            turn12.dayHour= cal12.getTime()
+            turn12.professional = professional1
+            turn12.services=new ArrayList<Service>()
+            turn12.services.add(service)
+            turn12.status = AppointmentStatus.OPEN
+            turn12.branch = branch2
+            turn12.totalPrice = 100
+            turn12.totalToPay = 100
+            turn12.client = cliente3
+            turn12.save()
+
+            Appointment turn13=new Appointment()
+            turn13.local="San Migue13"
+            Calendar cal13 = Calendar.getInstance()
+            cal11.set(2019,10, 25,9,0,0)
+            turn13.dayHour= cal13.getTime()
+            turn13.professional = professional1
+            turn13.services=new ArrayList<Service>()
+            turn13.services.add(service)
+            turn13.status = AppointmentStatus.OPEN
+            turn13.branch = branch2
+            turn13.totalPrice = 100
+            turn13.totalToPay = 100
+            turn13.client = cliente4
+            turn13.save()
+
+            Appointment turn14=new Appointment()
+            turn14.local="San Migue13"
+            Calendar cal14 = Calendar.getInstance()
+            cal11.set(2019,10, 25,9,0,0)
+            turn14.dayHour= cal14.getTime()
+            turn14.professional = professional1
+            turn14.services=new ArrayList<Service>()
+            turn14.services.add(service)
+            turn14.status = AppointmentStatus.OPEN
+            turn14.branch = branch2
+            turn14.totalPrice = 100
+            turn14.totalToPay = 100
+            turn14.client = cliente5
+            turn14.save()
+
+            Appointment turn15=new Appointment()
+            turn15.local="San Migue13"
+            Calendar cal15 = Calendar.getInstance()
+            cal11.set(2019,10, 25,9,0,0)
+            turn15.dayHour= cal15.getTime()
+            turn15.professional = professional1
+            turn15.services=new ArrayList<Service>()
+            turn15.services.add(service)
+            turn15.status = AppointmentStatus.OPEN
+            turn15.branch = branch2
+            turn15.totalPrice = 100
+            turn15.totalToPay = 100
+            turn15.client = cliente6
+            turn15.save()
+
+            Appointment turn16=new Appointment()
+            turn16.local="San Migue13"
+            Calendar cal16 = Calendar.getInstance()
+            cal11.set(2019,10, 25,9,0,0)
+            turn16.dayHour= cal16.getTime()
+            turn16.professional = professional1
+            turn16.services=new ArrayList<Service>()
+            turn16.services.add(service)
+            turn16.status = AppointmentStatus.OPEN
+            turn16.branch = branch2
+            turn16.totalPrice = 100
+            turn16.totalToPay = 100
+            turn16.client = cliente7
+            turn16.save()
+
+            Appointment turn17=new Appointment()
+            turn17.local="San Migue13"
+            Calendar cal17 = Calendar.getInstance()
+            cal11.set(2019,10, 25,9,0,0)
+            turn17.dayHour= cal17.getTime()
+            turn17.professional = professional1
+            turn17.services=new ArrayList<Service>()
+            turn17.services.add(service)
+            turn17.status = AppointmentStatus.OPEN
+            turn17.branch = branch2
+            turn17.totalPrice = 100
+            turn17.totalToPay = 100
+            turn17.save()
 
             Payment payment4 = new Payment()
             payment4.appointment = turn11

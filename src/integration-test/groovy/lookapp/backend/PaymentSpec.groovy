@@ -37,7 +37,7 @@ class PaymentSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 4
+        response.body().size() == 8
     }
 
     void "test get a payment"() {
@@ -117,10 +117,10 @@ class PaymentSpec extends Specification {
         body["amount"]=100
         body["points"]=50
         body["clientId"]=2
-        body["appointmentId"]=15
+        body["appointmentId"]=20
         body["currency"]="ARS"
         when: 'I try pay a appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/3/pay",body), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/20/pay",body), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()

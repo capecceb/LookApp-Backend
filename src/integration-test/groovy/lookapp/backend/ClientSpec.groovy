@@ -33,7 +33,7 @@ class ClientSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 3
+        response.body().size() == 8
         response.body()[0].name == "Jeremias"
     }
 
@@ -68,7 +68,7 @@ class ClientSpec extends Specification {
         body["name"]="noExiste"
 
         when: 'I try update a client'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/clients/5",body), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/clients/20",body), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
@@ -110,6 +110,6 @@ class ClientSpec extends Specification {
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "La propiedad [lastName] de la clase [class lookapp.backend.Client] no puede ser nulo"
+        exception.message == "Property [lastName] of class [class lookapp.backend.Client] cannot be null"
     }
 }

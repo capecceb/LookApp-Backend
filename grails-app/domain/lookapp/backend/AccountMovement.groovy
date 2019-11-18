@@ -6,4 +6,7 @@ class AccountMovement {
     BigDecimal amount
     Date dateCreated
 
+    static constraints = {
+        appointment(nullable: true)
+    }
 }

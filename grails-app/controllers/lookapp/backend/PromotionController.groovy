@@ -25,7 +25,6 @@ class PromotionController extends RestfulController {
             lte("startDate", date)
             gte("endDate", date)
             eq("status", PromotionStatus.ACTIVE)
-            eq("type", PromotionType.DISCOUNT)
         }
         respond(promotions, status: 200)
     }

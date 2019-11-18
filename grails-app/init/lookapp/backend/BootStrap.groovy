@@ -161,10 +161,10 @@ class BootStrap {
             branch.save(flush: true)
 
             Client cliente = new Client()
-            cliente.name = "cliente1"
-            cliente.lastName = "apellido"
+            cliente.name = "Jeremias"
+            cliente.lastName = "Vallejo"
             cliente.DNI = "151515"
-            cliente.email = "cliente@gmail.com"
+            cliente.email = "jerevallejo@gmail.com"
             cliente.primaryPhone = 12312
             cliente.secondPhone = 15151666
             cliente.status = ClientStatus.VIP

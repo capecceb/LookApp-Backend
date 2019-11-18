@@ -16,16 +16,12 @@ class Appointment {
     BigDecimal totalToPay
 
     AppointmentStatus status
-    static hasMany = [services: Service, payments: Payment]
+    static hasMany = [services: Service, payments: Payment, promotions:Promotion]
     static constraints = {
         client(nullable: true)
         professional(nullable: true)
         endDate(nullable: true)
         dayHour(column: "begin_date")
         eventId(nullable: true)
-    }
-
-    def beforeInsert() {
-        status = AppointmentStatus.OPEN
     }
 }

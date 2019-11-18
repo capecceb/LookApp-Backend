@@ -7,5 +7,7 @@ class Config {
 
     String key
     String value
+    
+    
 }
 

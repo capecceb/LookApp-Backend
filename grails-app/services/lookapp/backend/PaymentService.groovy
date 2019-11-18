@@ -70,30 +70,30 @@ class PaymentService {
 
         if(appointment.status == AppointmentStatus.PAID){
             accountMovement.amount = appointment.totalToPay
-            client.accountancy.accountMovements.add(accountMovement)
+            if(client != null) client.accountancy.accountMovements.add(accountMovement)
         }
         else if(appointment.status == AppointmentStatus.PARTIAL_PAID){
-            if(client.accountancy.accountMovements.size() < 1){
+            if(client != null && client.accountancy.accountMovements.size() < 1){
 
                 accountMovement.amount = -(appointment.totalToPay)
                 accountMovement.save()
-                client.accountancy.accountMovements.add(accountMovement)
+                if(client != null) client.accountancy.accountMovements.add(accountMovement)
 
                 AccountMovement movementPartialPaid = new AccountMovement()
                 movementPartialPaid.appointment = appointment
                 movementPartialPaid.amount = totalAmount
                 movementPartialPaid.save()
-                client.accountancy.accountMovements.add(movementPartialPaid)
+                if(client != null) client.accountancy.accountMovements.add(movementPartialPaid)
             }
             else{
                 accountMovement.amount = totalAmount
                 accountMovement.save()
 
-                client.accountancy.accountMovements.add(accountMovement)
+                if(client != null) client.accountancy.accountMovements.add(accountMovement)
             }
         }
 
-        client.save()
+        if(client != null) client.save()
         return appointment
     }
  

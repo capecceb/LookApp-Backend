@@ -6,11 +6,24 @@ class ImportService {
         Payment.withNewTransaction {
             Payment.deleteAll(Payment.findAll())
         }
+        Accountancy.withNewTransaction {
+            def accounting=Accountancy.findAll()
+            for(Accountancy accountancy:accounting){
+                accountancy.accountMovements=null
+                accountancy.save()
+            }
+        }
+        AccountMovement.withNewTransaction {
+            AccountMovement.deleteAll(AccountMovement.findAll())
+        }
         Appointment.withNewTransaction {
             Appointment.deleteAll(Appointment.findAll())
         }
         Client.withNewTransaction {
             Client.deleteAll(Client.findAll())
+        }
+        Accountancy.withNewTransaction {
+            Accountancy.deleteAll(Accountancy.findAll())
         }
         Config.withNewTransaction {
             Config.deleteAll(Config.findAll())
@@ -45,6 +58,7 @@ class ImportService {
         Branch.withNewTransaction {
             Branch.deleteAll(Branch.findAll())
         }
+
     }
 
     def importData(def params){
@@ -193,7 +207,7 @@ class ImportService {
                         element -> element.id in object.promotions.id
                     }
                     for(def promotion:promotions){
-                        appointment.promotions.add(Service.get(promotion.newId))
+                        appointment.promotions.add(Promotion.get(promotion.newId))
                     }
                 }
                 Appointment.withNewTransaction {

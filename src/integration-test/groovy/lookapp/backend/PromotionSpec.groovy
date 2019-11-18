@@ -50,15 +50,19 @@ class PromotionSpec extends Specification {
     void "test update promotion"() {
         def body=[:]
         given: 'a changes for the promotion'
-        body["id"]=1
-        body["name"]="test"
+        body["name"]="Descuentos"
+        body["status"]="ACTIVE"
+        body["type"]="DISCOUNT"
+        body["discount"]=20
+        body["startDate"]="2018-01-01T14:00:00.000Z"
+        body["endDate"]="2048-01-01T14:00:00.000Z"
 
         when: 'I try update a client'
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.PUT("/promotions/1",body), Map)
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().name == "test"
+        response.body().name == "Descuentos"
     }
 
     void "test update failed clients"() {

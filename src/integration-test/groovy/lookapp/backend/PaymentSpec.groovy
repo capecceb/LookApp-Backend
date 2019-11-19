@@ -37,7 +37,7 @@ class PaymentSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 8
+        response.body().size() == 4
     }
 
     void "test get a payment"() {
@@ -111,20 +111,19 @@ class PaymentSpec extends Specification {
         response.body().status["name"] == "PAID"
     }
 
-    void "test  failed payment invalid appointment"() {
+    void "test failed payment invalid appointment"() {
         def body=[:]
         given: 'a new appointment'
         body["amount"]=100
         body["points"]=50
         body["clientId"]=2
-        body["appointmentId"]=20
         body["currency"]="ARS"
         when: 'I try pay a appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/20/pay",body), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/100/pay",body), Map)
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "Invalid appointment id"
+        exception.message == "appointmentId cant be null"
     }
 
     void "test partial pay a appointment, with points"() {

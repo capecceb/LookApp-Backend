@@ -175,7 +175,12 @@ class AppointmentService {
     }
 
     def expireAppointments() {
-        List<Appointment> appointments=Appointment.findAllByStatusAndEndDateLessThan(AppointmentStatus.OPEN,new Date())
+
+        Calendar cal=Calendar.getInstance()
+        cal.setTime(new Date())
+        cal.add(Calendar.HOUR,-1)
+
+        List<Appointment> appointments=Appointment.findAllByStatusAndEndDateLessThan(AppointmentStatus.OPEN,cal.getTime())
         Log.info("appointments to expire ${appointments.size()}")
         for(Appointment appointment:appointments){
             Log.info("appointment ${appointment.id} EXPIRED")

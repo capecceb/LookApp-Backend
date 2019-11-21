@@ -20,7 +20,20 @@ class EmailController {
             SimpleDateFormat hour = new SimpleDateFormat("HH:mm");
             String dateString = fech.format( appointment.dayHour   );
             String hourString = hour.format( appointment.dayHour   );
+            String payDateString = ""
+            String payHourString = ""
             String local = appointment.branch.name
+            BigDecimal amount = 0
+
+            if(params.paymentId != null){
+                Payment payment = Payment.get(params.paymentId)
+                amount = payment.amount
+                SimpleDateFormat payFech = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat payHour = new SimpleDateFormat("HH:mm");
+                payDateString = payFech.format( payment.dateCreated   );
+                payHourString = payHour.format( payment.dateCreated   );
+
+            }
 
             Client client = Client.get(params.clientId)
             String clientName = client.name +" "+ client.lastName
@@ -44,6 +57,11 @@ class EmailController {
                 bodyText = "Hola "+clientName + "\nSe ha cancelado su reserva de turno. \nPara el dia "+dateString +" a la hora: "+ hourString +"\nEn el local: "+local+"\n\nMuchas gracias por elegirnos\n\nSaludos Hair&Head"
                 subjectText = "Cancelacion de turno"
             }
+            if(params.id ==4)
+            {
+                bodyText = "Hola "+clientName + "\nSe ha registrado un pago para su turno del dia "+dateString +"\nEn el local: "+local+"\nEl monto abanodo es de: \$"+ amount+"\nLa fecha que se registro el pago fue el dia "+payDateString +" a la hora "+payHourString+"\n\nMuchas gracias por elegirnos\n\nSaludos Hair&Head"
+                subjectText = "Comprobante de pago"
+            }
             MailService.sendMail {
                 to mail
                 subject subjectText
@@ -56,15 +74,5 @@ class EmailController {
             return
         }
         respond(status: 200)
-    }
-
-    private String validate(def params, def verifyParams) {
-        if (verifyParams.contains("appointmentId") && params.appointmentId == null) {
-            return "appointmentId cant be null"
-        }
-        if (verifyParams.contains("clientId") && params.clientId == null) {
-            return "clientId cant be null"
-        }
-        return null
     }
 }

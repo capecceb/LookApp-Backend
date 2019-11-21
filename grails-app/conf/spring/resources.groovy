@@ -64,7 +64,7 @@ beans = {
     AccountMovementsRenderer(JsonCollectionRenderer, AccountMovement){
 
 	}	
-    ServiceReportsRenderer(JsonRenderer, ServiceReport) {
+    ServiceReportRenderer(JsonRenderer, ServiceReport) {
 
     }
 

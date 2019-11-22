@@ -1,5 +1,7 @@
 package lookapp.backend
 
+import jline.internal.Log
+
 class ImportService {
 
     def deleteTables(){
@@ -223,8 +225,8 @@ class ImportService {
         if(params.accountMovements){
             for(def object:params.accountMovements){
                 AccountMovement accountMovement=object
-                if(object.appointment!=null){
-                    def appointment=params.appointment.find { element -> element.id == object.appointment.id}
+                if(object.appointments!=null){
+                    def appointment=params.appointments.find { element -> element.id == object.appointment.id}
                     accountMovement.appointment=Appointment.get(appointment.newId)
                 }
                 accountMovement.save()
@@ -234,7 +236,7 @@ class ImportService {
         if(params.accountancy){
             for(def object:params.accountancy){
                 Accountancy accountancy=object
-                accountancy.accountMovements=null
+                if(accountancy.accountMovements!=null) accountancy.accountMovements.clear()
                 if(object.accountMovements!=null){
                     def accountMovements=params.accountMovements.findAll {
                         element -> element.id in object.accountMovements.id

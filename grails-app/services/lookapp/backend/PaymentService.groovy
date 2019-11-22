@@ -41,7 +41,8 @@ class PaymentService {
         }
 
         BigDecimal amountFromPoints = 0;
-        if (points != null && client != null) {
+
+        if (points != null && client != null && client.points != null) {
             if (client.points >= points) {
                 //verify if there are a promotions with points
                 Float pointFactor = verifyPointFactor(appointment.dayHour, appointment.services)
@@ -54,10 +55,12 @@ class PaymentService {
                 throw new BadRequestException("The amount of client points is insufficient")
             }
         }
-        
+
         totalAmount = amountEntered + amountFromPoints
 
-        if (appointment.status != AppointmentStatus.PAID) {
+        if(totalAmount == 0)   throw new BadRequestException("The amount to pay has to be different to zero")
+
+        if (appointment.status != AppointmentStatus.PAID && appointment.status != AppointmentStatus.EXPIRED ) {
             if (paymentHistory + totalAmount > appointment.totalToPay) {
                 throw new BadRequestException("The amount exceeds the remaining price difference of the pending or partial paid or exceeds the total price")
             }
@@ -65,6 +68,9 @@ class PaymentService {
                 appointment.status = AppointmentStatus.PAID
             else
                 appointment.status = AppointmentStatus.PARTIAL_PAID
+        }
+        else {
+            throw new BadRequestException("The payment is already pay or expired")
         }
 
         Payment payment = new Payment()

@@ -129,18 +129,19 @@ class AppointmentController {
         Appointment.withNewTransaction {
             appointment.save()
         }
+        if (appointment.client != null) {
+            AccountMovement accountMovement = new AccountMovement()
+            accountMovement.appointment = appointment
+            accountMovement.amount = -(appointment.totalToPay)
+            AccountMovement.withNewTransaction {
+                accountMovement.save()
+            }
 
-        AccountMovement accountMovement = new AccountMovement()
-        accountMovement.appointment = appointment
-        accountMovement.amount = -(appointment.totalToPay)
-        AccountMovement.withNewTransaction {
-            accountMovement.save()
-        }
-
-        Client client = Client.get(appointment.client.id)
-        client.accountancy.accountMovements.add(accountMovement)
-        Client.withNewTransaction {
-            client.save()
+            Client client = Client.get(appointment.client.id)
+            client.accountancy.accountMovements.add(accountMovement)
+            Client.withNewTransaction {
+                client.save()
+            }
         }
 
         respond(appointment, status: 200)

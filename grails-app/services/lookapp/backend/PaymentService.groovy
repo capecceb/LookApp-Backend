@@ -24,6 +24,11 @@ class PaymentService {
                 if ((move.amount >= 0) && (move.appointment.id == appointment.id)) paymentHistory += move.amount
             }
         }
+        else {
+            for (Payment pay in appointment.payments){
+                paymentHistory += pay.amount
+            }
+        }
 
         if (paymentHistory == appointment.totalToPay) throw new BadRequestException("Appointment already paid ")
 
@@ -42,27 +47,19 @@ class PaymentService {
                 Float pointFactor = verifyPointFactor(appointment.dayHour, appointment.services)
                 amountFromPoints = points / Integer.parseInt(Config.findByKey("changePurchase").value) * pointFactor
                 client.points -= points
+                Long newPoints = amountEntered.toInteger() * Integer.parseInt(Config.findByKey("changePay").value)
+                client.points += newPoints
+                client.save()
             } else {
                 throw new BadRequestException("The amount of client points is insufficient")
             }
-        } else if (points != null && client == null) {
-            throw new BadRequestException("Error: Can't make a payment with points without a client")
         }
-        if (amountEntered != 0 && client != null) {
-            Long newPoints = amountEntered.toInteger() * Integer.parseInt(Config.findByKey("changePay").value)
-            client.points += newPoints
-        }
-        if (client != null) client.save()
-
+        
         totalAmount = amountEntered + amountFromPoints
-
-        if (appointment.totalToPay < totalAmount) {
-            throw new BadRequestException("Error payment exceeds cost")
-        }
 
         if (appointment.status != AppointmentStatus.PAID) {
             if (paymentHistory + totalAmount > appointment.totalToPay) {
-                throw new BadRequestException("The amount exceeds the remaining price difference of the pending or partial paid")
+                throw new BadRequestException("The amount exceeds the remaining price difference of the pending or partial paid or exceeds the total price")
             }
             else if (totalAmount + paymentHistory == appointment.totalToPay)
                 appointment.status = AppointmentStatus.PAID

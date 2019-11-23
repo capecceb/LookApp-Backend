@@ -38,7 +38,7 @@ class AppointmentSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 18
+        response.body().size() == 19
         response.body()[0].local == "casa"
     }
 

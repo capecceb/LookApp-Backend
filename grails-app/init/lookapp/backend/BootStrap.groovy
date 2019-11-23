@@ -577,6 +577,20 @@ class BootStrap {
             turn17.totalToPay = 100
             turn17.save()
 
+            Appointment turn18=new Appointment()
+            turn18.local="San Migue18"
+            Calendar cal18 = Calendar.getInstance()
+            cal11.set(2019,10, 25,9,0,0)
+            turn18.dayHour= cal17.getTime()
+            turn18.professional = professional1
+            turn18.services=new ArrayList<Service>()
+            turn18.services.add(service)
+            turn18.status = AppointmentStatus.OPEN
+            turn18.branch = branch2
+            turn18.totalPrice = 100
+            turn18.totalToPay = 100
+            turn18.save()
+
             Payment payment4 = new Payment()
             payment4.appointment = turn11
             payment4.currency= "ARG"

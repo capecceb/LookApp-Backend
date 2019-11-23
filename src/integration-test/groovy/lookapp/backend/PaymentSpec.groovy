@@ -37,7 +37,7 @@ class PaymentSpec extends Specification {
 
         then: 'The result is ...'
         response.status().code == 200
-        response.body().size() == 4
+        response.body().size() == 8
     }
 
     void "test get a payment"() {
@@ -54,12 +54,11 @@ class PaymentSpec extends Specification {
     void "test partial pay a appointment"() {
         def body=[:]
         given: 'a new appointment'
-        body["amount"]=100
-        body["clientId"]=1
-        body["appointmentId"]=1
+        body["amount"]=50
+        body["appointmentId"]=19
         body["currency"]="ARS"
         when: 'I try pay a appointment'
-        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/1/pay",body), Map)
+        HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/appointments/19/pay",body), Map)
 
         then: 'The result is ...'
         response.status().code == 201
@@ -168,7 +167,7 @@ class PaymentSpec extends Specification {
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "Error payment exceeds cost"
+        exception.message == "The amount exceeds the remaining price difference of the pending or partial paid or exceeds the total price"
     }
 
     void "test pay a appointment, with a empty client"() {
@@ -197,6 +196,6 @@ class PaymentSpec extends Specification {
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "Error: Can't make a payment with points without a client"
+        exception.message == "Appointment already paid "
     }
 }

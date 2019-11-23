@@ -113,7 +113,7 @@ class PromotionSpec extends Specification {
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "La propiedad [name] de la clase [class lookapp.backend.Promotion] no puede ser nulo"
+        exception.message == "Property [name] of class [class lookapp.backend.Promotion] cannot be null"
     }
     void "test search promotions without date"() {
         when: 'I try search a promotion'

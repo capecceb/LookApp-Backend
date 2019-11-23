@@ -110,6 +110,6 @@ class ClientSpec extends Specification {
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "La propiedad [lastName] de la clase [class lookapp.backend.Client] no puede ser nulo"
+        exception.message == "Property [lastName] of class [class lookapp.backend.Client] cannot be null"
     }
 }

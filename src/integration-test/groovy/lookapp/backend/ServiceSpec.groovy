@@ -101,6 +101,6 @@ class ServiceSpec extends Specification {
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "La propiedad [price] de la clase [class lookapp.backend.Service] no puede ser nulo"
+        exception.message == "Property [price] of class [class lookapp.backend.Service] cannot be null"
     }
 }

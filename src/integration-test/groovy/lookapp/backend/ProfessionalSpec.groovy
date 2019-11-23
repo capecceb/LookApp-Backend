@@ -87,7 +87,7 @@ class ProfessionalSpec extends Specification {
         HttpResponse<Map> response = client.toBlocking().exchange(HttpRequest.POST("/professionals", body), Map)
         then: 'The result is...'
         final HttpClientResponseException  exception = thrown()
-        exception.message == "La propiedad [name] de la clase [class lookapp.backend.Professional] no puede ser nulo"
+        exception.message == "Property [name] of class [class lookapp.backend.Professional] cannot be null"
     }
 
 

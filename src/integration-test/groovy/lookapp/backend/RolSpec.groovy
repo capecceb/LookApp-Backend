@@ -97,6 +97,6 @@ class RolSpec extends Specification {
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "La propiedad [name] de la clase [class lookapp.backend.Rol] no puede ser nulo"
+        exception.message == "Property [name] of class [class lookapp.backend.Rol] cannot be null"
     }
 }

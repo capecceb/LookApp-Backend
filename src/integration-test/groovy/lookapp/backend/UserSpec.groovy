@@ -99,6 +99,6 @@ class UserSpec extends Specification {
 
         then: 'The result is ...'
         final HttpClientResponseException exception = thrown()
-        exception.message == "La propiedad [status] de la clase [class lookapp.backend.User] no puede ser nulo"
+        exception.message == "Property [status] of class [class lookapp.backend.User] cannot be null"
     }
 }

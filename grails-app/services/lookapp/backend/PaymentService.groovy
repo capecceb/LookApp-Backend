@@ -17,9 +17,11 @@ class PaymentService {
         if (clientId != null) {
             client = Client.get(clientId)
         }
-        if(client != null && client.points == null){
+        if(client.points == null){
             client.points = new Integer(0)
         }
+
+        if(points == null) points = 0
 
         def paymentHistory = 0
         if(client != null){
@@ -45,7 +47,7 @@ class PaymentService {
 
         BigDecimal amountFromPoints = 0;
 
-        if (points != null && client != null && client.points != null) {
+        if ( client != null && client.points != null) {
             if (client.points >= points) {
                 amountFromPoints = points / Integer.parseInt(Config.findByKey("changePurchase").value)
                 client.points -= points

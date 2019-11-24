@@ -44,11 +44,11 @@ class PaymentService {
 
         if (points != null && client != null && client.points != null) {
             if (client.points >= points) {
+                amountFromPoints = points / Integer.parseInt(Config.findByKey("changePurchase").value)
+                client.points -= points
                 //verify if there are a promotions with points
                 Float pointFactor = verifyPointFactor(appointment.dayHour, appointment.services)
-                amountFromPoints = points / Integer.parseInt(Config.findByKey("changePurchase").value) * pointFactor
-                client.points -= points
-                Long newPoints = amountEntered.toInteger() * Integer.parseInt(Config.findByKey("changePay").value)
+                Long newPoints = amountEntered.toInteger() * Integer.parseInt(Config.findByKey("changePay").value)  * pointFactor
                 client.points += newPoints
                 client.save()
             } else {

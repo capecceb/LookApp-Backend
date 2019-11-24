@@ -15,16 +15,6 @@ class AppointmentService {
         BigDecimal totalPay=0
         Float discount
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(beginDate)
-        calendar.add(Calendar.MINUTE, duration)
-        Date endDate = calendar.getTime()
-
-        appointment.dayHour = beginDate
-        appointment.endDate = endDate
-        appointment.local = local
-        appointment.branch = Branch.get(branchId)
-
         appointment.services = new ArrayList<>()
         for (Integer serviceId : services) {
             Service service = Service.get(serviceId)
@@ -37,6 +27,17 @@ class AppointmentService {
             totalPay += service.price * discount
             appointment.services.add(service)
         }
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(beginDate)
+        calendar.add(Calendar.MINUTE, duration)
+        Date endDate = calendar.getTime()
+
+        appointment.dayHour = beginDate
+        appointment.endDate = endDate
+        appointment.local = local
+        appointment.branch = Branch.get(branchId)
         appointment.totalPrice = totalPrice
         appointment.totalToPay = totalPay
 

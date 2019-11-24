@@ -17,6 +17,9 @@ class PaymentService {
         if (clientId != null) {
             client = Client.get(clientId)
         }
+        if(client.points == null){
+            client.points = new Integer(0)
+        }
 
         def paymentHistory = 0
         if(client != null){
@@ -42,15 +45,16 @@ class PaymentService {
 
         BigDecimal amountFromPoints = 0;
 
+        if(points == null)
+            points = 0
+
         if (points != null && client != null && client.points != null) {
             if (client.points >= points) {
                 //verify if there are a promotions with points
                 Float pointFactor = verifyPointFactor(appointment.dayHour, appointment.services)
                 amountFromPoints = points / Integer.parseInt(Config.findByKey("changePurchase").value) * pointFactor
                 client.points -= points
-                Long newPoints = amountEntered.toInteger() * Integer.parseInt(Config.findByKey("changePay").value)
-                client.points += newPoints
-                client.save()
+
             } else {
                 throw new BadRequestException("The amount of client points is insufficient")
             }
@@ -71,6 +75,12 @@ class PaymentService {
         }
         else {
             throw new BadRequestException("The payment is already pay or expired")
+        }
+
+        if(client != null && client.points != null){
+            Long newPoints = amountEntered.toInteger() * Integer.parseInt(Config.findByKey("changePay").value)
+            client.points += newPoints
+            client.save()
         }
 
         Payment payment = new Payment()

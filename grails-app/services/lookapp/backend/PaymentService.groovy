@@ -17,7 +17,7 @@ class PaymentService {
         if (clientId != null) {
             client = Client.get(clientId)
         }
-        if(client.points == null){
+        if(client != null && client.points == null){
             client.points = new Integer(0)
         }
 

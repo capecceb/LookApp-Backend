@@ -80,7 +80,7 @@ class PaymentService {
 
         Payment payment = new Payment()
         payment.appointment = appointment
-        payment.amount = amountEntered
+        payment.amount = totalAmount
         payment.currency = currency
         payment.save()
 

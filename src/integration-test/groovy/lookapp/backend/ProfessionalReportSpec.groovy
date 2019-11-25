@@ -75,7 +75,7 @@ class ProfessionalReportSpec extends Specification {
         then: 'The result is ...'
         response.status().code == 200
         response.body().size() == 2
-        response.body()[0].totalAmount == 525.0
+        response.body()[0].totalAmount == 550.0
     }
 
     void "test list report, test all filters"() {

@@ -202,12 +202,16 @@ class AppointmentService {
                 eq("id",service.id)
             }
         }
-        appointment.promotions=new ArrayList<>()
+        if(appointment.promotions==null) {
+            appointment.promotions=new ArrayList<>()
+        }
         for (Promotion promotion : promotions) {
             if(promotion.type==PromotionType.DISCOUNT) {
                 discount = discount - promotion.discount
             }
-            appointment.promotions.add(promotion)
+            if(!appointment.promotions.contains(promotion)){
+                appointment.promotions.add(promotion)
+            }
         }
         if(discount<0) discount=0
         return discount/100
